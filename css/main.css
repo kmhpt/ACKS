@@ -1,0 +1,203 @@
+/* ═══════════════════════════════════════════════════
+   main.css — global styles
+   Edit this file for colours, fonts, spacing, layout
+════════════════════════════════════════════════════ */
+
+/* ── Variables ────────────────────────────────────
+   Change these to restyle the whole site at once   */
+:root {
+  --color-bg:       #faf8f5;
+  --color-text:     #1a1a1a;
+  --color-muted:    #888888;
+  --color-accent:   #1a1a1a;
+  --color-border:   #e0ddd8;
+
+  --font-main:      Georgia, 'Times New Roman', serif;
+
+  --section-pad:    6rem 4rem;
+  --max-width:      900px;
+}
+
+/* ── Reset ───────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ── Nav ─────────────────────────────────────────── */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 4rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-logo {
+  font-size: 1rem;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* ── Hero ────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--section-pad);
+  padding-top: 8rem; /* offset for fixed nav */
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: normal;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.highlight {
+  font-style: italic;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  margin-bottom: 2.5rem;
+}
+
+/* ── Button ──────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border: 1px solid var(--color-text);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+/* ── Ball sections ───────────────────────────────── */
+.ball-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: var(--section-pad);
+  border-top: 1px solid var(--color-border);
+}
+
+.section-inner {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+}
+
+/* Text pushed to right half (ball is on left ~30%) */
+.right-text {
+  justify-content: flex-end;
+}
+
+.right-text .text-block {
+  max-width: 420px;
+}
+
+/* Text pushed to left half (ball is on right ~70%) */
+.left-text {
+  justify-content: flex-start;
+}
+
+.left-text .text-block {
+  max-width: 420px;
+}
+
+/* ── Text block ──────────────────────────────────── */
+.text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.text-block h2 {
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: normal;
+  line-height: 1.15;
+}
+
+.text-block p {
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.75;
+}

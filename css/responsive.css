@@ -1,0 +1,55 @@
+/* ═══════════════════════════════════════════════════
+   responsive.css — mobile & tablet breakpoints
+════════════════════════════════════════════════════ */
+
+/* ── Tablet (max 768px) ──────────────────────────── */
+@media (max-width: 768px) {
+
+  #navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  #hero,
+  .ball-section {
+    padding: 5rem 1.5rem;
+  }
+
+  /* On mobile, text is always centred — ball animation is hidden */
+  .right-text,
+  .left-text {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .right-text .text-block,
+  .left-text .text-block {
+    max-width: 100%;
+  }
+
+  /* Hide ball on mobile — too small to be meaningful */
+  #rolling-ball {
+    display: none;
+  }
+}
+
+/* ── Small mobile (max 480px) ────────────────────── */
+@media (max-width: 480px) {
+
+  #navbar {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.4rem;
+  }
+}

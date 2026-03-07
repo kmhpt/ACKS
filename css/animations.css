@@ -1,0 +1,33 @@
+/* ═══════════════════════════════════════════════════
+   animations.css — scroll animations & ball styling
+════════════════════════════════════════════════════ */
+
+/* ── Rolling ball element ────────────────────────── */
+#rolling-ball {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;   /* never blocks clicks */
+  will-change: transform; /* GPU hint for smooth animation */
+}
+
+#rolling-ball img {
+  width: 80px;            /* ← change this to match your ball image size */
+  height: 80px;
+  border-radius: 50%;     /* remove if your PNG is already circular with transparency */
+  display: block;
+}
+
+/* ── Section fade-in on scroll ───────────────────── */
+/* Elements with .fade-in start invisible and rise up when scrolled into view */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

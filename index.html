@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Website</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       NAV
+  ════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-logo">Your Name</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Hello, I'm<br><span class="highlight">Your Name</span></h1>
+      <p class="hero-sub">A short line about what you do.</p>
+      <a href="#about" class="btn">Learn More</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       ABOUT  — ball rests LEFT (~30%)
+  ════════════════════════════════════ -->
+  <section id="about" class="ball-section">
+    <div class="section-inner right-text">
+      <div class="text-block">
+        <span class="section-label">About</span>
+        <h2>A bit about me</h2>
+        <p>This is your about section. Write a few sentences about yourself, your background, and what drives you. Keep it personal and honest.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       WORK  — ball rests RIGHT (~70%)
+  ════════════════════════════════════ -->
+  <section id="work" class="ball-section">
+    <div class="section-inner left-text">
+      <div class="text-block">
+        <span class="section-label">Work</span>
+        <h2>What I do</h2>
+        <p>Describe your services or showcase your work here. You can replace this with a grid of projects, a list of services, or whatever fits your site best.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CONTACT  — ball rests LEFT (~30%)
+  ════════════════════════════════════ -->
+  <section id="contact" class="ball-section">
+    <div class="section-inner right-text">
+      <div class="text-block">
+        <span class="section-label">Contact</span>
+        <h2>Get in touch</h2>
+        <p>Have a project in mind? Reach out at <a href="mailto:you@email.com">you@email.com</a> and let's talk.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       BALL ELEMENT
+       Replace the src with your actual ball image path
+  ════════════════════════════════════ -->
+  <div id="rolling-ball">
+    <img src="assets/images/ball.png" alt="" draggable="false" />
+  </div>
+
+  <!-- Scripts — loaded at bottom so HTML renders first -->
+  <script src="js/ball.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
