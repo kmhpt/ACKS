@@ -131,9 +131,9 @@ ul { list-style: none; }
 
 .nav-logo:hover { color: var(--cyan); }
 .nav-logo-img {
-  height: 40px;
-  max-height: 40px;
-  width: auto;
+  height: 40px !important;
+  max-height: 40px !important;
+  width: auto !important;
   display: block;
 }
 
