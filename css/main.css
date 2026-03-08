@@ -3,11 +3,11 @@
 ════════════════════════════════════════════════════ */
 
 :root {
-  --color-bg:       hsl(201, 47%, 83%);
+  --color-bg:       #c0dae8;
   --color-text:     #1a1a1a;
   --color-muted:    #888888;
   --color-accent:   #1a1a1a;
-  --color-border:   hsl(344, 34%, 22%);
+  --color-border:   #4b252f;
   --font-main:      Georgia, 'Times New Roman', serif;
   --section-pad:    6rem 4rem;
   --max-width:      900px;
