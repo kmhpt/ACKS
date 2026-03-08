@@ -3,88 +3,241 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us — Your Company</title>
+  <title>About — Your Company</title>
 
   <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
 
-<!-- page-about loads the white colour theme from main.css -->
 <body class="page-about">
 
-  <!-- ═══════════════════════════════════
-       NAV — same on every page,
-       just update the active link
-  ════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════════ -->
   <nav id="navbar">
-    <div class="nav-logo">Your Company</div>
+    <a href="index.html" class="nav-logo">Your Company</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="about.html" class="active">About Us</a></li>
     </ul>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
-  <!-- ═══════════════════════════════════
+  <!-- ═══════════════════════════════════════════════
        PAGE HEADER
-  ════════════════════════════════════ -->
-  <header class="page-header">
-    <div>
-      <h1>About <span class="highlight">Us</span></h1>
-      <p>A short line about your company — who you are and what you stand for.</p>
+       Edit: headline and subheading
+  ════════════════════════════════════════════════ -->
+  <header id="about-hero">
+    <div class="page-header-content">
+      <span class="section-label">About Us</span>
+      <!-- EDIT: headline -->
+      <h1>We build complete<br><span class="highlight">systems.</span></h1>
+      <!-- EDIT: subheading -->
+      <p class="hero-sub">From infrastructure to AI — every layer, designed and delivered.</p>
     </div>
   </header>
 
-  <!-- ═══════════════════════════════════
-       SECTION 1 — Who we are
-       Ball rests LEFT (30%)
-  ════════════════════════════════════ -->
-  <section id="who-we-are" class="ball-section">
-    <div class="section-inner right-text">
-      <div class="text-block fade-in">
-        <span class="section-label">Who We Are</span>
-        <h2>Built on expertise,<br>driven by results</h2>
-        <p>Tell your company story here. When were you founded? What's the mission? Keep it human — people work with people, not companies.</p>
+  <!-- ═══════════════════════════════════════════════
+       STACK TOWER SECTION
+       The tower builds upward as the user scrolls.
+       Each .stack-layer is one tier of the architecture.
+       main.js handles the scroll-triggered expansion.
+
+       HOW TO EDIT LAYERS:
+       - Change the data-layer attribute for the label
+       - Edit the <h3> for the layer name
+       - Edit keywords inside .layer-keywords
+       - Edit the description inside .layer-description
+       - Add/remove .stack-layer blocks to change the stack
+
+       Layer order: bottom to top (Infrastructure first)
+  ════════════════════════════════════════════════ -->
+  <section id="stack-section">
+
+    <div class="stack-layout">
+
+      <!-- Left: sticky tower visual -->
+      <div class="tower-visual" id="tower-visual">
+        <div class="tower-track">
+
+          <!-- Tower layers render bottom → top.
+               JS adds .active class as user scrolls to each layer.
+               data-index must match order (0 = bottom) -->
+
+          <div class="tower-block" data-index="0">
+            <span class="tower-label">Infrastructure</span>
+          </div>
+
+          <div class="tower-block" data-index="1">
+            <span class="tower-label">Data Systems</span>
+          </div>
+
+          <div class="tower-block" data-index="2">
+            <span class="tower-label">APIs &amp; Integrations</span>
+          </div>
+
+          <div class="tower-block" data-index="3">
+            <span class="tower-label">Applications</span>
+          </div>
+
+          <div class="tower-block" data-index="4">
+            <span class="tower-label">Automation &amp; AI</span>
+          </div>
+
+        </div>
       </div>
+
+      <!-- Right: scrollable layer detail panels -->
+      <div class="layer-panels">
+
+        <!-- ── LAYER 0: Infrastructure ─────────────
+             data-layer must match tower-block data-index -->
+        <div class="stack-layer" data-layer="0" id="layer-infrastructure">
+          <div class="layer-content">
+            <span class="layer-number">01</span>
+            <h3>Infrastructure</h3>
+            <!-- EDIT: keywords -->
+            <div class="layer-keywords">
+              <span>DevOps</span>
+              <span>Cloud Architecture</span>
+              <span>CI/CD Pipelines</span>
+              <span>Database Servers</span>
+              <span>SQL Systems</span>
+            </div>
+            <!-- EDIT: description -->
+            <p class="layer-description">
+              The foundation everything runs on. We design and manage cloud environments, deployment pipelines, and server infrastructure that keeps your systems reliable, scalable, and secure.
+            </p>
+            <!-- EDIT: bullet points — add/remove <li> as needed -->
+            <ul class="layer-details">
+              <li>System architecture design</li>
+              <li>Cloud environments (AWS, GCP, Azure)</li>
+              <li>Deployment pipelines &amp; CI/CD</li>
+              <li>Database server setup &amp; management</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── LAYER 1: Data Systems ───────────────── -->
+        <div class="stack-layer" data-layer="1" id="layer-data">
+          <div class="layer-content">
+            <span class="layer-number">02</span>
+            <h3>Data Systems</h3>
+            <div class="layer-keywords">
+              <span>ETL Pipelines</span>
+              <span>Data Modeling</span>
+              <span>SQL Design</span>
+              <span>ERDs</span>
+              <span>Analytics Pipelines</span>
+            </div>
+            <p class="layer-description">
+              Clean, structured data is the backbone of every intelligent system. We design data models, build ETL pipelines, and create analytics infrastructure that turns raw data into reliable insight.
+            </p>
+            <ul class="layer-details">
+              <li>ETL pipeline design &amp; build</li>
+              <li>Data modeling &amp; schema design</li>
+              <li>Entity-relationship diagrams (ERDs)</li>
+              <li>Analytics pipeline architecture</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── LAYER 2: APIs & Integrations ────────── -->
+        <div class="stack-layer" data-layer="2" id="layer-apis">
+          <div class="layer-content">
+            <span class="layer-number">03</span>
+            <h3>APIs &amp; Integrations</h3>
+            <div class="layer-keywords">
+              <span>REST APIs</span>
+              <span>Third-Party Integrations</span>
+              <span>Microservices</span>
+              <span>Webhooks</span>
+              <span>Automation Bridges</span>
+            </div>
+            <p class="layer-description">
+              Systems don't exist in isolation. We connect your tools, platforms, and data sources through custom APIs and integrations — making everything talk to everything.
+            </p>
+            <ul class="layer-details">
+              <li>Custom REST &amp; GraphQL API development</li>
+              <li>Third-party API integrations</li>
+              <li>Microservice architecture</li>
+              <li>Webhook &amp; event-driven systems</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── LAYER 3: Applications ──────────────── -->
+        <div class="stack-layer" data-layer="3" id="layer-applications">
+          <div class="layer-content">
+            <span class="layer-number">04</span>
+            <h3>Applications</h3>
+            <div class="layer-keywords">
+              <span>Web Applications</span>
+              <span>Dashboards</span>
+              <span>Internal Tools</span>
+              <span>SaaS Systems</span>
+              <span>Admin Portals</span>
+            </div>
+            <p class="layer-description">
+              The interface your users actually touch. We build web applications, internal tools, and dashboards that are fast, intuitive, and built on the solid infrastructure below them.
+            </p>
+            <ul class="layer-details">
+              <li>Web application development</li>
+              <li>Data dashboards &amp; reporting interfaces</li>
+              <li>Internal business tools</li>
+              <li>SaaS product development</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── LAYER 4: Automation & AI ───────────── -->
+        <div class="stack-layer" data-layer="4" id="layer-ai">
+          <div class="layer-content">
+            <span class="layer-number">05</span>
+            <h3>Automation &amp; AI</h3>
+            <div class="layer-keywords">
+              <span>Workflow Automation</span>
+              <span>ML Pipelines</span>
+              <span>Predictive Analytics</span>
+              <span>Business Intelligence</span>
+              <span>AI Integration</span>
+            </div>
+            <p class="layer-description">
+              The intelligence layer that sits on top of everything else. We build automation workflows, machine learning pipelines, and AI integrations that make your systems proactive, not reactive.
+            </p>
+            <ul class="layer-details">
+              <li>Workflow &amp; process automation</li>
+              <li>Machine learning pipeline development</li>
+              <li>Predictive analytics systems</li>
+              <li>Business intelligence &amp; reporting automation</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <!-- end .layer-panels -->
+
+    </div>
+    <!-- end .stack-layout -->
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       CTA — bottom of about page
+       Edit: heading, description, button label
+  ════════════════════════════════════════════════ -->
+  <section id="about-cta">
+    <div class="cta-content">
+      <h2>Ready to see what<br>we can build for you?</h2>
+      <p>Every system starts with a conversation.</p>
+      <a href="services.html" class="btn">View Our Services</a>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       SECTION 2 — Our values
-       Ball rests RIGHT (70%)
-  ════════════════════════════════════ -->
-  <section id="our-values" class="ball-section alt-bg">
-    <div class="section-inner left-text">
-      <div class="text-block fade-in">
-        <span class="section-label">Our Values</span>
-        <h2>What we believe in</h2>
-        <p>Share 2–3 core values that guide how you work. Integrity, transparency, and accountability are common ones — make them yours and be specific about what they mean in practice.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════
-       SECTION 3 — The team
-       Ball rests LEFT (30%)
-  ════════════════════════════════════ -->
-  <section id="the-team" class="ball-section">
-    <div class="section-inner right-text">
-      <div class="text-block fade-in">
-        <span class="section-label">The Team</span>
-        <h2>The people behind the work</h2>
-        <p>Introduce yourself and your team here. Names, roles, a sentence or two about each person. You can replace this text block with a photo grid later if you want.</p>
-        <a href="index.html#contact" class="btn">Work With Us</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Rolling ball -->
-  <div id="rolling-ball">
-    <img src="assets/images/ball.png" alt="" draggable="false" />
-  </div>
-
-  <script src="js/ball.js"></script>
   <script src="js/main.js"></script>
 
 </body>
