@@ -1,153 +1,185 @@
 /* ═══════════════════════════════════════════════════
-   ball.js — rolling ball scroll animation
+   ball.js — Rolling ball scroll animation
+   Handles: position, rotation, scroll-trigger,
+            enter/exit transitions per section.
 
-   HOW TO CONFIGURE
-   ─────────────────
-   BALL_SIZE    → match to your image dimensions (px)
-   LEFT_X       → resting x position for left sections (% of viewport)
-   RIGHT_X      → resting x position for right sections (% of viewport)
-   EXIT_DIST    → how far off-screen ball travels (px) — keep it short!
-   SMOOTHNESS   → 0.04 (floaty) to 0.15 (snappy)
-   ROLL_SPEED   → how fast the ball rotates per pixel moved
-
-   SECTIONS array → one entry per section the ball appears in.
-   Each entry:
-     id        — matches the #id on your HTML section
-     xPercent  — horizontal resting position (% of viewport width)
-     yPercent  — vertical resting position (% of section height)
-     exitTo    — 'left' or 'right': which side ball rolls off to
+   ── QUICK CONFIG ──────────────────────────────────
+   All tuneable values are at the top of CONFIG.
+   To switch to a PNG ball:
+     1. Comment out #ball-css in index.html
+     2. Uncomment #ball-png in index.html
+     3. Set USE_PNG = true below
 ════════════════════════════════════════════════════ */
 
 (function () {
 
-  /* ── Config ────────────────────────────────────── */
-  var BALL_SIZE   = 80;    // px — match your image
-  var LEFT_X      = 30;   // % from left for left-side sections
-  var RIGHT_X     = 70;   // % from left for right-side sections
-  var EXIT_DIST   = 100;  // px past the screen edge
-  var SMOOTHNESS  = 0.07; // follow speed
-  var ROLL_SPEED  = 0.8;  // rotation per pixel
+  /* ══════════════════════════════════════════════
+     CONFIG
+  ══════════════════════════════════════════════ */
+  var CONFIG = {
+    USE_PNG:       false,   // true = PNG image, false = CSS ball
+    BALL_SIZE:     80,      // px — diameter
+    LEFT_X:        30,      // % from left for left-side resting pos
+    RIGHT_X:       70,      // % from left for right-side resting pos
+    EXIT_DIST:     120,     // px past screen edge on exit
+    SMOOTHNESS:    0.07,    // 0.04 slow/floaty → 0.15 snappy
+    ROLL_SPEED:    0.75,    // rotation per px of horizontal movement
 
-  var SECTIONS = [
-    // ── index.html ──────────────────────────────
-    { id: '#about',      xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
-    { id: '#work',       xPercent: RIGHT_X, yPercent: 50, exitTo: 'right' },
-    { id: '#contact',    xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+    // Each section the ball appears in.
+    // id       → matches <section id="..."> in index.html
+    // xPercent → horizontal resting position (% of viewport)
+    // yPercent → vertical resting position (% of section height)
+    // exitTo   → 'left' or 'right'
+    SECTIONS: [
+      { id: '#hero',            xPercent: 50,  yPercent: 28, exitTo: 'left'  },
+      { id: '#value-statement', xPercent: 30,  yPercent: 50, exitTo: 'right' },
+      { id: '#gateway',         xPercent: 70,  yPercent: 50, exitTo: 'left'  },
+    ]
+  };
 
-    // ── services.html ────────────────────────────
-    { id: '#service-1',  xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
-    { id: '#service-2',  xPercent: RIGHT_X, yPercent: 50, exitTo: 'right' },
-    { id: '#service-3',  xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+  /* ══════════════════════════════════════════════
+     INIT
+  ══════════════════════════════════════════════ */
+  var container = document.getElementById('ball-container');
+  if (!container) return; // bail if not on home page
 
-    // ── about.html ───────────────────────────────
-    { id: '#who-we-are', xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
-    { id: '#our-values', xPercent: RIGHT_X, yPercent: 50, exitTo: 'right' },
-    { id: '#the-team',   xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
-  ];
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
 
-  /* ── State ─────────────────────────────────────── */
-  var ball      = document.getElementById('rolling-ball');
-  var vw        = window.innerWidth;
-  var vh        = window.innerHeight;
-  var rotation  = 0;
-  var currentX  = -(BALL_SIZE + EXIT_DIST); // start off-screen left
-  var currentY  = vh * 0.5;
-  var targetX   = currentX;
-  var targetY   = currentY;
-  var lastX     = currentX;
+  // Pull ball out of document flow and fix to viewport
+  container.style.position = 'fixed';
+  container.style.top      = '0';
+  container.style.left     = '0';
+  container.style.width    = CONFIG.BALL_SIZE + 'px';
+  container.style.height   = CONFIG.BALL_SIZE + 'px';
+  container.style.zIndex   = '9999';
+  container.style.pointerEvents = 'none';
 
-  /* ── Helpers ───────────────────────────────────── */
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
+  // Show correct ball type
+  var cssBall = document.getElementById('ball-css');
+  var pngBall = document.getElementById('ball-png');
+
+  if (CONFIG.USE_PNG && pngBall) {
+    if (cssBall) cssBall.style.display = 'none';
+    pngBall.style.display = 'block';
+    pngBall.style.width   = CONFIG.BALL_SIZE + 'px';
+    pngBall.style.height  = CONFIG.BALL_SIZE + 'px';
+  } else if (cssBall) {
+    cssBall.style.display = 'block';
+    if (pngBall) pngBall.style.display = 'none';
   }
+
+  /* ══════════════════════════════════════════════
+     STATE
+  ══════════════════════════════════════════════ */
+  var rotation = 0;
+  var currentX = offLeft();
+  var currentY = vh * 0.5;
+  var targetX  = offLeft();
+  var targetY  = vh * 0.5;
+  var lastX    = offLeft();
+
+  /* ══════════════════════════════════════════════
+     HELPERS
+  ══════════════════════════════════════════════ */
+  function lerp(a, b, t) { return a + (b - a) * t; }
 
   function easeInOut(t) {
     t = Math.max(0, Math.min(1, t));
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    return t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
   }
 
-  function offLeft()  { return -(BALL_SIZE + EXIT_DIST); }
-  function offRight() { return vw + EXIT_DIST; }
+  function offLeft()  { return -(CONFIG.BALL_SIZE + CONFIG.EXIT_DIST); }
+  function offRight() { return vw + CONFIG.EXIT_DIST; }
 
-  /* ── Compute where ball should be ─────────────── */
+  /* ══════════════════════════════════════════════
+     COMPUTE TARGET POSITION
+     Runs every animation frame.
+     Finds which section is currently active and
+     sets targetX/Y based on scroll progress.
+  ══════════════════════════════════════════════ */
   function computeTarget() {
     vw = window.innerWidth;
     vh = window.innerHeight;
 
-    for (var i = 0; i < SECTIONS.length; i++) {
-      var cfg  = SECTIONS[i];
-      var el   = document.querySelector(cfg.id);
+    var sections = CONFIG.SECTIONS;
+
+    for (var i = 0; i < sections.length; i++) {
+      var cfg = sections[i];
+      var el  = document.querySelector(cfg.id);
       if (!el) continue;
 
       var rect = el.getBoundingClientRect();
       var sH   = rect.height;
 
-      // Section is "active" between these scroll positions
-      var enterAt = vh * 0.75;
-      var exitAt  = -(sH * 0.40);
+      var enterAt = vh * 0.85;   // section starts entering
+      var exitAt  = -(sH * 0.5); // section has mostly scrolled past
 
       if (rect.top < enterAt && rect.top > exitAt) {
         var raw      = (enterAt - rect.top) / (enterAt - exitAt);
         var progress = easeInOut(Math.max(0, Math.min(1, raw)));
 
-        // Resting position in fixed viewport coords
-        var restX = (vw * cfg.xPercent / 100) - BALL_SIZE / 2;
-        var restY = rect.top + (sH * cfg.yPercent / 100) - BALL_SIZE / 2;
+        // Resting position in viewport coordinates
+        var restX = (vw * cfg.xPercent / 100) - CONFIG.BALL_SIZE / 2;
+        var restY = rect.top + (sH * cfg.yPercent / 100) - CONFIG.BALL_SIZE / 2;
 
-        // Which side does ball enter from?
-        var prev      = SECTIONS[i - 1];
+        // Entry side: opposite of previous section's exitTo
+        var prev      = sections[i - 1];
         var entryFrom = prev
           ? (prev.exitTo === 'left' ? offLeft() : offRight())
           : (cfg.xPercent < 50 ? offLeft() : offRight());
 
-        // Which side does ball exit to?
         var exitX = cfg.exitTo === 'left' ? offLeft() : offRight();
 
-        if (progress < 0.35) {
-          // Phase 1 — roll IN from edge to resting spot
-          var t = easeInOut(progress / 0.35);
+        if (progress < 0.30) {
+          // Phase 1 — roll IN
+          var t = easeInOut(progress / 0.30);
           targetX = lerp(entryFrom, restX, t);
           targetY = restY;
-
-        } else if (progress < 0.75) {
-          // Phase 2 — sit still in pocket
+        } else if (progress < 0.72) {
+          // Phase 2 — sit still in resting spot
           targetX = restX;
           targetY = restY;
-
         } else {
-          // Phase 3 — roll OUT toward edge
-          var t2  = easeInOut((progress - 0.75) / 0.25);
+          // Phase 3 — roll OUT
+          var t2  = easeInOut((progress - 0.72) / 0.28);
           targetX = lerp(restX, exitX, t2);
           targetY = restY;
         }
 
-        return; // active section found, stop looping
+        return;
       }
     }
-    // No active section — ball stays wherever it is (off-screen)
+    // No active section — hold position (ball is off-screen)
   }
 
-  /* ── Animation loop ────────────────────────────── */
+  /* ══════════════════════════════════════════════
+     ANIMATION LOOP
+  ══════════════════════════════════════════════ */
   function animate() {
     computeTarget();
 
-    // Smooth follow toward target
-    currentX = lerp(currentX, targetX, SMOOTHNESS);
-    currentY = lerp(currentY, targetY, SMOOTHNESS);
+    // Smooth lerp toward target
+    currentX = lerp(currentX, targetX, CONFIG.SMOOTHNESS);
+    currentY = lerp(currentY, targetY, CONFIG.SMOOTHNESS);
 
-    // Rotate based on horizontal movement
+    // Rotation from horizontal travel distance
     var dx = currentX - lastX;
-    rotation += dx * ROLL_SPEED;
+    rotation += dx * CONFIG.ROLL_SPEED;
     lastX = currentX;
 
-    ball.style.transform =
-      'translate(' + currentX.toFixed(1) + 'px, ' + currentY.toFixed(1) + 'px) ' +
+    // Apply transform — single translate+rotate keeps it GPU-composited
+    container.style.transform =
+      'translate(' + currentX.toFixed(1) + 'px,' +
+      currentY.toFixed(1) + 'px) ' +
       'rotate(' + rotation.toFixed(1) + 'deg)';
 
     requestAnimationFrame(animate);
   }
 
-  /* ── Init ──────────────────────────────────────── */
+  /* ══════════════════════════════════════════════
+     BOOT
+  ══════════════════════════════════════════════ */
   window.addEventListener('resize', function () {
     vw = window.innerWidth;
     vh = window.innerHeight;

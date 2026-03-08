@@ -1,55 +1,108 @@
 /* ═══════════════════════════════════════════════════
-   responsive.css — mobile & tablet breakpoints
+   responsive.css — Mobile & tablet breakpoints
 ════════════════════════════════════════════════════ */
 
-/* ── Tablet (max 768px) ──────────────────────────── */
-@media (max-width: 768px) {
+/* ══════════════════════════════════════════════════
+   TABLET  (max 900px)
+══════════════════════════════════════════════════ */
+@media (max-width: 900px) {
 
-  #navbar {
-    padding: 1rem 1.5rem;
+  #navbar { padding: 0 1.5rem; }
+
+  .stack-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
-  .nav-links {
-    gap: 1.5rem;
+  .tower-visual {
+    position: relative;
+    top: auto;
   }
 
-  #hero,
-  .ball-section {
-    padding: 5rem 1.5rem;
+  .tower-track {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
-  /* On mobile, text is always centred — ball animation is hidden */
-  .right-text,
-  .left-text {
-    justify-content: center;
+  .tower-block {
+    flex: 1 1 auto;
+    min-width: 120px;
     text-align: center;
   }
 
-  .right-text .text-block,
-  .left-text .text-block {
-    max-width: 100%;
+  .gateway-grid       { grid-template-columns: 1fr; }
+  .value-grid         { grid-template-columns: 1fr; }
+  .combinations-grid  { grid-template-columns: 1fr; }
+
+  #service-panels {
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    height: 70vh;
   }
 
-  /* Hide ball on mobile — too small to be meaningful */
-  #rolling-ball {
-    display: none;
+  .service-panel {
+    right: 0;
+    bottom: -75vh;
+    top: auto;
+    width: 100%;
+    height: 100%;
+    border-left: none;
+    border-top: 1px solid var(--grey-dark);
+    transition: bottom 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .service-panel.panel-active {
+    bottom: 0;
+    right: 0;
   }
 }
 
-/* ── Small mobile (max 480px) ────────────────────── */
-@media (max-width: 480px) {
+/* ══════════════════════════════════════════════════
+   MOBILE  (max 640px)
+══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
 
-  #navbar {
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 1rem;
+  :root {
+    --section-pad: 5rem 1.2rem;
+    --nav-height:  60px;
   }
 
   .nav-links {
-    gap: 1rem;
+    display: none;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    background: var(--navy);
+    border-bottom: 1px solid var(--grey-dark);
+    flex-direction: column;
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
   }
 
+  .nav-links.open { display: flex; }
+  .nav-toggle     { display: flex; }
+
   .hero-content h1 {
-    font-size: 2.4rem;
+    white-space: normal;
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
   }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #network-canvas { min-height: 60vh; }
+
+  .node-label  { font-size: 0.62rem; }
+  .node-circle { width: 40px; height: 40px; }
+
+  .stack-layer {
+    min-height: 60vh;
+    padding: 2.5rem 0;
+  }
+
+  #ball-container { display: none; }
 }

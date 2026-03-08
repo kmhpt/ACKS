@@ -4,17 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services — Your Company</title>
-
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
-
 <body class="page-services">
 
-  <!-- ═══════════════════════════════════════════════
-       NAV
-  ════════════════════════════════════════════════ -->
   <nav id="navbar">
     <a href="index.html" class="nav-logo">Your Company</a>
     <ul class="nav-links">
@@ -27,98 +22,57 @@
     </button>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════
-       PAGE HEADER
-       Edit: headline and subheading
-  ════════════════════════════════════════════════ -->
+  <!-- ═══════════════ PAGE HEADER ═════════════════ -->
   <header id="services-hero">
     <div class="page-header-content">
       <span class="section-label">Services</span>
-      <!-- EDIT: headline -->
-      <h1>A connected<br><span class="highlight">system of solutions.</span></h1>
-      <!-- EDIT: subheading -->
+      <h1>A connected <span class="highlight">system of solutions.</span></h1>
       <p class="hero-sub">Our services work together. Click any node to explore.</p>
     </div>
   </header>
 
-  <!-- ═══════════════════════════════════════════════
-       NETWORK SECTION
-       SVG lines and node positions are handled by main.js.
-       To add/remove a service node:
-         1. Add/remove a .service-node div below
-         2. Add/remove its entry in the NODES config in main.js
-         3. Add/remove its .service-panel below
-
-       Node positions are set via CSS classes (see main.css).
-       data-id must match the panel id="panel-[id]"
-  ════════════════════════════════════════════════ -->
+  <!-- ══════════════ NETWORK ══════════════════════ -->
   <section id="network-section">
-
-    <!-- Network canvas — JS draws SVG connection lines here -->
     <div id="network-canvas">
-
-      <!-- SVG layer for connection lines (populated by main.js) -->
       <svg id="network-svg" aria-hidden="true"></svg>
 
-      <!-- ── Service Nodes ─────────────────────────
-           Each node is a clickable circle.
-           data-id links to its detail panel below.
-           CSS class (node-pos-*) sets position.
-           Edit: the text inside .node-label          -->
-
-      <div class="service-node" data-id="web-apps"     id="node-web-apps">
+      <div class="service-node" data-id="web-apps"       id="node-web-apps">
         <div class="node-circle"></div>
         <span class="node-label">Web Applications</span>
       </div>
-
-      <div class="service-node" data-id="automation"   id="node-automation">
+      <div class="service-node" data-id="automation"     id="node-automation">
         <div class="node-circle"></div>
         <span class="node-label">Automation Systems</span>
       </div>
-
-      <div class="service-node" data-id="data-eng"     id="node-data-eng">
+      <div class="service-node" data-id="data-eng"       id="node-data-eng">
         <div class="node-circle"></div>
         <span class="node-label">Data Engineering</span>
       </div>
-
-      <div class="service-node" data-id="api"          id="node-api">
+      <div class="service-node" data-id="api"            id="node-api">
         <div class="node-circle"></div>
         <span class="node-label">API Integrations</span>
       </div>
-
-      <div class="service-node" data-id="ai-ml"        id="node-ai-ml">
+      <div class="service-node" data-id="ai-ml"          id="node-ai-ml">
         <div class="node-circle"></div>
         <span class="node-label">AI / Machine Learning</span>
       </div>
-
       <div class="service-node" data-id="infrastructure" id="node-infrastructure">
         <div class="node-circle"></div>
         <span class="node-label">Infrastructure</span>
       </div>
-
     </div>
-    <!-- end #network-canvas -->
 
-    <!-- ── Service Detail Panels ───────────────────
-         Hidden by default. main.js shows the panel
-         matching the clicked node's data-id.
-         Edit: description, solutions list, pricing.
-         Add class="panel-active" to show on load (optional). -->
-
+    <!-- ══ Service Panels ══ -->
     <div id="service-panels">
 
-      <!-- Panel: Web Applications -->
       <div class="service-panel" id="panel-web-apps">
-        <button class="panel-close" aria-label="Close panel">✕</button>
+        <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">Web Applications</span>
-        <h3>Custom web apps built<br>for real workflows.</h3>
-        <p class="panel-description">
-          We build web applications end-to-end — from architecture and backend to frontend and deployment. Whether it's a client portal, internal tool, or full SaaS product, we deliver software that works.
-        </p>
+        <h3>Custom web apps built for real workflows.</h3>
+        <p class="panel-description">We build web applications end-to-end — from architecture and backend to frontend and deployment. Whether it's a client portal, internal tool, or full SaaS product, we deliver software that works.</p>
         <div class="panel-solutions">
           <h4>Example Solutions</h4>
           <ul>
-            <!-- EDIT: example solutions -->
             <li>Customer-facing SaaS platforms</li>
             <li>Internal business dashboards</li>
             <li>Admin &amp; operations portals</li>
@@ -127,33 +81,26 @@
         </div>
         <div class="panel-pricing">
           <h4>Pricing</h4>
-          <!-- EDIT: pricing tiers -->
           <div class="pricing-tier">
-            <span class="tier-name">Starter</span>
-            <span class="tier-price">From $2,500</span>
+            <span class="tier-name">Starter</span><span class="tier-price">From $2,500</span>
             <span class="tier-desc">Single-feature internal tool or MVP</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Standard</span>
-            <span class="tier-price">From $7,500</span>
+            <span class="tier-name">Standard</span><span class="tier-price">From $7,500</span>
             <span class="tier-desc">Full web application with auth, DB, and deployment</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Custom</span>
-            <span class="tier-price">Let's talk</span>
+            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
             <span class="tier-desc">Complex systems, SaaS products, or multi-phase builds</span>
           </div>
         </div>
       </div>
 
-      <!-- Panel: Automation Systems -->
       <div class="service-panel" id="panel-automation">
-        <button class="panel-close" aria-label="Close panel">✕</button>
+        <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">Automation Systems</span>
-        <h3>Eliminate repetitive work.<br>Scale what matters.</h3>
-        <p class="panel-description">
-          We map your existing workflows and replace manual, time-consuming processes with reliable automated systems. From simple task triggers to complex multi-system orchestration.
-        </p>
+        <h3>Eliminate repetitive work. Scale what matters.</h3>
+        <p class="panel-description">We map your existing workflows and replace manual, time-consuming processes with reliable automated systems. From simple task triggers to complex multi-system orchestration.</p>
         <div class="panel-solutions">
           <h4>Example Solutions</h4>
           <ul>
@@ -166,31 +113,25 @@
         <div class="panel-pricing">
           <h4>Pricing</h4>
           <div class="pricing-tier">
-            <span class="tier-name">Starter</span>
-            <span class="tier-price">From $1,500</span>
+            <span class="tier-name">Starter</span><span class="tier-price">From $1,500</span>
             <span class="tier-desc">Single workflow automation</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Standard</span>
-            <span class="tier-price">From $4,000</span>
+            <span class="tier-name">Standard</span><span class="tier-price">From $4,000</span>
             <span class="tier-desc">Multi-step process automation with integrations</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Custom</span>
-            <span class="tier-price">Let's talk</span>
+            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
             <span class="tier-desc">Enterprise-scale automation architecture</span>
           </div>
         </div>
       </div>
 
-      <!-- Panel: Data Engineering -->
       <div class="service-panel" id="panel-data-eng">
-        <button class="panel-close" aria-label="Close panel">✕</button>
+        <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">Data Engineering</span>
-        <h3>Turn raw data into<br>reliable infrastructure.</h3>
-        <p class="panel-description">
-          We design and build the data layer your business runs on. Clean pipelines, well-structured databases, and analytics systems that give you trustworthy data at every level.
-        </p>
+        <h3>Turn raw data into reliable infrastructure.</h3>
+        <p class="panel-description">We design and build the data layer your business runs on. Clean pipelines, well-structured databases, and analytics systems that give you trustworthy data at every level.</p>
         <div class="panel-solutions">
           <h4>Example Solutions</h4>
           <ul>
@@ -203,31 +144,25 @@
         <div class="panel-pricing">
           <h4>Pricing</h4>
           <div class="pricing-tier">
-            <span class="tier-name">Starter</span>
-            <span class="tier-price">From $2,000</span>
+            <span class="tier-name">Starter</span><span class="tier-price">From $2,000</span>
             <span class="tier-desc">Database design &amp; basic pipeline</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Standard</span>
-            <span class="tier-price">From $5,000</span>
+            <span class="tier-name">Standard</span><span class="tier-price">From $5,000</span>
             <span class="tier-desc">Full data architecture with ETL and analytics layer</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Custom</span>
-            <span class="tier-price">Let's talk</span>
+            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
             <span class="tier-desc">Large-scale data systems or migration projects</span>
           </div>
         </div>
       </div>
 
-      <!-- Panel: API Integrations -->
       <div class="service-panel" id="panel-api">
-        <button class="panel-close" aria-label="Close panel">✕</button>
+        <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">API Integrations</span>
-        <h3>Connect your tools.<br>Unify your systems.</h3>
-        <p class="panel-description">
-          We build the bridges between your platforms, tools, and data sources. Custom APIs, third-party integrations, and microservices that make your entire stack work as one.
-        </p>
+        <h3>Connect your tools. Unify your systems.</h3>
+        <p class="panel-description">We build the bridges between your platforms, tools, and data sources. Custom APIs, third-party integrations, and microservices that make your entire stack work as one.</p>
         <div class="panel-solutions">
           <h4>Example Solutions</h4>
           <ul>
@@ -240,31 +175,25 @@
         <div class="panel-pricing">
           <h4>Pricing</h4>
           <div class="pricing-tier">
-            <span class="tier-name">Starter</span>
-            <span class="tier-price">From $1,000</span>
+            <span class="tier-name">Starter</span><span class="tier-price">From $1,000</span>
             <span class="tier-desc">Single API integration or endpoint build</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Standard</span>
-            <span class="tier-price">From $3,500</span>
+            <span class="tier-name">Standard</span><span class="tier-price">From $3,500</span>
             <span class="tier-desc">Multi-system integration layer</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Custom</span>
-            <span class="tier-price">Let's talk</span>
+            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
             <span class="tier-desc">Full API architecture or microservices build</span>
           </div>
         </div>
       </div>
 
-      <!-- Panel: AI / Machine Learning -->
       <div class="service-panel" id="panel-ai-ml">
-        <button class="panel-close" aria-label="Close panel">✕</button>
+        <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">AI / Machine Learning</span>
-        <h3>Systems that learn,<br>predict, and act.</h3>
-        <p class="panel-description">
-          We integrate AI and machine learning into real business systems — not experiments, but production pipelines that drive decisions, automate judgment, and surface insight automatically.
-        </p>
+        <h3>Systems that learn, predict, and act.</h3>
+        <p class="panel-description">We integrate AI and machine learning into real business systems — not experiments, but production pipelines that drive decisions, automate judgment, and surface insight automatically.</p>
         <div class="panel-solutions">
           <h4>Example Solutions</h4>
           <ul>
@@ -277,31 +206,25 @@
         <div class="panel-pricing">
           <h4>Pricing</h4>
           <div class="pricing-tier">
-            <span class="tier-name">Starter</span>
-            <span class="tier-price">From $3,000</span>
+            <span class="tier-name">Starter</span><span class="tier-price">From $3,000</span>
             <span class="tier-desc">Single AI integration or basic ML model</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Standard</span>
-            <span class="tier-price">From $8,000</span>
+            <span class="tier-name">Standard</span><span class="tier-price">From $8,000</span>
             <span class="tier-desc">Production ML pipeline with monitoring</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Custom</span>
-            <span class="tier-price">Let's talk</span>
+            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
             <span class="tier-desc">Full AI system architecture</span>
           </div>
         </div>
       </div>
 
-      <!-- Panel: Infrastructure -->
       <div class="service-panel" id="panel-infrastructure">
-        <button class="panel-close" aria-label="Close panel">✕</button>
+        <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">Infrastructure</span>
-        <h3>The foundation<br>everything runs on.</h3>
-        <p class="panel-description">
-          We design, build, and manage the cloud infrastructure your systems depend on. Reliable, secure, and built to scale — so you never have to worry about what's underneath.
-        </p>
+        <h3>The foundation everything runs on.</h3>
+        <p class="panel-description">We design, build, and manage the cloud infrastructure your systems depend on. Reliable, secure, and built to scale — so you never have to worry about what's underneath.</p>
         <div class="panel-solutions">
           <h4>Example Solutions</h4>
           <ul>
@@ -314,101 +237,63 @@
         <div class="panel-pricing">
           <h4>Pricing</h4>
           <div class="pricing-tier">
-            <span class="tier-name">Starter</span>
-            <span class="tier-price">From $1,500</span>
+            <span class="tier-name">Starter</span><span class="tier-price">From $1,500</span>
             <span class="tier-desc">Basic cloud setup &amp; deployment pipeline</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Standard</span>
-            <span class="tier-price">From $4,500</span>
+            <span class="tier-name">Standard</span><span class="tier-price">From $4,500</span>
             <span class="tier-desc">Full infrastructure architecture &amp; management setup</span>
           </div>
           <div class="pricing-tier">
-            <span class="tier-name">Custom</span>
-            <span class="tier-price">Let's talk</span>
+            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
             <span class="tier-desc">Enterprise infrastructure or migration projects</span>
           </div>
         </div>
       </div>
 
     </div>
-    <!-- end #service-panels -->
-
   </section>
 
-  <!-- ═══════════════════════════════════════════════
-       COMBINED SERVICES SECTION
-       Shows how services work together.
-       Edit: combination titles, descriptions.
-  ════════════════════════════════════════════════ -->
+  <!-- ══════════ COMBINED SERVICES ════════════════ -->
   <section id="combined-services">
-
-    <div class="section-header">
+    <div class="section-header fade-in">
       <span class="section-label">Combined Services</span>
       <h2>Better together.</h2>
       <p>Our services are designed to work as a connected system. Common combinations:</p>
     </div>
-
     <div class="combinations-grid">
-
-      <!-- EDIT: combination cards — title, tags, description -->
-      <div class="combination-card">
-        <div class="combo-tags">
-          <span>Automation</span>
-          <span>+</span>
-          <span>Data Engineering</span>
-        </div>
+      <div class="combination-card fade-in delay-1">
+        <div class="combo-tags"><span>Automation</span><span>+</span><span>Data Engineering</span></div>
         <h4>Analytics Pipelines</h4>
         <p>Automated data collection feeding clean, structured pipelines — giving you real-time insight without manual work.</p>
       </div>
-
-      <div class="combination-card">
-        <div class="combo-tags">
-          <span>Web Applications</span>
-          <span>+</span>
-          <span>API Integrations</span>
-        </div>
+      <div class="combination-card fade-in delay-2">
+        <div class="combo-tags"><span>Web Applications</span><span>+</span><span>API Integrations</span></div>
         <h4>Connected Platforms</h4>
         <p>Custom-built applications wired into your existing tools — CRMs, ERPs, payment systems, and more.</p>
       </div>
-
-      <div class="combination-card">
-        <div class="combo-tags">
-          <span>Data Engineering</span>
-          <span>+</span>
-          <span>AI / ML</span>
-        </div>
+      <div class="combination-card fade-in delay-3">
+        <div class="combo-tags"><span>Data Engineering</span><span>+</span><span>AI / ML</span></div>
         <h4>Intelligent Systems</h4>
         <p>Structured data pipelines feeding machine learning models — turning historical data into forward-looking decisions.</p>
       </div>
-
-      <div class="combination-card">
-        <div class="combo-tags">
-          <span>Infrastructure</span>
-          <span>+</span>
-          <span>Automation</span>
-        </div>
+      <div class="combination-card fade-in delay-4">
+        <div class="combo-tags"><span>Infrastructure</span><span>+</span><span>Automation</span></div>
         <h4>Scalable Operations</h4>
         <p>Rock-solid infrastructure paired with automated deployments, monitoring, and alerting — systems that run themselves.</p>
       </div>
-
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════
-       CTA — bottom of services page
-       Edit: heading, description, button label and link
-  ════════════════════════════════════════════════ -->
+  <!-- ════════════════════ CTA ═════════════════════ -->
   <section id="services-cta">
-    <div class="cta-content">
+    <div class="cta-content fade-in">
       <h2>Not sure where to start?</h2>
       <p>Every engagement starts with a free scoping call. We'll map your problem to the right solution.</p>
-      <!-- EDIT: update href to your contact method -->
       <a href="mailto:you@email.com" class="btn">Book a Free Call</a>
     </div>
   </section>
 
   <script src="js/main.js"></script>
-
 </body>
 </html>
