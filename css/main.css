@@ -11,7 +11,7 @@
 :root {
   /* ── Core palette ─────────────────────────────── */
   --black:          #09090f;       /* near black — deepest bg */
-  --dark red:       #47222c;       /* page background */
+  --navy:           #47222c;       /* page background */
   --navy-light:     #161b27;       /* card / section alt bg */
   --navy-mid:       #1e2535;       /* borders, subtle panels */
 
