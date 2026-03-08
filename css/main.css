@@ -1,16 +1,13 @@
 /* ═══════════════════════════════════════════════════
-   main.css — global styles
-   Edit this file for colours, fonts, spacing, layout
+   main.css — global styles - colours, fonts, spacing, layout
 ════════════════════════════════════════════════════ */
 
-/* ── Variables ────────────────────────────────────
-   Change these to restyle the whole site at once   */
 :root {
-  --color-bg:       #faf8f5;
+  --color-bg:       #C0DAE8;
   --color-text:     #1a1a1a;
   --color-muted:    #888888;
   --color-accent:   #1a1a1a;
-  --color-border:   #e0ddd8;
+  --color-border:   #4B252F;
 
   --font-main:      Georgia, 'Times New Roman', serif;
 
