@@ -130,6 +130,12 @@ ul { list-style: none; }
 }
 
 .nav-logo:hover { color: var(--cyan); }
+.nav-logo-img {
+  height: 40px;
+  max-height: 40px;
+  width: auto;
+  display: block;
+}
 
 .nav-links {
   display: flex;
