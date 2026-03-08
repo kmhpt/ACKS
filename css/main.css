@@ -476,9 +476,9 @@ section {
    HOME — VALUE STATEMENT  (#value-statement)
 ══════════════════════════════════════════════════ */
 #value-statement {
-  background: var(--color-bg-alt);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  background: linear-gradient(to bottom, #0d1117, #47222c, #0d1117);
+  border-top: none;
+  border-bottom: none;
 }
 
 #value-statement .section-header {
