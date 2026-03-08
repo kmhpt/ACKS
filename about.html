@@ -3,86 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Website</title>
+  <title>About Us — Your Company</title>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
-<body class="page-home">
+
+<!-- page-about loads the white colour theme from main.css -->
+<body class="page-about">
 
   <!-- ═══════════════════════════════════
-       NAV
+       NAV — same on every page,
+       just update the active link
   ════════════════════════════════════ -->
   <nav id="navbar">
     <div class="nav-logo">Your Company</div>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="about.html">About Us</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
     </ul>
   </nav>
 
   <!-- ═══════════════════════════════════
-       HERO
+       PAGE HEADER
   ════════════════════════════════════ -->
-  <section id="hero">
-    <div class="hero-content">
-      <h1>Hello, I'm<br><span class="highlight">Your Name</span></h1>
-      <p class="hero-sub">A short line about what you do.</p>
-      <a href="#about" class="btn">Learn More</a>
+  <header class="page-header">
+    <div>
+      <h1>About <span class="highlight">Us</span></h1>
+      <p>A short line about your company — who you are and what you stand for.</p>
     </div>
-  </section>
+  </header>
 
   <!-- ═══════════════════════════════════
-       ABOUT  — ball rests LEFT (~30%)
+       SECTION 1 — Who we are
+       Ball rests LEFT (30%)
   ════════════════════════════════════ -->
-  <section id="about" class="ball-section">
+  <section id="who-we-are" class="ball-section">
     <div class="section-inner right-text">
-      <div class="text-block">
-        <span class="section-label">About</span>
-        <h2>A bit about me</h2>
-        <p>This is your about section. Write a few sentences about yourself, your background, and what drives you. Keep it personal and honest.</p>
+      <div class="text-block fade-in">
+        <span class="section-label">Who We Are</span>
+        <h2>Built on expertise,<br>driven by results</h2>
+        <p>Tell your company story here. When were you founded? What's the mission? Keep it human — people work with people, not companies.</p>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════
-       WORK  — ball rests RIGHT (~70%)
+       SECTION 2 — Our values
+       Ball rests RIGHT (70%)
   ════════════════════════════════════ -->
-  <section id="work" class="ball-section">
+  <section id="our-values" class="ball-section alt-bg">
     <div class="section-inner left-text">
-      <div class="text-block">
-        <span class="section-label">Work</span>
-        <h2>What I do</h2>
-        <p>Describe your services or showcase your work here. You can replace this with a grid of projects, a list of services, or whatever fits your site best.</p>
+      <div class="text-block fade-in">
+        <span class="section-label">Our Values</span>
+        <h2>What we believe in</h2>
+        <p>Share 2–3 core values that guide how you work. Integrity, transparency, and accountability are common ones — make them yours and be specific about what they mean in practice.</p>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════
-       CONTACT  — ball rests LEFT (~30%)
+       SECTION 3 — The team
+       Ball rests LEFT (30%)
   ════════════════════════════════════ -->
-  <section id="contact" class="ball-section">
+  <section id="the-team" class="ball-section">
     <div class="section-inner right-text">
-      <div class="text-block">
-        <span class="section-label">Contact</span>
-        <h2>Get in touch</h2>
-        <p>Have a project in mind? Reach out at <a href="mailto:you@email.com">you@email.com</a> and let's talk.</p>
+      <div class="text-block fade-in">
+        <span class="section-label">The Team</span>
+        <h2>The people behind the work</h2>
+        <p>Introduce yourself and your team here. Names, roles, a sentence or two about each person. You can replace this text block with a photo grid later if you want.</p>
+        <a href="index.html#contact" class="btn">Work With Us</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════
-       BALL ELEMENT
-       Replace the src with your actual ball image path
-  ════════════════════════════════════ -->
+  <!-- Rolling ball -->
   <div id="rolling-ball">
     <img src="assets/images/ball.png" alt="" draggable="false" />
   </div>
 
-  <!-- Scripts — loaded at bottom so HTML renders first -->
   <script src="js/ball.js"></script>
   <script src="js/main.js"></script>
 

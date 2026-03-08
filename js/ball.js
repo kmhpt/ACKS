@@ -29,9 +29,20 @@
   var ROLL_SPEED  = 0.8;  // rotation per pixel
 
   var SECTIONS = [
-    { id: '#about',   xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
-    { id: '#work',    xPercent: RIGHT_X, yPercent: 50, exitTo: 'right' },
-    { id: '#contact', xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+    // ── index.html ──────────────────────────────
+    { id: '#about',      xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+    { id: '#work',       xPercent: RIGHT_X, yPercent: 50, exitTo: 'right' },
+    { id: '#contact',    xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+
+    // ── services.html ────────────────────────────
+    { id: '#service-1',  xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+    { id: '#service-2',  xPercent: RIGHT_X, yPercent: 50, exitTo: 'right' },
+    { id: '#service-3',  xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+
+    // ── about.html ───────────────────────────────
+    { id: '#who-we-are', xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
+    { id: '#our-values', xPercent: RIGHT_X, yPercent: 50, exitTo: 'right' },
+    { id: '#the-team',   xPercent: LEFT_X,  yPercent: 50, exitTo: 'left'  },
   ];
 
   /* ── State ─────────────────────────────────────── */

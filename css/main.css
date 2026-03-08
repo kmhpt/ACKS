@@ -1,19 +1,79 @@
 /* ═══════════════════════════════════════════════════
-   main.css — global styles - colours, fonts, spacing, layout
+   main.css — global styles
+   Edit this file for colours, fonts, spacing, layout
 ════════════════════════════════════════════════════ */
 
+/* ── YOUR BRAND COLOURS (reference) ───────────────
+   Blue:       #2547A0
+   Light grey: #BFBFBF
+   Light blue: #c0dae8
+   Dark wine:  #4b252f
+   White:      #ffffff
+   Black:      #1a1a1a
+════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════
+   PAGE COLOUR THEMES
+   Each page gets its own <body class="page-X">
+   which overrides just the colour variables below.
+   Everything else (layout, fonts, spacing) stays
+   the same across all pages automatically.
+══════════════════════════════════════════════════ */
+
+/* ── HOME (index.html) ───────────────────────────
+   <body class="page-home">
+   Light blue background, dark text                */
+:root,
+.page-home {
+  --color-bg:         #c0dae8;   /* light blue background */
+  --color-bg-alt:     #a8ccd9;   /* slightly darker — for alternating sections */
+  --color-text:       #1a1a1a;   /* near black */
+  --color-muted:      #4a6572;   /* muted blue-grey for subtext */
+  --color-accent:     #2547A0;   /* brand blue — buttons, hover, highlights */
+  --color-border:     #4b252f;   /* dark wine border */
+  --color-nav-bg:     #c0dae8;   /* nav matches page */
+  --color-btn-text:   #ffffff;   /* text inside filled buttons */
+}
+
+/* ── SERVICES (services.html) ────────────────────
+   <body class="page-services">
+   Deep navy background, white text               */
+.page-services {
+  --color-bg:         #0f1e3d;   /* deep navy */
+  --color-bg-alt:     #162648;   /* slightly lighter navy for sections */
+  --color-text:       #ffffff;   /* white text */
+  --color-muted:      #BFBFBF;   /* light grey for subtext */
+  --color-accent:     #4a7fd4;   /* lighter blue so it pops on dark bg */
+  --color-border:     #2547A0;   /* brand blue border */
+  --color-nav-bg:     #0f1e3d;
+  --color-btn-text:   #ffffff;
+}
+
+/* ── ABOUT (about.html) ──────────────────────────
+   <body class="page-about">
+   Clean white background, professional feel      */
+.page-about {
+  --color-bg:         #ffffff;   /* clean white */
+  --color-bg-alt:     #f4f6fb;   /* very light blue-grey for sections */
+  --color-text:       #1a1a1a;   /* near black */
+  --color-muted:      #666666;   /* mid grey for subtext */
+  --color-accent:     #2547A0;   /* brand blue */
+  --color-border:     #BFBFBF;   /* light grey border */
+  --color-nav-bg:     #ffffff;
+  --color-btn-text:   #ffffff;
+}
+
+/* ── SHARED SETTINGS (same on every page) ────────
+   Change font, spacing, max-width here           */
 :root {
-  --color-bg:       #c0dae8;
-  --color-text:     #1a1a1a;
-  --color-muted:    #888888;
-  --color-accent:   #1a1a1a;
-  --color-border:   #4b252f;
   --font-main:      Georgia, 'Times New Roman', serif;
   --section-pad:    6rem 4rem;
   --max-width:      900px;
 }
 
-/* ── Reset ───────────────────────────────────────── */
+/* ══════════════════════════════════════════════════
+   RESET
+══════════════════════════════════════════════════ */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -47,7 +107,9 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ── Nav ─────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════════ */
 #navbar {
   position: fixed;
   top: 0;
@@ -58,7 +120,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   padding: 1.2rem 4rem;
-  background: var(--color-bg);
+  background: var(--color-nav-bg);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -66,6 +128,7 @@ a:hover {
   font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.05em;
+  color: var(--color-text);
 }
 
 .nav-links {
@@ -87,7 +150,16 @@ a:hover {
   text-decoration: none;
 }
 
-/* ── Hero ────────────────────────────────────────── */
+/* Active page link — already handled automatically by main.js */
+.nav-links a.active {
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 2px;
+}
+
+/* ══════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════ */
 #hero {
   min-height: 100vh;
   display: flex;
@@ -95,7 +167,8 @@ a:hover {
   justify-content: center;
   text-align: center;
   padding: var(--section-pad);
-  padding-top: 8rem; /* offset for fixed nav */
+  padding-top: 8rem;
+  background-color: var(--color-bg);
 }
 
 .hero-content {
@@ -111,6 +184,7 @@ a:hover {
 
 .highlight {
   font-style: italic;
+  color: var(--color-accent);
 }
 
 .hero-sub {
@@ -119,31 +193,55 @@ a:hover {
   margin-bottom: 2.5rem;
 }
 
-/* ── Button ──────────────────────────────────────── */
+/* ══════════════════════════════════════════════════
+   BUTTON
+══════════════════════════════════════════════════ */
 .btn {
   display: inline-block;
   padding: 0.75rem 2rem;
-  border: 1px solid var(--color-text);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--color-text);
-  transition: background 0.2s, color 0.2s;
+  color: var(--color-btn-text);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  font-family: var(--font-main);
+  cursor: pointer;
 }
 
 .btn:hover {
-  background: var(--color-text);
-  color: var(--color-bg);
+  background: transparent;
+  color: var(--color-accent);
   text-decoration: none;
 }
 
-/* ── Ball sections ───────────────────────────────── */
+/* Outlined variant — add class="btn btn-outline" */
+.btn-outline {
+  background: transparent;
+  color: var(--color-accent);
+}
+
+.btn-outline:hover {
+  background: var(--color-accent);
+  color: var(--color-btn-text);
+}
+
+/* ══════════════════════════════════════════════════
+   BALL SECTIONS
+══════════════════════════════════════════════════ */
 .ball-section {
   min-height: 100vh;
   display: flex;
   align-items: center;
   padding: var(--section-pad);
   border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+}
+
+/* Alternate background — add class="ball-section alt-bg" */
+.ball-section.alt-bg {
+  background-color: var(--color-bg-alt);
 }
 
 .section-inner {
@@ -153,7 +251,7 @@ a:hover {
   display: flex;
 }
 
-/* Text pushed to right half (ball is on left ~30%) */
+/* Text on right (ball sits left ~30%) */
 .right-text {
   justify-content: flex-end;
 }
@@ -162,7 +260,7 @@ a:hover {
   max-width: 420px;
 }
 
-/* Text pushed to left half (ball is on right ~70%) */
+/* Text on left (ball sits right ~70%) */
 .left-text {
   justify-content: flex-start;
 }
@@ -182,17 +280,46 @@ a:hover {
   font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-accent);
 }
 
 .text-block h2 {
   font-size: clamp(1.8rem, 3.5vw, 3rem);
   font-weight: normal;
   line-height: 1.15;
+  color: var(--color-text);
 }
 
 .text-block p {
   font-size: 1rem;
   color: var(--color-muted);
   line-height: 1.75;
+}
+
+/* ══════════════════════════════════════════════════
+   PAGE HEADER  (used on services.html & about.html)
+══════════════════════════════════════════════════ */
+.page-header {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--section-pad);
+  padding-top: 10rem;
+  background-color: var(--color-bg);
+}
+
+.page-header h1 {
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  font-weight: normal;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  max-width: 500px;
+  margin: 0 auto;
 }
