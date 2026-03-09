@@ -140,7 +140,86 @@
     </div>
   </section>
 
-  <script src="js/ball.js"></script>
+ <script src="js/ball.js"></script>
   <script src="js/main.js"></script>
+
+<!-- ════════════ SPOTIFY PLAYER ════════════ -->
+<div id="music-widget">
+  <button id="music-toggle" aria-label="Toggle music player">
+    <span id="music-icon">♫</span>
+    <span id="music-label">Music</span>
+  </button>
+  <div id="spotify-embed">
+    <iframe
+      src="https://open.spotify.com/embed/playlist/1i5lGbRIWZSFJT9s9025i8?utm_source=generator&theme=0"
+      width="300"
+      height="152"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+  </div>
+</div>
+
+<style>
+  #music-widget {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  #spotify-embed {
+    display: none;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    animation: slideUp 0.3s ease;
+  }
+
+  #spotify-embed.open {
+    display: block;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  #music-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #47222c;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e0e0e0;
+    font-family: Georgia, serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  #music-toggle:hover {
+    background: #5a2b37;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('music-toggle');
+  const embed = document.getElementById('spotify-embed');
+  const label = document.getElementById('music-label');
+
+  toggle.addEventListener('click', () => {
+    const isOpen = embed.classList.toggle('open');
+    label.textContent = isOpen ? 'Hide' : 'Music';
+  });
+</script>
+
 </body>
-</html>
