@@ -11,14 +11,11 @@
 <body class="page-home">
 
   <nav id="navbar">
-    <a href="index.html" class="nav-logo">
-      <img src="akcslogo.png" alt="ACKS logo" class="nav-logo-img" />
-    </a>
+    <a href="index.html" class="nav-logo">Your Company</a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="login.html">Login</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
@@ -28,20 +25,25 @@
   <!-- ═══════════════════ HERO ════════════════════ -->
   <section id="hero">
 
+    <!-- Ball — ball.js takes control of this element -->
+    <div id="ball-container">
+      <!-- CSS ball (default) -->
+      <div id="ball-css">
+        <div class="ball-core"></div>
+        <div class="ball-shine"></div>
+      </div>
+      <!-- PNG ball: uncomment below + set USE_PNG=true in ball.js -->
+      <!-- <img id="ball-png" src="assets/images/ball.png" alt="" draggable="false" /> -->
+    </div>
+
     <div class="hero-content">
+      <!-- EDIT: headline — kept on one line -->
       <h1>We build intelligent <span class="highlight">software systems.</span></h1>
+      <!-- EDIT: subheading -->
       <p class="hero-sub">Automation. Applications. Infrastructure.</p>
       <div class="hero-buttons">
         <a href="about.html" class="btn">Explore Our Technology</a>
         <a href="services.html" class="btn btn-outline">View Our Services</a>
-      </div>
-    </div>
-
-    <div id="ball-container">
-      <div id="ball-css">
-        <div class="ball-core"></div>
-        <div class="ball-shine"></div>
-        <div class="ball-ring"></div>
       </div>
     </div>
 
@@ -59,57 +61,39 @@
     </div>
     <div class="value-grid">
 
-      <div class="value-block fade-in delay-1 flip-card">
-        <div class="flip-inner">
-          <div class="flip-front">
-            <div class="value-icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M20 4v4M20 32v4M4 20h4M32 20h4M7.5 7.5l2.8 2.8M29.7 29.7l2.8 2.8M7.5 32.5l2.8-2.8M29.7 10.3l2.8-2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Automation Systems</h3>
-          </div>
-          <div class="flip-back">
-            <p>We design and build workflow automation that eliminates repetitive processes and scales with your business.</p>
-          </div>
+      <div class="value-block fade-in delay-1">
+        <div class="value-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="6" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M20 4v4M20 32v4M4 20h4M32 20h4M7.5 7.5l2.8 2.8M29.7 29.7l2.8 2.8M7.5 32.5l2.8-2.8M29.7 10.3l2.8-2.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
         </div>
+        <h3>Automation Systems</h3>
+        <p>We design and build workflow automation that eliminates repetitive processes and scales with your business.</p>
       </div>
 
-      <div class="value-block fade-in delay-2 flip-card">
-        <div class="flip-inner">
-          <div class="flip-front">
-            <div class="value-icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="6" y="26" width="28" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
-                <rect x="6" y="17" width="28" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
-                <rect x="6" y="8"  width="28" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <h3>Full-Stack Applications</h3>
-          </div>
-          <div class="flip-back">
-            <p>From internal dashboards to customer-facing SaaS — we architect and deliver complete software applications.</p>
-          </div>
+      <div class="value-block fade-in delay-2">
+        <div class="value-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="26" width="28" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="6" y="17" width="28" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="6" y="8"  width="28" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
         </div>
+        <h3>Full-Stack Applications</h3>
+        <p>From internal dashboards to customer-facing SaaS — we architect and deliver complete software applications.</p>
       </div>
 
-      <div class="value-block fade-in delay-3 flip-card">
-        <div class="flip-inner">
-          <div class="flip-front">
-            <div class="value-icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="20" cy="12" rx="12" ry="4" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M8 12v8c0 2.2 5.4 4 12 4s12-1.8 12-4v-8" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M8 20v8c0 2.2 5.4 4 12 4s12-1.8 12-4v-8" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <h3>Data &amp; Infrastructure</h3>
-          </div>
-          <div class="flip-back">
-            <p>Reliable pipelines, cloud infrastructure, and data systems that give you a clear picture of your operations.</p>
-          </div>
+      <div class="value-block fade-in delay-3">
+        <div class="value-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="20" cy="12" rx="12" ry="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 12v8c0 2.2 5.4 4 12 4s12-1.8 12-4v-8" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 20v8c0 2.2 5.4 4 12 4s12-1.8 12-4v-8" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
         </div>
+        <h3>Data &amp; Infrastructure</h3>
+        <p>Reliable pipelines, cloud infrastructure, and data systems that give you a clear picture of your operations.</p>
       </div>
 
     </div>
@@ -152,170 +136,21 @@
     </div>
   </section>
 
-  <style>
-    .flip-card {
-      perspective: 1000px;
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-    }
-
-    .flip-inner {
-      position: relative;
-      width: 100%;
-      height: 260px;
-      transform-style: preserve-3d;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .flip-card.flipped .flip-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flip-front,
-    .flip-back {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 2rem;
-      background: var(--navy);
-      border: 1px solid var(--grey-dark);
-    }
-
-    .flip-front {
-      gap: 2.1rem;
-    }
-
-    .flip-back {
-      transform: rotateY(180deg);
-      background: var(--navy-light);
-      border-color: rgba(181,204,218,0.15);
-    }
-
-    .flip-back p {
-      font-size: 1.3rem;
-      color: var(--grey-light);
-      line-height: 1.75;
-      text-align: center;
-    }
-
-    .flip-front h3 {
-    margin-bottom: 0;
-    font-size: 1.4rem;
-  }
-  </style>
+  <!-- ══════════════ LAST PANEL ══════════════════ -->
+  <section id="lastPanel">
+    <div class="last">
+      <div class="last-text fade-in">
+        <span class="section-label">Ready?</span>
+        <h2>Time to get the<br><span class="highlight">ball rolling.</span></h2>
+        <p>Click the ball — or the button below — to see what we can build for you.</p>
+        <a href="services.html" class="btn">View Our Services</a>
+      </div>
+      <!-- Ball lands here. The ball itself becomes clickable (handled by ball.js) -->
+      <p class="ball-hint fade-in delay-2">↑ click the ball</p>
+    </div>
+  </section>
 
   <script src="js/ball.js"></script>
   <script src="js/main.js"></script>
-
-  <script>
-    (function() {
-      const cards = document.querySelectorAll('.flip-card');
-      let lastY = window.scrollY;
-
-      window.addEventListener('scroll', () => {
-        const currentY = window.scrollY;
-        const scrollingDown = currentY > lastY;
-        lastY = currentY;
-
-        cards.forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const inView = rect.top < window.innerHeight * 0.75 && rect.bottom > 0;
-          if (inView) {
-            if (scrollingDown) {
-              card.classList.add('flipped');
-            } else {
-              card.classList.remove('flipped');
-            }
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- ════════════ SPOTIFY PLAYER ════════════ -->
-  <div id="music-widget">
-    <button id="music-toggle" aria-label="Toggle music player">
-      <span id="music-icon">♫</span>
-      <span id="music-label">Music</span>
-    </button>
-    <div id="spotify-embed">
-      <iframe
-        src="https://open.spotify.com/embed/playlist/1i5lGbRIWZSFJT9s9025i8?utm_source=generator&theme=0"
-        width="300"
-        height="152"
-        frameborder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-      </iframe>
-    </div>
-  </div>
-
-  <style>
-    #music-widget {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.5rem;
-    }
-
-    #spotify-embed {
-      display: none;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      animation: slideUp 0.3s ease;
-    }
-
-    #spotify-embed.open {
-      display: block;
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    #music-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #47222c;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #e0e0e0;
-      font-family: Georgia, serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    #music-toggle:hover {
-      background: #5a2b37;
-    }
-  </style>
-
-  <script>
-    const toggle = document.getElementById('music-toggle');
-    const embed = document.getElementById('spotify-embed');
-    const label = document.getElementById('music-label');
-
-    toggle.addEventListener('click', () => {
-      const isOpen = embed.classList.toggle('open');
-      label.textContent = isOpen ? 'Hide' : 'Music';
-    });
-  </script>
-
 </body>
 </html>
