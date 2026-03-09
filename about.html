@@ -155,7 +155,19 @@
       <a href="services.html" class="btn">View Our Services</a>
     </div>
   </section>
-
+<script>
+  // Make tower blocks clickable — scroll to matching layer
+  document.querySelectorAll('.tower-block').forEach(block => {
+    block.style.cursor = 'pointer';
+    block.addEventListener('click', () => {
+      const index = block.getAttribute('data-index');
+      const layer = document.querySelector('.stack-layer[data-layer="' + index + '"]');
+      if (layer) {
+        layer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+</script>
   <script src="js/main.js"></script>
 </body>
 </html>
