@@ -369,6 +369,7 @@ section {
   color: var(--white);
   white-space: nowrap;          /* keeps headline on one line */
   margin-bottom: 1.2rem;
+  text-align: center;
 }
 
 /* Fallback if viewport is too narrow — allow wrap */
