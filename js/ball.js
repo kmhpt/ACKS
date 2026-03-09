@@ -31,7 +31,7 @@
     // yPercent → vertical resting position (% of section height)
     // exitTo   → 'left' or 'right'
     SECTIONS: [
-      { id: '#hero',            xPercent: 50,  yPercent: 28, exitTo: 'left'  },
+      { id: '#hero',            xPercent: 50,  yPercent: 15, exitTo: 'left'  },
       { id: '#value-statement', xPercent: 30,  yPercent: 50, exitTo: 'right' },
       { id: '#gateway',         xPercent: 70,  yPercent: 50, exitTo: 'left'  },
     ]
