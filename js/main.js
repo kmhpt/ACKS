@@ -5,11 +5,11 @@
 
   /* ── SERVICE DATA ────────────────────────────── */
   var SERVICES = [
-    { id: 'web',            label: 'Web Design & Apps',   sub: 'Full-stack web applications',      rate: 45, defaultHours: 40, color: '#1a2a3a' },
-    { id: 'infrastructure', label: 'Infrastructure',       sub: 'ERDs, DB design, cloud arch.',     rate: 40, defaultHours: 30, color: '#0f1e2e' },
-    { id: 'api',            label: 'API Integrations',     sub: 'Anthropic, OpenAI, REST, ML',      rate: 55, defaultHours: 25, color: '#14283a' },
-    { id: 'data',           label: 'Data Engineering',     sub: 'ETL, analytics, pipelines',        rate: 35, defaultHours: 35, color: '#0d1a28' },
-    { id: 'creative',       label: 'Creative UX / UI',     sub: 'Design systems & interactions',    rate: 25, defaultHours: 20, color: '#1c1828' },
+    { id: 'infrastructure', label: 'Infrastructure',          sub: 'ERDs, database design, cloud architecture', rate: 27, defaultHours: 30 },
+    { id: 'web',            label: 'Web Design & Application',sub: 'Full-stack web applications & portals',     rate: 25, defaultHours: 40 },
+    { id: 'data',           label: 'Data Engineering',        sub: 'ETL pipelines, analytics, dashboards',     rate: 27, defaultHours: 35 },
+    { id: 'creative',       label: 'Creative UX / UI',        sub: 'Design systems & interactions',            rate: 25, defaultHours: 20 },
+    { id: 'api',            label: 'API Integrations',        sub: 'Anthropic, OpenAI, REST, ML pipelines',    rate: 28, defaultHours: 25 },
   ];
 
   var cartState = {}; // id → hours
@@ -127,177 +127,115 @@
   }
 
   /* ═══════════════════════════════════════════════
-     SERVICE CARD DECK
-     Cards overlap like a deck. Each is angled.
-     Hover → highlights. Click → rotates flat (toggle).
-     Flat card → detail panel slides in from left.
+     SERVICE LIST — vertical rows with expand/collapse
+     Click row → expand detail → Add to Estimate btn
   ═══════════════════════════════════════════════ */
-  function initDeck() {
-    var deckEl = document.getElementById('service-deck');
-    if (!deckEl) return;
+  function initServiceList() {
+    var listEl = document.getElementById('service-list');
+    if (!listEl) return;
 
-    /* Layout constants */
-    var CARD_W   = 320;
-    var CARD_H   = 80;
-    var STACK_ANGLE = 10;  // degrees each card fans out
-    var OFFSET_Y    = 18;  // px vertical separation between stacked cards
-    var OFFSET_X    = 8;   // slight horizontal fan
+    /* Detail content per service */
+    var DETAILS = {
+      infrastructure: {
+        desc: 'ERD and database design, cloud architecture, and CI/CD pipelines. We design the backbone of your technical system so everything above it is stable and scalable.',
+        items: ['Entity-relationship diagram (ERD) design', 'Database design &amp; SQL schema', 'Cloud architecture (AWS, GCP, Azure)', 'CI/CD pipeline setup'],
+        link: 'about.html'
+      },
+      web: {
+        desc: 'From architecture to deployment — we build web applications, internal tools, client portals, and SaaS products that are fast, reliable, and easy to hand off.',
+        items: ['Frontend (React, HTML/CSS/JS)', 'Backend &amp; database integration', 'Authentication &amp; user management', 'Deployment &amp; hosting setup'],
+        link: 'about.html'
+      },
+      data: {
+        desc: 'Clean, structured data is the backbone of every intelligent system. We build ETL pipelines, analytics dashboards, and full process pipelines that turn raw data into reliable, actionable insight.',
+        items: ['ETL pipeline design &amp; build', 'Analytics dashboards &amp; reporting', 'Full end-to-end process pipelines', 'Data modeling &amp; warehouse architecture'],
+        link: 'about.html'
+      },
+      creative: {
+        desc: 'Custom UX and UI design for web products, dashboards, and brand experiences — interactive, considered, and built with the same craft you see on this site.',
+        items: ['UI design &amp; component systems', 'UX flow &amp; wireframing', 'Scroll animations &amp; micro-interactions', 'Brand-aligned web experiences'],
+        link: 'about.html'
+      },
+      api: {
+        desc: 'We integrate third-party services, AI tools, and internal systems into a unified platform — including AI automation using Anthropic and OpenAI to reduce repetitive tasks.',
+        items: ['Anthropic / OpenAI API integration', 'SciKit Learn, XGBoost &amp; ML pipelines', 'REST &amp; GraphQL API development', 'CRM, ERP &amp; third-party connections'],
+        link: 'about.html'
+      }
+    };
 
-    /* Build card elements */
-    SERVICES.forEach(function (svc, i) {
-      var card = document.createElement('div');
-      card.className   = 'deck-card';
-      card.setAttribute('data-id', svc.id);
-      card.setAttribute('data-index', i);
+    SERVICES.forEach(function (svc) {
+      var det = DETAILS[svc.id] || {};
+      var itemsHtml = (det.items || []).map(function (item) {
+        return '<li>' + item + '</li>';
+      }).join('');
 
-      /* Stacking angle: middle card is flattest, outer cards more angled */
-      var mid    = (SERVICES.length - 1) / 2;
-      var angle  = (i - mid) * STACK_ANGLE * 0.6;
-      var yOff   = i * OFFSET_Y;
-      var xOff   = (i - mid) * OFFSET_X;
+      var row = document.createElement('div');
+      row.className = 'service-row';
+      row.setAttribute('data-id', svc.id);
 
-      card.style.cssText =
-        'position:absolute;' +
-        'width:' + CARD_W + 'px;' +
-        'height:' + CARD_H + 'px;' +
-        'left:50%;' +
-        'top:' + yOff + 'px;' +
-        'transform:translateX(-50%) rotate(' + angle + 'deg);' +
-        'transform-origin:center center;' +
-        'background:' + svc.color + ';' +
-        'border:1px solid rgba(181,204,218,0.18);' +
-        'cursor:pointer;' +
-        'transition:transform 0.55s cubic-bezier(0.34,1.2,0.64,1),' +
-                    'box-shadow 0.3s ease,border-color 0.3s ease,' +
-                    'background 0.3s ease;' +
-        'border-radius:2px;' +
-        'display:flex;align-items:center;padding:0 1.4rem;gap:1rem;' +
-        'z-index:' + (10 + i) + ';';
+      row.innerHTML =
+        '<div class="service-row-head">' +
+          '<div class="service-row-left">' +
+            '<span class="service-row-name">' + svc.label + '</span>' +
+            '<span class="service-row-sub">' + svc.sub + '</span>' +
+          '</div>' +
+          '<div class="service-row-right">' +
+            '<span class="service-row-rate">$' + svc.rate + ' / hr</span>' +
+            '<span class="service-row-chevron">+</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="service-row-expand">' +
+          '<p class="service-row-desc">' + (det.desc || '') + '</p>' +
+          '<div class="service-row-includes">' +
+            '<span class="service-row-includes-label">Includes</span>' +
+            '<ul>' + itemsHtml + '</ul>' +
+          '</div>' +
+          '<div class="service-row-footer">' +
+            '<button class="service-add-btn" data-id="' + svc.id + '">+ Add to Estimate</button>' +
+            '<a href="' + (det.link || 'about.html') + '" class="service-row-more">Read more on About →</a>' +
+          '</div>' +
+        '</div>';
 
-      /* Rate badge */
-      var rateBadge = document.createElement('span');
-      rateBadge.className = 'deck-rate';
-      rateBadge.textContent = '$' + svc.rate + '/hr';
-
-      /* Text */
-      var textWrap = document.createElement('div');
-      textWrap.style.cssText = 'flex:1;overflow:hidden;';
-
-      var title = document.createElement('div');
-      title.className   = 'deck-title';
-      title.textContent = svc.label;
-
-      var sub = document.createElement('div');
-      sub.className   = 'deck-sub';
-      sub.textContent = svc.sub;
-
-      textWrap.appendChild(title);
-      textWrap.appendChild(sub);
-      card.appendChild(rateBadge);
-      card.appendChild(textWrap);
-
-      /* Selected indicator dot */
-      var dot = document.createElement('div');
-      dot.className = 'deck-dot';
-      card.appendChild(dot);
-
-      deckEl.appendChild(card);
+      listEl.appendChild(row);
     });
 
-    /* Set deck wrapper height */
-    var totalH = (SERVICES.length - 1) * OFFSET_Y + CARD_H + 60;
-    deckEl.style.position = 'relative';
-    deckEl.style.height   = totalH + 'px';
-    deckEl.style.width    = CARD_W + 40 + 'px';
-    deckEl.style.margin   = '0 auto';
+    /* Toggle expand on row click */
+    listEl.addEventListener('click', function (e) {
+      var head = e.target.closest('.service-row-head');
+      var addBtn = e.target.closest('.service-add-btn');
 
-    /* Interaction */
-    var cards  = deckEl.querySelectorAll('.deck-card');
-    var panels = document.querySelectorAll('.service-panel');
-    var closes = document.querySelectorAll('.panel-close');
-
-    function setCardFlat(card, flat) {
-      var i     = parseInt(card.getAttribute('data-index'), 10);
-      var mid   = (SERVICES.length - 1) / 2;
-      var angle = (i - mid) * STACK_ANGLE * 0.6;
-      var yOff  = i * OFFSET_Y;
-
-      if (flat) {
-        card.style.transform = 'translateX(-50%) rotate(0deg) translateY(' + (yOff * 0.4) + 'px)';
-        card.style.borderColor = 'rgba(0,212,255,0.7)';
-        card.style.boxShadow   = '0 0 24px rgba(0,212,255,0.25)';
-        card.style.background  = '#1a3248';
-      } else {
-        card.style.transform = 'translateX(-50%) rotate(' + angle + 'deg)';
-        card.style.borderColor = 'rgba(181,204,218,0.18)';
-        card.style.boxShadow   = 'none';
-        var svc = SERVICES[i];
-        card.style.background = svc ? svc.color : '#0d1117';
-        card.classList.remove('deck-selected');
-      }
-    }
-
-    cards.forEach(function (card) {
-      var id = card.getAttribute('data-id');
-
-      card.addEventListener('mouseenter', function () {
-        if (card.classList.contains('deck-selected')) return;
-        var i   = parseInt(card.getAttribute('data-index'), 10);
-        var mid = (SERVICES.length - 1) / 2;
-        var ang = (i - mid) * STACK_ANGLE * 0.6;
-        var yOff = i * OFFSET_Y;
-        card.style.transform   = 'translateX(-50%) rotate(' + (ang * 0.3) + 'deg) translateY(' + (yOff * 0.95 - 6) + 'px)';
-        card.style.borderColor = 'rgba(181,204,218,0.5)';
-        card.style.boxShadow   = '0 4px 20px rgba(0,0,0,0.4)';
-        card.style.background  = '#223040';
-      });
-
-      card.addEventListener('mouseleave', function () {
-        if (card.classList.contains('deck-selected')) return;
-        setCardFlat(card, false);
-      });
-
-      card.addEventListener('click', function () {
-        var isSelected = card.classList.contains('deck-selected');
-
-        if (isSelected) {
-          /* Deselect: rotate back to angled */
-          card.classList.remove('deck-selected');
-          setCardFlat(card, false);
-          /* Close panel */
-          var panel = document.getElementById('panel-' + id);
-          if (panel) panel.classList.remove('panel-active');
-          delete cartState[id];
+      if (addBtn) {
+        var id = addBtn.getAttribute('data-id');
+        var svc = null;
+        for (var k = 0; k < SERVICES.length; k++) { if (SERVICES[k].id === id) { svc = SERVICES[k]; break; } }
+        if (!svc) return;
+        if (!cartState[id]) {
+          cartState[id] = svc.defaultHours;
+          addBtn.textContent = '✓ Added';
+          addBtn.classList.add('service-add-btn--added');
         } else {
-          /* Select: flatten */
-          card.classList.add('deck-selected');
-          setCardFlat(card, true);
-          /* Close other panels, open this one */
-          panels.forEach(function (p) { p.classList.remove('panel-active'); });
-          var panel = document.getElementById('panel-' + id);
-          if (panel) panel.classList.add('panel-active');
-          /* Add to cart */
-          var svc = SERVICES.find ? SERVICES.find(function (s) { return s.id === id; }) :
-            (function () { for (var k = 0; k < SERVICES.length; k++) { if (SERVICES[k].id === id) return SERVICES[k]; } })();
-          if (svc) cartState[id] = svc.defaultHours;
+          delete cartState[id];
+          addBtn.textContent = '+ Add to Estimate';
+          addBtn.classList.remove('service-add-btn--added');
         }
         renderCart();
-      });
-    });
+        return;
+      }
 
-    /* Panel close buttons */
-    closes.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        panels.forEach(function (p) { p.classList.remove('panel-active'); });
-      });
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.service-panel') &&
-          !e.target.closest('.deck-card') &&
-          !e.target.closest('#cart-panel') &&
-          !e.target.closest('#calc-tab')) {
-        panels.forEach(function (p) { p.classList.remove('panel-active'); });
+      if (head) {
+        var row = head.closest('.service-row');
+        var isOpen = row.classList.contains('service-row--open');
+        /* Close all */
+        listEl.querySelectorAll('.service-row--open').forEach(function (r) {
+          r.classList.remove('service-row--open');
+          var ch = r.querySelector('.service-row-chevron');
+          if (ch) ch.textContent = '+';
+        });
+        if (!isOpen) {
+          row.classList.add('service-row--open');
+          var chev = row.querySelector('.service-row-chevron');
+          if (chev) chev.textContent = '−';
+        }
       }
     });
 
@@ -306,11 +244,10 @@
     if (clearBtn) {
       clearBtn.addEventListener('click', function () {
         cartState = {};
-        cards.forEach(function (c) {
-          c.classList.remove('deck-selected');
-          setCardFlat(c, false);
+        listEl.querySelectorAll('.service-add-btn').forEach(function (btn) {
+          btn.textContent = '+ Add to Estimate';
+          btn.classList.remove('service-add-btn--added');
         });
-        panels.forEach(function (p) { p.classList.remove('panel-active'); });
         renderCart();
       });
     }
@@ -318,23 +255,7 @@
 
   /* ── COLLAPSIBLE CALCULATOR TAB ──────────────── */
   function initCalcTab() {
-    var wrapper = document.getElementById('calc-wrapper');
-    var tab     = document.getElementById('calc-tab');
-    var icon    = document.getElementById('calc-tab-icon');
-    if (!wrapper || !tab) return;
-
-    var open = true; // starts open
-
-    tab.addEventListener('click', function () {
-      open = !open;
-      if (open) {
-        wrapper.classList.remove('calc-closed');
-        icon.innerHTML = '&#9654;'; // ▶ points right (close)
-      } else {
-        wrapper.classList.add('calc-closed');
-        icon.innerHTML = '&#9664;'; // ◀ points left (open)
-      }
-    });
+    /* Tab is no longer used — calculator is inline. No-op. */
   }
 
   /* ── CART RENDER ─────────────────────────────── */
@@ -396,13 +317,19 @@
         for (var k = 0; k < SERVICES.length; k++) { if (SERVICES[k].id === id) { svc = SERVICES[k]; break; } }
         if (lbl) lbl.textContent = hrs + ' hrs';
         if (sub && svc) sub.textContent = '$' + (svc.rate * hrs).toLocaleString();
-        var t = 0;
+        var t = 0, rateSum = 0, count = 0;
         Object.keys(cartState).forEach(function (k) {
           var s = null;
           for (var j = 0; j < SERVICES.length; j++) { if (SERVICES[j].id === k) { s = SERVICES[j]; break; } }
-          if (s) t += s.rate * cartState[k];
+          if (s) { t += s.rate * cartState[k]; rateSum += s.rate; count++; }
         });
         if (totalVal) totalVal.textContent = '$' + t.toLocaleString();
+        var avgRow = document.getElementById('cart-avg-row');
+        var avgVal = document.getElementById('cart-avg-value');
+        if (avgRow && avgVal && count > 0) {
+          avgRow.style.display = 'flex';
+          avgVal.textContent = '$' + (rateSum / count).toFixed(2) + ' / hr';
+        }
       });
     });
 
@@ -472,6 +399,53 @@
     });
   }
 
+  /* ── SCROLL BALL (home page) ─────────────────── */
+  function initScrollBall() {
+    var ball = document.getElementById('scroll-ball');
+    if (!ball) return;
+
+    var NAV_H  = 80;
+    var EDGE   = 48;
+    var sectionIds = ['hero','value-statement','gateway','membership-home','lastPanel'];
+    var bounced = {};
+
+    function getMaxScroll() { return Math.max(1, document.documentElement.scrollHeight - window.innerHeight); }
+
+    function update() {
+      var scrollY   = window.scrollY;
+      var maxScroll = getMaxScroll();
+      var progress  = Math.min(1, scrollY / maxScroll);
+
+      var minY = NAV_H + EDGE;
+      var maxY = window.innerHeight - EDGE;
+      var vy   = minY + (maxY - minY) * progress;
+
+      /* subtle sine for liveliness between bounces */
+      var sine  = Math.sin(progress * Math.PI * 12) * 3;
+
+      ball.style.top     = (vy + sine) + 'px';
+      ball.style.opacity = scrollY > 30 ? '1' : '0';
+
+      /* bounce at section boundaries */
+      sectionIds.forEach(function (id) {
+        var sec = document.getElementById(id);
+        if (!sec) return;
+        var rect = sec.getBoundingClientRect();
+        if (Math.abs(rect.top) < 90 && !bounced[id]) {
+          bounced[id] = true;
+          ball.classList.remove('ball-squish');
+          void ball.offsetWidth;
+          ball.classList.add('ball-squish');
+          setTimeout(function () { bounced[id] = false; }, 1200);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
   /* ── BOOT ────────────────────────────────────── */
   function boot() {
     initNav();
@@ -480,10 +454,11 @@
     initHeaderGlow();
     initFlipCards();
     initTower();
-    initDeck();
+    initServiceList();
     initCalcTab();
     initBeamCards();
     initMusic();
+    initScrollBall();
   }
 
   if (document.readyState === 'loading') {

@@ -83,135 +83,57 @@
     </div>
   </section>
 
-  <!-- SERVICES DECK + PANELS + CALCULATOR -->
+  <!-- SERVICES LIST + INLINE CALCULATOR -->
   <section id="services-deck-section">
+    <div class="services-main-layout">
 
-    <!-- LEFT: fixed info panels (position:fixed when active) -->
-    <div id="service-panels">
-      <div class="service-panel" id="panel-infrastructure">
-        <button class="panel-close" aria-label="Close">✕</button>
-        <span class="section-label">Infrastructure</span>
-        <h3>The foundation your systems run on.</h3>
-        <p class="panel-description">ERD and database design, cloud architecture, and CI/CD pipelines. We design the backbone of your technical system so everything above it is stable and scalable.</p>
-        <div class="panel-solutions"><h4>Includes</h4><ul>
-          <li>Entity-relationship diagram (ERD) design</li>
-          <li>Database design &amp; SQL schema</li>
-          <li>Cloud architecture (AWS, GCP, Azure)</li>
-          <li>CI/CD pipeline setup</li>
-        </ul></div>
-        <div class="panel-rate"><span class="rate-label">Rate</span><span class="rate-value">$27 / hr</span></div>
-        <a href="about.html#layer-infrastructure" class="panel-readmore">Read more on About page →</a>
+      <!-- LEFT: vertical service list -->
+      <div class="services-list-col">
+        <p class="deck-hint fade-in">Click a service to expand details &amp; add to your estimate</p>
+        <div id="service-list">
+          <!-- rows injected by JS -->
+        </div>
       </div>
-      <div class="service-panel" id="panel-web">
-        <button class="panel-close" aria-label="Close">✕</button>
-        <span class="section-label">Web Design &amp; Application</span>
-        <h3>Full-stack web apps built for real workflows.</h3>
-        <p class="panel-description">From architecture to deployment — we build web applications, internal tools, client portals, and SaaS products that are fast, reliable, and easy to hand off.</p>
-        <div class="panel-solutions"><h4>Includes</h4><ul>
-          <li>Frontend (React, HTML/CSS/JS)</li>
-          <li>Backend &amp; database integration</li>
-          <li>Authentication &amp; user management</li>
-          <li>Deployment &amp; hosting setup</li>
-        </ul></div>
-        <div class="panel-rate"><span class="rate-label">Rate</span><span class="rate-value">$25 / hr</span></div>
-        <a href="about.html#layer-applications" class="panel-readmore">Read more on About page →</a>
+
+      <!-- RIGHT: sticky project estimator -->
+      <div class="services-calc-col">
+        <div id="cart-panel">
+          <div id="cart-header">
+            <div>
+              <span class="section-label" style="margin-bottom:0.2rem;display:block">Project Estimator</span>
+              <h4 id="cart-title">Estimate Your Project Cost</h4>
+            </div>
+            <button id="cart-clear" title="Clear all">✕ Clear</button>
+          </div>
+          <div id="cart-disclaimer">
+            Figures are estimates only. Final pricing is confirmed during your free consultation and agreed upon contract.
+          </div>
+          <div id="cart-items">
+            <p id="cart-empty">Select services from the list to build an estimate.</p>
+          </div>
+          <div id="cart-avg-row" style="display:none">
+            <div class="cart-avg-label">
+              <span class="cart-avg-title">Avg. Blended Rate</span>
+              <span class="cart-avg-note">Sum of selected rates ÷ number of services</span>
+            </div>
+            <div id="cart-avg-value">$0.00 / hr</div>
+          </div>
+          <div id="cart-total-row" style="display:none">
+            <div id="cart-total-label">Estimated Total</div>
+            <div id="cart-total-value">$0</div>
+          </div>
+          <div id="cart-cta" style="display:none">
+            <a href="#contact" class="btn" style="width:100%;text-align:center;display:block">Book Free Consultation</a>
+            <a href="login.html" class="cart-login-prompt">
+              <span class="cart-login-icon">→</span> Login to submit request
+            </a>
+            <p class="cart-not-sure">Not sure? <a href="#contact">Let's talk</a> — we'll scope it together.</p>
+          </div>
+        </div>
       </div>
-      <div class="service-panel" id="panel-data">
-        <button class="panel-close" aria-label="Close">✕</button>
-        <span class="section-label">Data Engineering</span>
-        <h3>Turn raw data into reliable infrastructure.</h3>
-        <p class="panel-description">ETL pipelines, analytics dashboards, and full process pipelines. We build the data layer your business depends on — clean, structured, and ready to drive decisions.</p>
-        <div class="panel-solutions"><h4>Includes</h4><ul>
-          <li>ETL pipeline design &amp; build</li>
-          <li>Analytics dashboards &amp; reporting</li>
-          <li>Full end-to-end process pipelines</li>
-          <li>Data modeling &amp; warehouse architecture</li>
-        </ul></div>
-        <div class="panel-rate"><span class="rate-label">Rate</span><span class="rate-value">$27 / hr</span></div>
-        <a href="about.html#layer-data" class="panel-readmore">Read more on About page →</a>
-      </div>
-      <div class="service-panel" id="panel-creative">
-        <button class="panel-close" aria-label="Close">✕</button>
-        <span class="section-label">Creative UX / UI</span>
-        <h3>Interfaces that feel as good as they work.</h3>
-        <p class="panel-description">Custom UX and UI design for web products, dashboards, and brand experiences — interactive, considered, and built with the same craft you see on this site.</p>
-        <div class="panel-solutions"><h4>Includes</h4><ul>
-          <li>UI design &amp; component systems</li>
-          <li>UX flow &amp; wireframing</li>
-          <li>Scroll animations &amp; micro-interactions</li>
-          <li>Brand-aligned web experiences</li>
-        </ul></div>
-        <div class="panel-rate"><span class="rate-label">Rate</span><span class="rate-value">$25 / hr</span></div>
-        <a href="about.html#layer-creative" class="panel-readmore">Read more on About page →</a>
-      </div>
-      <div class="service-panel" id="panel-api">
-        <button class="panel-close" aria-label="Close">✕</button>
-        <span class="section-label">API Integrations</span>
-        <h3>Connect everything. Automate the rest.</h3>
-        <p class="panel-description">We integrate third-party services, AI tools, and internal systems into a unified platform — including AI automation using Anthropic and OpenAI to reduce repetitive tasks and enhance your workflows intelligently.</p>
-        <div class="panel-solutions"><h4>Includes</h4><ul>
-          <li>Anthropic / OpenAI API integration</li>
-          <li>SciKit Learn, XGBoost &amp; ML pipelines</li>
-          <li>REST &amp; GraphQL API development</li>
-          <li>CRM, ERP &amp; third-party connections</li>
-          <li>AI-assisted workflow automation</li>
-        </ul></div>
-        <div class="panel-rate"><span class="rate-label">Rate</span><span class="rate-value">$28 / hr</span></div>
-        <a href="about.html#layer-apis" class="panel-readmore">Read more on About page →</a>
-      </div>
+
     </div>
-
-    <!-- CENTRE: vertical service list -->
-    <div id="deck-area">
-      <div class="deck-hint-block fade-in">
-        <p class="deck-hint">Click a service to learn more &amp; add it to your estimate</p>
-      </div>
-      <div id="service-list">
-        <!-- Rows injected by JS -->
-      </div>
-    </div>
-
   </section>
-
-  <!-- FIXED CALCULATOR (slides in from right) -->
-  <button id="calc-tab" aria-label="Toggle estimate">
-    <span id="calc-tab-icon">&#9664;</span>
-    <span id="calc-tab-label">Estimate</span>
-  </button>
-
-  <div id="cart-panel">
-    <div id="cart-header">
-      <div>
-        <span class="section-label" style="margin-bottom:0.2rem;display:block">Project Estimator</span>
-        <h4 id="cart-title">Estimate Your Project Cost</h4>
-      </div>
-      <button id="cart-clear" title="Clear all">✕ Clear</button>
-    </div>
-    <div id="cart-disclaimer">
-      Figures are estimates only. Final pricing is confirmed during your free consultation and agreed upon contract.
-    </div>
-    <div id="cart-items">
-      <p id="cart-empty">Select services from the list to build an estimate.</p>
-    </div>
-    <div id="cart-avg-row" style="display:none">
-      <div class="cart-avg-label">
-        <span class="cart-avg-title">Avg. Blended Rate</span>
-        <span class="cart-avg-note">Sum of selected rates ÷ number of services</span>
-      </div>
-      <div id="cart-avg-value">$0.00 / hr</div>
-    </div>
-    <div id="cart-total-row" style="display:none">
-      <div id="cart-total-label">Estimated Total</div>
-      <div id="cart-total-value">$0</div>
-    </div>
-    <div id="cart-cta" style="display:none">
-      <a href="services.html#contact" class="btn" style="width:100%;text-align:center;display:block">Book Free Consultation</a>
-      <a href="login.html" class="cart-login-prompt">
-        <span class="cart-login-icon">→</span> Login to submit request
-      </a>
-      <p class="cart-not-sure">Not sure? <a href="services.html#contact">Let's talk</a> — we'll scope it together.</p>
-    </div>
-  </div>
 
   <!-- PACKAGES -->
   <section id="packages-section">
