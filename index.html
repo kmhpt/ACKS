@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    .hero-content h1 { white-space: normal; text-align: left; max-width: 680px; }
+    .hero-content { text-align: left; }
+    .hero-buttons { justify-content: flex-start; }
+    .hero-sub { text-align: left; }
+    #hero { align-items: flex-start; padding-left: 5rem; }
+    @media (max-width: 700px) {
+      #hero { padding-left: 2rem; align-items: center; }
+      .hero-content h1, .hero-content, .hero-sub { text-align: center; }
+      .hero-buttons { justify-content: center; }
+    }
+  </style>
 </head>
 <body class="page-home">
 
@@ -18,6 +30,7 @@
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="services.html">Services</a></li>
+      <li><a href="membership.html">Membership</a></li>
       <li><a href="login.html">Login</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Toggle navigation">
@@ -28,20 +41,13 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-content">
-      <h1>We build intelligent <span class="highlight">software systems.</span></h1>
+      <h1>We build intelligent<br><span class="highlight">software systems.</span></h1>
       <p class="hero-sub">Automation. Applications. Infrastructure.</p>
       <div class="hero-buttons">
         <a href="about.html" class="btn">Explore Our Technology</a>
         <a href="services.html" class="btn btn-outline">View Our Services</a>
       </div>
     </div>
-
-    <!-- Ball renders BELOW the text — ball.js fixes it to viewport -->
-    <div id="ball-container">
-      <div id="ball-css">
-        <div class="ball-core"></div>
-        <div class="ball-shine"></div>
-      </div>
     </div>
 
     <div class="scroll-cue" aria-hidden="true">
@@ -152,7 +158,7 @@
         <p>Click the ball — or the button below — to see what we can build for you.</p>
         <a href="services.html" class="btn">View Our Services</a>
       </div>
-      <p class="ball-hint fade-in delay-2">↑ click the ball</p>
+    
     </div>
   </section>
 
@@ -192,7 +198,7 @@
         </div>
         <div class="footer-links">
           <a href="index.html">Home</a><a href="about.html">About</a>
-          <a href="services.html">Services</a><a href="login.html">Login</a>
+          <a href="services.html">Services</a><a href="membership.html">Membership</a><a href="login.html">Login</a>
         </div>
         <p class="footer-copy">© 2025 ACKS. All rights reserved.</p>
       </div>
