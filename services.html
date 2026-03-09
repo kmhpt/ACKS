@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services — Your Company</title>
+  <title>Services — ACKS</title>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
@@ -11,9 +11,9 @@
 <body class="page-services">
 
   <nav id="navbar">
-  <a href="index.html" class="nav-logo">
-    <img src="akcslogo.png" alt="ACKS logo" class="nav-logo-img" />
-  </a>
+    <a href="index.html" class="nav-logo">
+      <img src="akcslogo.png" alt="ACKS logo" class="nav-logo-img" />
+    </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
@@ -25,47 +25,89 @@
     </button>
   </nav>
 
-  <!-- ═══════════════ PAGE HEADER ═════════════════ -->
+  <!-- PAGE HEADER -->
   <header id="services-hero">
     <div class="page-header-content">
       <span class="section-label">Services</span>
-      <h1>A connected <span class="highlight">system of solutions.</span></h1>
-      <p class="hero-sub">Our services work together. Click any node to explore.</p>
+      <h1>Enterprise-grade software.<br><span class="highlight">SME-friendly pricing.</span></h1>
+      <p class="hero-sub">We bridge the gap between expensive consulting firms and the tools small businesses actually need. Click any service node to explore.</p>
     </div>
   </header>
 
-  <!-- ══════════════ NETWORK ══════════════════════ -->
+  <!-- SME CALLOUT -->
+  <div id="sme-callout">
+    <div class="sme-inner">
+      <div class="sme-block">
+        <span class="section-label">Who We Serve</span>
+        <h4>Small &amp; Medium Businesses</h4>
+        <p>We specialise in small-to-medium projects — the kind that corporate firms overcharge for. Right-sized teams, right-sized budgets.</p>
+      </div>
+      <div class="sme-block">
+        <span class="section-label">What We Deliver</span>
+        <h4>Tools You Own Outright</h4>
+        <p>Every engagement ends with a fully delivered system — no ongoing dependency on us. You own the code, the data, and the process.</p>
+      </div>
+      <div class="sme-block">
+        <span class="section-label">Ongoing Support</span>
+        <h4>Subscription Plans Available</h4>
+        <p>Need continuous support or evolving solutions? Our subscription tier gives you dedicated access at a predictable monthly rate. <a href="login.html">Login to manage</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <section id="process-section">
+    <div class="section-header fade-in">
+      <span class="section-label">How It Works</span>
+      <h2>Three steps from problem to solution.</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step fade-in delay-1">
+        <span class="step-number">01</span>
+        <h4>Free Consultation</h4>
+        <p>We start with a scoping call to understand your problem, your existing systems, and what success looks like. No obligation, no jargon.</p>
+        <div class="process-arrow"></div>
+      </div>
+      <div class="process-step fade-in delay-2">
+        <span class="step-number">02</span>
+        <h4>Contract &amp; Scope</h4>
+        <p>We define the exact deliverable, timeline, and price in a clear contract. No surprises, no scope creep — you approve everything upfront.</p>
+        <div class="process-arrow"></div>
+      </div>
+      <div class="process-step fade-in delay-3">
+        <span class="step-number">03</span>
+        <h4>Delivery &amp; Handoff</h4>
+        <p>We build and deliver the agreed tool or optimised process. Full handoff — documentation, training, and everything you need to run it independently.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETWORK -->
   <section id="network-section">
     <div id="network-canvas">
       <svg id="network-svg" aria-hidden="true"></svg>
 
       <div class="service-node" data-id="web-apps"       id="node-web-apps">
-        <div class="node-circle"></div>
-        <span class="node-label">Web Applications</span>
+        <div class="node-circle"></div><span class="node-label">Web Applications</span>
       </div>
       <div class="service-node" data-id="automation"     id="node-automation">
-        <div class="node-circle"></div>
-        <span class="node-label">Automation Systems</span>
+        <div class="node-circle"></div><span class="node-label">Automation Systems</span>
       </div>
       <div class="service-node" data-id="data-eng"       id="node-data-eng">
-        <div class="node-circle"></div>
-        <span class="node-label">Data Engineering</span>
+        <div class="node-circle"></div><span class="node-label">Data Engineering</span>
       </div>
       <div class="service-node" data-id="api"            id="node-api">
-        <div class="node-circle"></div>
-        <span class="node-label">API Integrations</span>
+        <div class="node-circle"></div><span class="node-label">API Integrations</span>
       </div>
       <div class="service-node" data-id="ai-ml"          id="node-ai-ml">
-        <div class="node-circle"></div>
-        <span class="node-label">AI / Machine Learning</span>
+        <div class="node-circle"></div><span class="node-label">AI / Machine Learning</span>
       </div>
       <div class="service-node" data-id="infrastructure" id="node-infrastructure">
-        <div class="node-circle"></div>
-        <span class="node-label">Infrastructure</span>
+        <div class="node-circle"></div><span class="node-label">Infrastructure</span>
       </div>
     </div>
 
-    <!-- ══ Service Panels ══ -->
+    <!-- PANELS — slide in from LEFT -->
     <div id="service-panels">
 
       <div class="service-panel" id="panel-web-apps">
@@ -73,29 +115,16 @@
         <span class="section-label">Web Applications</span>
         <h3>Custom web apps built for real workflows.</h3>
         <p class="panel-description">We build web applications end-to-end — from architecture and backend to frontend and deployment. Whether it's a client portal, internal tool, or full SaaS product, we deliver software that works.</p>
-        <div class="panel-solutions">
-          <h4>Example Solutions</h4>
-          <ul>
-            <li>Customer-facing SaaS platforms</li>
-            <li>Internal business dashboards</li>
-            <li>Admin &amp; operations portals</li>
-            <li>Data visualisation interfaces</li>
-          </ul>
-        </div>
-        <div class="panel-pricing">
-          <h4>Pricing</h4>
-          <div class="pricing-tier">
-            <span class="tier-name">Starter</span><span class="tier-price">From $2,500</span>
-            <span class="tier-desc">Single-feature internal tool or MVP</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Standard</span><span class="tier-price">From $7,500</span>
-            <span class="tier-desc">Full web application with auth, DB, and deployment</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
-            <span class="tier-desc">Complex systems, SaaS products, or multi-phase builds</span>
-          </div>
+        <div class="panel-solutions"><h4>Example Solutions</h4><ul>
+          <li>Customer-facing SaaS platforms</li>
+          <li>Internal business dashboards</li>
+          <li>Admin &amp; operations portals</li>
+          <li>Data visualisation interfaces</li>
+        </ul></div>
+        <div class="panel-pricing"><h4>Pricing</h4>
+          <div class="pricing-tier"><span class="tier-name">Starter</span><span class="tier-price">From $2,500</span><span class="tier-desc">Single-feature internal tool or MVP</span></div>
+          <div class="pricing-tier"><span class="tier-name">Standard</span><span class="tier-price">From $7,500</span><span class="tier-desc">Full web application with auth, DB, and deployment</span></div>
+          <div class="pricing-tier"><span class="tier-name">Custom</span><span class="tier-price">Let's talk</span><span class="tier-desc">Complex systems, SaaS products, or multi-phase builds</span></div>
         </div>
       </div>
 
@@ -103,30 +132,17 @@
         <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">Automation Systems</span>
         <h3>Eliminate repetitive work. Scale what matters.</h3>
-        <p class="panel-description">We map your existing workflows and replace manual, time-consuming processes with reliable automated systems. From simple task triggers to complex multi-system orchestration.</p>
-        <div class="panel-solutions">
-          <h4>Example Solutions</h4>
-          <ul>
-            <li>Workflow &amp; business process automation</li>
-            <li>API orchestration &amp; scheduling</li>
-            <li>Automated reporting &amp; notifications</li>
-            <li>Document generation &amp; processing</li>
-          </ul>
-        </div>
-        <div class="panel-pricing">
-          <h4>Pricing</h4>
-          <div class="pricing-tier">
-            <span class="tier-name">Starter</span><span class="tier-price">From $1,500</span>
-            <span class="tier-desc">Single workflow automation</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Standard</span><span class="tier-price">From $4,000</span>
-            <span class="tier-desc">Multi-step process automation with integrations</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
-            <span class="tier-desc">Enterprise-scale automation architecture</span>
-          </div>
+        <p class="panel-description">We map your existing workflows and replace manual processes with reliable automated systems. From simple task triggers to complex multi-system orchestration.</p>
+        <div class="panel-solutions"><h4>Example Solutions</h4><ul>
+          <li>Workflow &amp; business process automation</li>
+          <li>API orchestration &amp; scheduling</li>
+          <li>Automated reporting &amp; notifications</li>
+          <li>Document generation &amp; processing</li>
+        </ul></div>
+        <div class="panel-pricing"><h4>Pricing</h4>
+          <div class="pricing-tier"><span class="tier-name">Starter</span><span class="tier-price">From $1,500</span><span class="tier-desc">Single workflow automation</span></div>
+          <div class="pricing-tier"><span class="tier-name">Standard</span><span class="tier-price">From $4,000</span><span class="tier-desc">Multi-step process automation with integrations</span></div>
+          <div class="pricing-tier"><span class="tier-name">Custom</span><span class="tier-price">Let's talk</span><span class="tier-desc">Enterprise-scale automation architecture</span></div>
         </div>
       </div>
 
@@ -135,29 +151,16 @@
         <span class="section-label">Data Engineering</span>
         <h3>Turn raw data into reliable infrastructure.</h3>
         <p class="panel-description">We design and build the data layer your business runs on. Clean pipelines, well-structured databases, and analytics systems that give you trustworthy data at every level.</p>
-        <div class="panel-solutions">
-          <h4>Example Solutions</h4>
-          <ul>
-            <li>ETL pipeline design &amp; build</li>
-            <li>Data warehouse architecture</li>
-            <li>SQL schema design &amp; optimisation</li>
-            <li>Analytics &amp; reporting pipelines</li>
-          </ul>
-        </div>
-        <div class="panel-pricing">
-          <h4>Pricing</h4>
-          <div class="pricing-tier">
-            <span class="tier-name">Starter</span><span class="tier-price">From $2,000</span>
-            <span class="tier-desc">Database design &amp; basic pipeline</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Standard</span><span class="tier-price">From $5,000</span>
-            <span class="tier-desc">Full data architecture with ETL and analytics layer</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
-            <span class="tier-desc">Large-scale data systems or migration projects</span>
-          </div>
+        <div class="panel-solutions"><h4>Example Solutions</h4><ul>
+          <li>ETL pipeline design &amp; build</li>
+          <li>Data warehouse architecture</li>
+          <li>SQL schema design &amp; optimisation</li>
+          <li>Analytics &amp; reporting pipelines</li>
+        </ul></div>
+        <div class="panel-pricing"><h4>Pricing</h4>
+          <div class="pricing-tier"><span class="tier-name">Starter</span><span class="tier-price">From $2,000</span><span class="tier-desc">Database design &amp; basic pipeline</span></div>
+          <div class="pricing-tier"><span class="tier-name">Standard</span><span class="tier-price">From $5,000</span><span class="tier-desc">Full data architecture with ETL and analytics layer</span></div>
+          <div class="pricing-tier"><span class="tier-name">Custom</span><span class="tier-price">Let's talk</span><span class="tier-desc">Large-scale data systems or migration projects</span></div>
         </div>
       </div>
 
@@ -166,29 +169,16 @@
         <span class="section-label">API Integrations</span>
         <h3>Connect your tools. Unify your systems.</h3>
         <p class="panel-description">We build the bridges between your platforms, tools, and data sources. Custom APIs, third-party integrations, and microservices that make your entire stack work as one.</p>
-        <div class="panel-solutions">
-          <h4>Example Solutions</h4>
-          <ul>
-            <li>Custom REST &amp; GraphQL API development</li>
-            <li>Third-party platform integrations</li>
-            <li>CRM, ERP &amp; accounting system connections</li>
-            <li>Webhook &amp; event-driven architecture</li>
-          </ul>
-        </div>
-        <div class="panel-pricing">
-          <h4>Pricing</h4>
-          <div class="pricing-tier">
-            <span class="tier-name">Starter</span><span class="tier-price">From $1,000</span>
-            <span class="tier-desc">Single API integration or endpoint build</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Standard</span><span class="tier-price">From $3,500</span>
-            <span class="tier-desc">Multi-system integration layer</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
-            <span class="tier-desc">Full API architecture or microservices build</span>
-          </div>
+        <div class="panel-solutions"><h4>Example Solutions</h4><ul>
+          <li>Custom REST &amp; GraphQL API development</li>
+          <li>Third-party platform integrations</li>
+          <li>CRM, ERP &amp; accounting system connections</li>
+          <li>Webhook &amp; event-driven architecture</li>
+        </ul></div>
+        <div class="panel-pricing"><h4>Pricing</h4>
+          <div class="pricing-tier"><span class="tier-name">Starter</span><span class="tier-price">From $1,000</span><span class="tier-desc">Single API integration or endpoint build</span></div>
+          <div class="pricing-tier"><span class="tier-name">Standard</span><span class="tier-price">From $3,500</span><span class="tier-desc">Multi-system integration layer</span></div>
+          <div class="pricing-tier"><span class="tier-name">Custom</span><span class="tier-price">Let's talk</span><span class="tier-desc">Full API architecture or microservices build</span></div>
         </div>
       </div>
 
@@ -196,30 +186,17 @@
         <button class="panel-close" aria-label="Close">✕</button>
         <span class="section-label">AI / Machine Learning</span>
         <h3>Systems that learn, predict, and act.</h3>
-        <p class="panel-description">We integrate AI and machine learning into real business systems — not experiments, but production pipelines that drive decisions, automate judgment, and surface insight automatically.</p>
-        <div class="panel-solutions">
-          <h4>Example Solutions</h4>
-          <ul>
-            <li>ML pipeline design &amp; deployment</li>
-            <li>Predictive analytics models</li>
-            <li>AI API integration (OpenAI, Anthropic, etc.)</li>
-            <li>Business intelligence automation</li>
-          </ul>
-        </div>
-        <div class="panel-pricing">
-          <h4>Pricing</h4>
-          <div class="pricing-tier">
-            <span class="tier-name">Starter</span><span class="tier-price">From $3,000</span>
-            <span class="tier-desc">Single AI integration or basic ML model</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Standard</span><span class="tier-price">From $8,000</span>
-            <span class="tier-desc">Production ML pipeline with monitoring</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
-            <span class="tier-desc">Full AI system architecture</span>
-          </div>
+        <p class="panel-description">We integrate AI and machine learning into real business systems — production pipelines that drive decisions, automate judgment, and surface insight automatically.</p>
+        <div class="panel-solutions"><h4>Example Solutions</h4><ul>
+          <li>ML pipeline design &amp; deployment</li>
+          <li>Predictive analytics models</li>
+          <li>AI API integration (OpenAI, Anthropic, etc.)</li>
+          <li>Business intelligence automation</li>
+        </ul></div>
+        <div class="panel-pricing"><h4>Pricing</h4>
+          <div class="pricing-tier"><span class="tier-name">Starter</span><span class="tier-price">From $3,000</span><span class="tier-desc">Single AI integration or basic ML model</span></div>
+          <div class="pricing-tier"><span class="tier-name">Standard</span><span class="tier-price">From $8,000</span><span class="tier-desc">Production ML pipeline with monitoring</span></div>
+          <div class="pricing-tier"><span class="tier-name">Custom</span><span class="tier-price">Let's talk</span><span class="tier-desc">Full AI system architecture</span></div>
         </div>
       </div>
 
@@ -228,41 +205,77 @@
         <span class="section-label">Infrastructure</span>
         <h3>The foundation everything runs on.</h3>
         <p class="panel-description">We design, build, and manage the cloud infrastructure your systems depend on. Reliable, secure, and built to scale — so you never have to worry about what's underneath.</p>
-        <div class="panel-solutions">
-          <h4>Example Solutions</h4>
-          <ul>
-            <li>Cloud environment setup &amp; management</li>
-            <li>CI/CD pipeline implementation</li>
-            <li>Database server architecture</li>
-            <li>Security &amp; access control design</li>
-          </ul>
-        </div>
-        <div class="panel-pricing">
-          <h4>Pricing</h4>
-          <div class="pricing-tier">
-            <span class="tier-name">Starter</span><span class="tier-price">From $1,500</span>
-            <span class="tier-desc">Basic cloud setup &amp; deployment pipeline</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Standard</span><span class="tier-price">From $4,500</span>
-            <span class="tier-desc">Full infrastructure architecture &amp; management setup</span>
-          </div>
-          <div class="pricing-tier">
-            <span class="tier-name">Custom</span><span class="tier-price">Let's talk</span>
-            <span class="tier-desc">Enterprise infrastructure or migration projects</span>
-          </div>
+        <div class="panel-solutions"><h4>Example Solutions</h4><ul>
+          <li>Cloud environment setup &amp; management</li>
+          <li>CI/CD pipeline implementation</li>
+          <li>Database server architecture</li>
+          <li>Security &amp; access control design</li>
+        </ul></div>
+        <div class="panel-pricing"><h4>Pricing</h4>
+          <div class="pricing-tier"><span class="tier-name">Starter</span><span class="tier-price">From $1,500</span><span class="tier-desc">Basic cloud setup &amp; deployment pipeline</span></div>
+          <div class="pricing-tier"><span class="tier-name">Standard</span><span class="tier-price">From $4,500</span><span class="tier-desc">Full infrastructure architecture &amp; management setup</span></div>
+          <div class="pricing-tier"><span class="tier-name">Custom</span><span class="tier-price">Let's talk</span><span class="tier-desc">Enterprise infrastructure or migration projects</span></div>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- ══════════ COMBINED SERVICES ════════════════ -->
+  <!-- PACKAGES -->
+  <section id="packages-section">
+    <div class="section-header fade-in">
+      <span class="section-label">Bundled Packages</span>
+      <h2>More for less — services built to work together.</h2>
+      <p>Common service combinations at a reduced rate. Each package is fully scoped, priced upfront, and delivered end-to-end.</p>
+    </div>
+    <div class="packages-grid">
+
+      <div class="package-card featured fade-in delay-1">
+        <div class="package-badge">Most Popular</div>
+        <div class="package-includes">
+          <span>DB Design</span><span>API Integrations</span><span>Frontend</span>
+        </div>
+        <h4>Full-Stack Development</h4>
+        <p>Database design, API layer, and a complete web frontend — delivered as one unified system. Ideal for businesses building their first internal platform or client-facing product.</p>
+        <div class="package-price">
+          From <strong>$8,500</strong>
+          <span class="package-saving">Save ~20% vs individual</span>
+        </div>
+      </div>
+
+      <div class="package-card fade-in delay-2">
+        <div class="package-includes">
+          <span>ETL Pipelines</span><span>Data Modeling</span><span>Automation</span>
+        </div>
+        <h4>Analytics &amp; Automation</h4>
+        <p>Automated data collection, structured ETL pipelines, and a reporting layer. Get real-time insight from your operations without manual effort.</p>
+        <div class="package-price">
+          From <strong>$6,000</strong>
+          <span class="package-saving">Save ~18% vs individual</span>
+        </div>
+      </div>
+
+      <div class="package-card fade-in delay-3">
+        <div class="package-includes">
+          <span>Infrastructure</span><span>CI/CD</span><span>Monitoring</span>
+        </div>
+        <h4>Cloud &amp; DevOps Setup</h4>
+        <p>Full cloud environment, deployment pipelines, and monitoring. Get production-ready infrastructure without an in-house DevOps team.</p>
+        <div class="package-price">
+          From <strong>$5,000</strong>
+          <span class="package-saving">Save ~15% vs individual</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMBINED -->
   <section id="combined-services">
     <div class="section-header fade-in">
-      <span class="section-label">Combined Services</span>
+      <span class="section-label">Service Combinations</span>
       <h2>Better together.</h2>
-      <p>Our services are designed to work as a connected system. Common combinations:</p>
+      <p>Our services are designed to work as a connected system.</p>
     </div>
     <div class="combinations-grid">
       <div class="combination-card fade-in delay-1">
@@ -287,80 +300,58 @@
       </div>
     </div>
   </section>
-<!-- ════════════════ TESTIMONIALS ════════════════ -->
-<section id="testimonials">
-  <div class="section-header fade-in">
-    <span class="section-label">Client Feedback</span>
-    <h2>Trusted by teams that <span class="highlight">build seriously.</span></h2>
-  </div>
 
-  <div class="stats-row fade-in">
-    <div class="stat-block">
-      <span class="stat-number">98%</span>
-      <span class="stat-label">Client Satisfaction</span>
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-header fade-in">
+      <span class="section-label">Client Feedback</span>
+      <h2>Trusted by teams that <span class="highlight">build seriously.</span></h2>
     </div>
-    <div class="stat-block">
-      <span class="stat-number">50+</span>
-      <span class="stat-label">Projects Delivered</span>
+    <div class="stats-row fade-in">
+      <div class="stat-block"><span class="stat-number">98%</span><span class="stat-label">Client Satisfaction</span></div>
+      <div class="stat-block"><span class="stat-number">50+</span><span class="stat-label">Projects Delivered</span></div>
+      <div class="stat-block"><span class="stat-number">12+</span><span class="stat-label">Industries Served</span></div>
+      <div class="stat-block"><span class="stat-number">4.9★</span><span class="stat-label">Average Rating</span></div>
     </div>
-    <div class="stat-block">
-      <span class="stat-number">12+</span>
-      <span class="stat-label">Industries Served</span>
-    </div>
-    <div class="stat-block">
-      <span class="stat-number">4.9★</span>
-      <span class="stat-label">Average Rating</span>
-    </div>
-  </div>
-
-  <div class="testimonials-grid fade-in">
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"ACKS transformed our entire data pipeline. What used to take days now runs automatically overnight."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">JM</div>
-        <div class="author-info">
-          <span class="author-name">James M.</span>
-          <span class="author-role">CTO, FinTech Startup</span>
+    <div class="testimonials-grid fade-in">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"ACKS transformed our entire data pipeline. What used to take days now runs automatically overnight."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JM</div>
+          <div class="author-info"><span class="author-name">James M.</span><span class="author-role">CTO, FinTech Startup</span></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The web application they built is fast, clean, and exactly what we needed. Delivered on time and within budget."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SR</div>
+          <div class="author-info"><span class="author-name">Sara R.</span><span class="author-role">Founder, SaaS Platform</span></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Their infrastructure setup cut our cloud costs by 40%. Sharp, communicative, and genuinely cares about outcomes."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">DK</div>
+          <div class="author-info"><span class="author-name">David K.</span><span class="author-role">Head of Engineering, Agency</span></div>
         </div>
       </div>
     </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"The web application they built is fast, clean, and exactly what we needed. Delivered on time and within budget."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">SR</div>
-        <div class="author-info">
-          <span class="author-name">Sara R.</span>
-          <span class="author-role">Founder, SaaS Platform</span>
-        </div>
+    <div class="logos-row fade-in">
+      <span class="logos-label">Trusted by teams at</span>
+      <div class="logos-grid">
+        <div class="logo-placeholder">Acme Co.</div>
+        <div class="logo-placeholder">Northbridge</div>
+        <div class="logo-placeholder">Veridian</div>
+        <div class="logo-placeholder">Stackline</div>
+        <div class="logo-placeholder">Orion Labs</div>
       </div>
     </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Their infrastructure setup cut our cloud costs by 40%. Sharp, communicative, and genuinely cares about outcomes."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">DK</div>
-        <div class="author-info">
-          <span class="author-name">David K.</span>
-          <span class="author-role">Head of Engineering, Agency</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <div class="logos-row fade-in">
-    <span class="logos-label">Trusted by teams at</span>
-    <div class="logos-grid">
-      <div class="logo-placeholder">Acme Co.</div>
-      <div class="logo-placeholder">Northbridge</div>
-      <div class="logo-placeholder">Veridian</div>
-      <div class="logo-placeholder">Stackline</div>
-      <div class="logo-placeholder">Orion Labs</div>
-    </div>
-  </div>
-</section>
-  <!-- ════════════════════ CTA ═════════════════════ -->
+  <!-- CTA -->
   <section id="services-cta">
     <div class="cta-content fade-in">
       <h2>Not sure where to start?</h2>

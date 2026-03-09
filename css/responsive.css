@@ -1,108 +1,39 @@
-/* ═══════════════════════════════════════════════════
-   responsive.css — Mobile & tablet breakpoints
-════════════════════════════════════════════════════ */
-
-/* ══════════════════════════════════════════════════
-   TABLET  (max 900px)
-══════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-
-  #navbar { padding: 0 1.5rem; }
-
-  .stack-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .tower-visual {
-    position: relative;
-    top: auto;
-  }
-
-  .tower-track {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .tower-block {
-    flex: 1 1 auto;
-    min-width: 120px;
-    text-align: center;
-  }
-
-  .gateway-grid       { grid-template-columns: 1fr; }
-  .value-grid         { grid-template-columns: 1fr; }
-  .combinations-grid  { grid-template-columns: 1fr; }
-
-  #service-panels {
-    width: 100%;
-    top: auto;
-    bottom: 0;
-    height: 70vh;
-  }
-
-  .service-panel {
-    right: 0;
-    bottom: -75vh;
-    top: auto;
-    width: 100%;
-    height: 100%;
-    border-left: none;
-    border-top: 1px solid var(--grey-dark);
-    transition: bottom 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .service-panel.panel-active {
-    bottom: 0;
-    right: 0;
-  }
+/* responsive.css */
+@media (max-width: 1024px) {
+  .packages-grid      { grid-template-columns: 1fr 1fr; }
+  .sme-inner          { grid-template-columns: 1fr; gap:1.5rem; }
+  .tools-grid         { grid-template-columns: repeat(3,1fr); }
 }
 
-/* ══════════════════════════════════════════════════
-   MOBILE  (max 640px)
-══════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  #navbar { padding: 0 1.5rem; }
+  .stack-layout       { grid-template-columns:1fr; gap:2rem; }
+  .tower-visual       { position:relative; top:auto; }
+  .tower-track        { flex-direction:row; flex-wrap:wrap; gap:6px; }
+  .tower-block        { flex:1 1 auto; min-width:110px; text-align:center; }
+  .gateway-grid       { grid-template-columns:1fr; }
+  .value-grid         { grid-template-columns:1fr; }
+  .combinations-grid  { grid-template-columns:1fr; }
+  .packages-grid      { grid-template-columns:1fr; }
+  .process-steps      { grid-template-columns:1fr; }
+  .process-step       { border-right:none; border-bottom:1px solid var(--line); }
+  .process-arrow      { display:none; }
+  .stats-row          { grid-template-columns:repeat(2,1fr); }
+  .testimonials-grid  { grid-template-columns:1fr; }
+  #service-panels     { width:100%; top:auto; bottom:0; left:0; height:70vh; }
+  .service-panel      { left:0; bottom:-75vh; top:auto; width:100%; height:100%; border-right:none; border-top:1px solid var(--grey-dark); transition:bottom 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .service-panel.panel-active { bottom:0; left:0; }
+}
+
 @media (max-width: 640px) {
-
-  :root {
-    --section-pad: 5rem 1.2rem;
-    --nav-height:  60px;
-  }
-
-  .nav-links {
-    display: none;
-    position: fixed;
-    top: var(--nav-height);
-    left: 0; right: 0;
-    background: var(--navy);
-    border-bottom: 1px solid var(--grey-dark);
-    flex-direction: column;
-    padding: 1.5rem 2rem;
-    gap: 1.2rem;
-  }
-
-  .nav-links.open { display: flex; }
-  .nav-toggle     { display: flex; }
-
-  .hero-content h1 {
-    white-space: normal;
-    font-size: clamp(1.8rem, 7vw, 2.8rem);
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #network-canvas { min-height: 60vh; }
-
-  .node-label  { font-size: 0.62rem; }
-  .node-circle { width: 40px; height: 40px; }
-
-  .stack-layer {
-    min-height: 60vh;
-    padding: 2.5rem 0;
-  }
-
-  #ball-container { display: none; }
+  :root { --section-pad:5rem 1.2rem; --nav-height:60px; }
+  .nav-links          { display:none; position:fixed; top:var(--nav-height); left:0; right:0; background:var(--navy); border-bottom:1px solid var(--grey-dark); flex-direction:column; padding:1.5rem 2rem; gap:1.2rem; }
+  .nav-links.open     { display:flex; }
+  .nav-toggle         { display:flex; }
+  .hero-content h1    { white-space:normal; font-size:clamp(1.8rem,7vw,2.6rem); }
+  .hero-buttons       { flex-direction:column; align-items:center; }
+  .tools-grid         { grid-template-columns:repeat(2,1fr); }
+  #ball-container     { display:none; }
+  .flip-inner         { height:220px; }
+  .flip-back p        { font-size:1rem; }
 }

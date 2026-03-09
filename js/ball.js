@@ -1,190 +1,176 @@
 /* ═══════════════════════════════════════════════════
    ball.js — Rolling ball scroll animation
-   Handles: position, rotation, scroll-trigger,
-            enter/exit transitions per section.
 
-   ── QUICK CONFIG ──────────────────────────────────
-   All tuneable values are at the top of CONFIG.
-   To switch to a PNG ball:
-     1. Comment out #ball-css in index.html
-     2. Uncomment #ball-png in index.html
-     3. Set USE_PNG = true below
+   Behaviour:
+   1. Ball starts below hero headline, centred
+   2. As hero scrolls away → rolls LEFT off screen (slow)
+   3. When value-statement cards are fully visible →
+      ball rolls in slowly from RIGHT
+   4. Lands below the middle card, centred
+   5. Glows softly when at rest
+   6. Rolls LEFT off as section exits
 ════════════════════════════════════════════════════ */
-
 (function () {
 
-  /* ══════════════════════════════════════════════
-     CONFIG
-  ══════════════════════════════════════════════ */
-  var CONFIG = {
-    USE_PNG:       false,   // true = PNG image, false = CSS ball
-    BALL_SIZE:     80,      // px — diameter
-    LEFT_X:        30,      // % from left for left-side resting pos
-    RIGHT_X:       70,      // % from left for right-side resting pos
-    EXIT_DIST:     120,     // px past screen edge on exit
-    SMOOTHNESS:    0.07,    // 0.04 slow/floaty → 0.15 snappy
-    ROLL_SPEED:    0.75,    // rotation per px of horizontal movement
+  /* ── CONFIG ──────────────────────────────────── */
+  var BALL_SIZE  = 80;
+  var EXIT_DIST  = 160;
+  var SMOOTHNESS = 0.036; // very slow/floaty rolls
+  var ROLL_SPEED = 0.85;
 
-    // Each section the ball appears in.
-    // id       → matches <section id="..."> in index.html
-    // xPercent → horizontal resting position (% of viewport)
-    // yPercent → vertical resting position (% of section height)
-    // exitTo   → 'left' or 'right'
-    SECTIONS: [
-      { id: '#hero',            xPercent: 50,  yPercent: 15, exitTo: 'left'  },
-      { id: '#value-statement', xPercent: 30,  yPercent: 50, exitTo: 'right' },
-      { id: '#gateway',         xPercent: 70,  yPercent: 50, exitTo: 'left'  },
-    ]
-  };
+  var SECTIONS = [
+    {
+      id:        '#hero',
+      xPct:      50,
+      yViewport: 74,      // below headline text
+      enterFrom: 'right',
+      exitTo:    'left',
+      enterAt:   0.12,
+      exitAt:    0.68,
+      glow:      false,
+    },
+    {
+      id:        '#value-statement',
+      xPct:      50,      // centred horizontally
+      yViewport: 82,      // low — between cards and gateway
+      enterFrom: 'right',
+      exitTo:    'left',
+      enterAt:   0.52,    // enters AFTER cards have flipped in
+      exitAt:    0.86,
+      glow:      true,
+    },
+  ];
 
-  /* ══════════════════════════════════════════════
-     INIT
-  ══════════════════════════════════════════════ */
+  /* ── INIT ────────────────────────────────────── */
   var container = document.getElementById('ball-container');
-  if (!container) return; // bail if not on home page
+  if (!container) return;
 
   var vw = window.innerWidth;
   var vh = window.innerHeight;
 
-  // Pull ball out of document flow and fix to viewport
-  container.style.position = 'fixed';
-  container.style.top      = '0';
-  container.style.left     = '0';
-  container.style.width    = CONFIG.BALL_SIZE + 'px';
-  container.style.height   = CONFIG.BALL_SIZE + 'px';
-  container.style.zIndex   = '9999';
-  container.style.pointerEvents = 'none';
+  container.style.cssText =
+    'position:fixed;top:0;left:0;' +
+    'width:'  + BALL_SIZE + 'px;' +
+    'height:' + BALL_SIZE + 'px;' +
+    'z-index:500;pointer-events:none;will-change:transform;';
 
-  // Show correct ball type
-  var cssBall = document.getElementById('ball-css');
-  var pngBall = document.getElementById('ball-png');
+  var ring = container.querySelector('.ball-ring');
+  if (ring) ring.style.display = 'none';
 
-  if (CONFIG.USE_PNG && pngBall) {
-    if (cssBall) cssBall.style.display = 'none';
-    pngBall.style.display = 'block';
-    pngBall.style.width   = CONFIG.BALL_SIZE + 'px';
-    pngBall.style.height  = CONFIG.BALL_SIZE + 'px';
-  } else if (cssBall) {
-    cssBall.style.display = 'block';
-    if (pngBall) pngBall.style.display = 'none';
-  }
+  /* ── STATE ───────────────────────────────────── */
+  var scrollY   = window.scrollY || window.pageYOffset;
+  var currentX  = offRight();
+  var currentY  = vh * 0.74;
+  var targetX   = offRight();
+  var targetY   = vh * 0.74;
+  var lastX     = currentX;
+  var rotation  = 0;
+  var isGlowing = false;
 
-  /* ══════════════════════════════════════════════
-     STATE
-  ══════════════════════════════════════════════ */
-  var rotation = 0;
-  var currentX = offLeft();
-  var currentY = vh * 0.5;
-  var targetX  = offLeft();
-  var targetY  = vh * 0.5;
-  var lastX    = offLeft();
-
-  /* ══════════════════════════════════════════════
-     HELPERS
-  ══════════════════════════════════════════════ */
+  /* ── HELPERS ─────────────────────────────────── */
   function lerp(a, b, t) { return a + (b - a) * t; }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function ease(t) { t = clamp(t,0,1); return t*t*(3-2*t); }
+  function offLeft()  { return -(BALL_SIZE + EXIT_DIST); }
+  function offRight() { return vw + EXIT_DIST; }
+  function restX(s)   { return (vw * s.xPct / 100) - BALL_SIZE / 2; }
+  function restY(s)   { return (vh * s.yViewport / 100) - BALL_SIZE / 2; }
 
-  function easeInOut(t) {
-    t = Math.max(0, Math.min(1, t));
-    return t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+  /* ── SECTION CACHE ───────────────────────────── */
+  var cache = [];
+
+  function buildCache() {
+    scrollY = window.scrollY || window.pageYOffset;
+    cache = [];
+    SECTIONS.forEach(function(s) {
+      var el = document.querySelector(s.id);
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      cache.push({ s: s, top: r.top + scrollY, height: r.height });
+    });
   }
 
-  function offLeft()  { return -(CONFIG.BALL_SIZE + CONFIG.EXIT_DIST); }
-  function offRight() { return vw + CONFIG.EXIT_DIST; }
+  window.addEventListener('scroll', function() {
+    scrollY = window.scrollY || window.pageYOffset;
+  }, { passive: true });
 
-  /* ══════════════════════════════════════════════
-     COMPUTE TARGET POSITION
-     Runs every animation frame.
-     Finds which section is currently active and
-     sets targetX/Y based on scroll progress.
-  ══════════════════════════════════════════════ */
+  window.addEventListener('resize', function() {
+    vw = window.innerWidth; vh = window.innerHeight;
+    setTimeout(buildCache, 150);
+  });
+
+  /* ── GLOW ────────────────────────────────────── */
+  var core = container.querySelector('.ball-core');
+
+  function setGlow(on) {
+    if (!core || on === isGlowing) return;
+    isGlowing = on;
+    if (on) {
+      core.classList.add('ball-glow-active');
+    } else {
+      core.classList.remove('ball-glow-active');
+    }
+  }
+
+  /* ── COMPUTE TARGET ──────────────────────────── */
   function computeTarget() {
-    vw = window.innerWidth;
-    vh = window.innerHeight;
+    var found = false;
+    for (var i = 0; i < cache.length; i++) {
+      var c   = cache[i];
+      var s   = c.s;
+      var rel = c.top - scrollY;
+      var sH  = c.height;
 
-    var sections = CONFIG.SECTIONS;
+      var enterAt = vh * 0.90;
+      var exitAt  = -(sH * 0.60);
 
-    for (var i = 0; i < sections.length; i++) {
-      var cfg = sections[i];
-      var el  = document.querySelector(cfg.id);
-      if (!el) continue;
+      if (rel < enterAt && rel > exitAt) {
+        found = true;
+        var progress = clamp((enterAt - rel) / (enterAt - exitAt), 0, 1);
+        var rx = restX(s);
+        var ry = restY(s);
+        var fromX = s.enterFrom === 'left' ? offLeft() : offRight();
+        var toX   = s.exitTo   === 'left'  ? offLeft() : offRight();
 
-      var rect = el.getBoundingClientRect();
-      var sH   = rect.height;
-
-      var enterAt = vh * 0.85;   // section starts entering
-      var exitAt  = -(sH * 0.5); // section has mostly scrolled past
-
-      if (rect.top < enterAt && rect.top > exitAt) {
-        var raw      = (enterAt - rect.top) / (enterAt - exitAt);
-        var progress = easeInOut(Math.max(0, Math.min(1, raw)));
-
-        // Resting position in viewport coordinates
-        var restX = (vw * cfg.xPercent / 100) - CONFIG.BALL_SIZE / 2;
-        var restY = rect.top + (sH * cfg.yPercent / 100) - CONFIG.BALL_SIZE / 2;
-
-        // Entry side: opposite of previous section's exitTo
-        var prev      = sections[i - 1];
-        var entryFrom = prev
-          ? (prev.exitTo === 'left' ? offLeft() : offRight())
-          : (cfg.xPercent < 50 ? offLeft() : offRight());
-
-        var exitX = cfg.exitTo === 'left' ? offLeft() : offRight();
-
-        if (progress < 0.30) {
-          // Phase 1 — roll IN
-          var t = easeInOut(progress / 0.30);
-          targetX = lerp(entryFrom, restX, t);
-          targetY = restY;
-        } else if (progress < 0.72) {
-          // Phase 2 — sit still in resting spot
-          targetX = restX;
-          targetY = restY;
+        if (progress < s.enterAt) {
+          targetX = lerp(fromX, rx, ease(progress / s.enterAt));
+          targetY = ry;
+          setGlow(false);
+        } else if (progress < s.exitAt) {
+          targetX = rx;
+          targetY = ry;
+          setGlow(s.glow);
         } else {
-          // Phase 3 — roll OUT
-          var t2  = easeInOut((progress - 0.72) / 0.28);
-          targetX = lerp(restX, exitX, t2);
-          targetY = restY;
+          targetX = lerp(rx, toX, ease((progress - s.exitAt) / (1 - s.exitAt)));
+          targetY = ry;
+          setGlow(false);
         }
-
-        return;
+        break;
       }
     }
-    // No active section — hold position (ball is off-screen)
+    if (!found) setGlow(false);
   }
 
-  /* ══════════════════════════════════════════════
-     ANIMATION LOOP
-  ══════════════════════════════════════════════ */
+  /* ── LOOP ────────────────────────────────────── */
   function animate() {
     computeTarget();
-
-    // Smooth lerp toward target
-    currentX = lerp(currentX, targetX, CONFIG.SMOOTHNESS);
-    currentY = lerp(currentY, targetY, CONFIG.SMOOTHNESS);
-
-    // Rotation from horizontal travel distance
+    currentX = lerp(currentX, targetX, SMOOTHNESS);
+    currentY = lerp(currentY, targetY, SMOOTHNESS);
     var dx = currentX - lastX;
-    rotation += dx * CONFIG.ROLL_SPEED;
+    rotation += dx * ROLL_SPEED;
     lastX = currentX;
-
-    // Apply transform — single translate+rotate keeps it GPU-composited
     container.style.transform =
-      'translate(' + currentX.toFixed(1) + 'px,' +
-      currentY.toFixed(1) + 'px) ' +
-      'rotate(' + rotation.toFixed(1) + 'deg)';
-
+      'translate(' + currentX.toFixed(2) + 'px,' +
+      currentY.toFixed(2) + 'px) rotate(' + rotation.toFixed(2) + 'deg)';
     requestAnimationFrame(animate);
   }
 
-  /* ══════════════════════════════════════════════
-     BOOT
-  ══════════════════════════════════════════════ */
-  window.addEventListener('resize', function () {
-    vw = window.innerWidth;
-    vh = window.innerHeight;
-  });
+  function boot() { buildCache(); animate(); }
 
-  animate();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    setTimeout(boot, 80);
+  }
 
 })();

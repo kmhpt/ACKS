@@ -1,145 +1,128 @@
 /* ═══════════════════════════════════════════════════
    main.js — All page interactions except ball
-
-   Contains:
-   - initNav()          Navigation + mobile menu
-   - initFadeIns()      Scroll-triggered fade-ins
-   - initTower()        About page stack tower
-   - initNetwork()      Services page node network
-   - initPanels()       Services detail panels
 ════════════════════════════════════════════════════ */
-
 (function () {
 
-  /* ══════════════════════════════════════════════
-     NAV
-     - Adds shadow on scroll
-     - Highlights active page link
-     - Mobile hamburger toggle
-  ══════════════════════════════════════════════ */
+  /* ── NAV ─────────────────────────────────────── */
   function initNav() {
     var navbar  = document.getElementById('navbar');
     var toggle  = document.querySelector('.nav-toggle');
     var navList = document.querySelector('.nav-links');
     if (!navbar) return;
 
-    // Scroll shadow
     window.addEventListener('scroll', function () {
-      if (window.scrollY > 20) {
-        navbar.style.boxShadow = '0 2px 24px rgba(0,0,0,0.35)';
-      } else {
-        navbar.style.boxShadow = 'none';
-      }
+      navbar.style.boxShadow = window.scrollY > 20
+        ? '0 2px 24px rgba(0,0,0,0.35)' : 'none';
     }, { passive: true });
 
-    // Mobile toggle
     if (toggle && navList) {
       toggle.addEventListener('click', function () {
         var open = navList.classList.toggle('open');
         toggle.setAttribute('aria-expanded', open);
       });
-    }
-
-    // Close nav on link click (mobile)
-    if (navList) {
-      navList.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-          navList.classList.remove('open');
-        });
+      navList.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() { navList.classList.remove('open'); });
       });
     }
   }
 
-  /* ══════════════════════════════════════════════
-     FADE-INS
-     Watches elements with class="fade-in" and
-     adds "visible" when they enter the viewport.
-  ══════════════════════════════════════════════ */
+  /* ── FADE-INS ────────────────────────────────── */
   function initFadeIns() {
     var els = document.querySelectorAll('.fade-in');
     if (!els.length || !window.IntersectionObserver) return;
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
       });
     }, { threshold: 0.12 });
-
-    els.forEach(function (el) { observer.observe(el); });
+    els.forEach(function(el) { obs.observe(el); });
   }
 
-  /* ══════════════════════════════════════════════
-     TOWER  (about.html)
-     Activates tower blocks and layer panels as
-     each .stack-layer scrolls into view.
+  /* ── HEADER GLOW on hover ───────────────────── */
+  function initHeaderGlow() {
+    // Targets h1 elements in hero/page-header sections
+    var headers = document.querySelectorAll(
+      '#hero h1, #about-hero h1, #services-hero h1'
+    );
+    headers.forEach(function(h) {
+      var section = h.closest('section, header');
+      if (!section) return;
 
-     How it works:
-     - IntersectionObserver watches each .stack-layer
-     - When a layer is visible, its data-layer index
-       is used to activate the matching .tower-block
-     - The layer itself gets .layer-active for CSS
-       fade-in of its content
-  ══════════════════════════════════════════════ */
+      // Create glow overlay element
+      var glow = document.createElement('div');
+      glow.className = 'header-glow-overlay';
+      section.style.position = section.style.position || 'relative';
+      section.appendChild(glow);
+
+      h.addEventListener('mouseenter', function() {
+        glow.classList.add('header-glow-active');
+      });
+      h.addEventListener('mouseleave', function() {
+        glow.classList.remove('header-glow-active');
+      });
+    });
+  }
+
+  /* ── FLIP CARDS ──────────────────────────────── */
+  function initFlipCards() {
+    var cards = document.querySelectorAll('.flip-card');
+    if (!cards.length) return;
+    var lastY = window.scrollY;
+    window.addEventListener('scroll', function() {
+      var currentY = window.scrollY;
+      var scrollingDown = currentY > lastY;
+      lastY = currentY;
+      cards.forEach(function(card) {
+        var rect = card.getBoundingClientRect();
+        var inView = rect.top < window.innerHeight * 0.75 && rect.bottom > 0;
+        if (inView) {
+          if (scrollingDown) card.classList.add('flipped');
+          else card.classList.remove('flipped');
+        }
+      });
+    }, { passive: true });
+  }
+
+  /* ── TOWER (about.html) ──────────────────────── */
   function initTower() {
     var layers      = document.querySelectorAll('.stack-layer');
     var towerBlocks = document.querySelectorAll('.tower-block');
     if (!layers.length) return;
 
-    // Start with all blocks visible but inactive
-    // Activate them progressively as user scrolls
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         var idx = parseInt(entry.target.getAttribute('data-layer'), 10);
-
         if (entry.isIntersecting) {
-          // Activate this layer's content
           entry.target.classList.add('layer-active');
-
-          // Activate all tower blocks up to and including this one
-          towerBlocks.forEach(function (block) {
-            var blockIdx = parseInt(block.getAttribute('data-index'), 10);
-            if (blockIdx <= idx) {
-              block.classList.add('active');
-            }
+          towerBlocks.forEach(function(b) {
+            if (parseInt(b.getAttribute('data-index'),10) <= idx) b.classList.add('active');
           });
         } else {
-          // Deactivate if scrolled back above
           var rect = entry.target.getBoundingClientRect();
           if (rect.top > 0) {
-            // Scrolled back up past this layer
             entry.target.classList.remove('layer-active');
-            towerBlocks.forEach(function (block) {
-              var blockIdx = parseInt(block.getAttribute('data-index'), 10);
-              if (blockIdx >= idx) {
-                block.classList.remove('active');
-              }
+            towerBlocks.forEach(function(b) {
+              if (parseInt(b.getAttribute('data-index'),10) >= idx) b.classList.remove('active');
             });
           }
         }
       });
-    }, {
-      threshold: 0.3,
-      rootMargin: '0px 0px -10% 0px'
-    });
+    }, { threshold: 0.3, rootMargin: '0px 0px -10% 0px' });
 
-    layers.forEach(function (layer) { observer.observe(layer); });
+    layers.forEach(function(l) { obs.observe(l); });
+
+    // Clickable tower blocks → scroll to layer
+    towerBlocks.forEach(function(block) {
+      block.style.cursor = 'pointer';
+      block.addEventListener('click', function() {
+        var idx   = block.getAttribute('data-index');
+        var layer = document.querySelector('.stack-layer[data-layer="' + idx + '"]');
+        if (layer) layer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
   }
 
-  /* ══════════════════════════════════════════════
-     NETWORK  (services.html)
-     Draws SVG connection lines between nodes
-     and handles node positioning.
-
-     CONNECTIONS array defines which nodes link.
-     Edit this to change which services connect.
-  ══════════════════════════════════════════════ */
-
-  // Which nodes connect to which
-  // Format: ['node-id-1', 'node-id-2']
+  /* ── NETWORK (services.html) ─────────────────── */
   var CONNECTIONS = [
     ['node-web-apps',      'node-api'],
     ['node-web-apps',      'node-automation'],
@@ -158,164 +141,114 @@
     var nodes  = document.querySelectorAll('.service-node');
     if (!canvas || !svg || !nodes.length) return;
 
-    // Draw lines after a short delay to let nodes render
-    setTimeout(function () {
-      drawLines(svg, nodes);
-    }, 800);
-
-    // Enable smooth hover transitions after entrance animations finish
-    setTimeout(function () {
-      nodes.forEach(function (n) { n.classList.add('post-load'); });
-    }, 1200);
-
-    // Redraw on resize
-    window.addEventListener('resize', function () {
-      svg.innerHTML = '';
-      drawLines(svg, nodes);
-    });
+    setTimeout(function() { drawLines(svg); }, 800);
+    setTimeout(function() { nodes.forEach(function(n){ n.classList.add('post-load'); }); }, 1200);
+    window.addEventListener('resize', function() { svg.innerHTML = ''; drawLines(svg); });
   }
 
-  function getNodeCenter(nodeEl, canvas) {
-    var nRect = nodeEl.getBoundingClientRect();
-    var cRect = canvas.getBoundingClientRect();
-    return {
-      x: nRect.left + nRect.width  / 2 - cRect.left,
-      y: nRect.top  + nRect.height / 2 - cRect.top
-    };
-  }
-
-  function drawLines(svg, nodes) {
+  function getNodeCenter(id) {
     var canvas = document.getElementById('network-canvas');
-    if (!canvas) return;
+    var el     = document.getElementById(id);
+    if (!el || !canvas) return null;
+    var nr = el.getBoundingClientRect();
+    var cr = canvas.getBoundingClientRect();
+    return { x: nr.left + nr.width/2 - cr.left, y: nr.top + nr.height/2 - cr.top };
+  }
 
-    CONNECTIONS.forEach(function (pair, i) {
-      var nodeA = document.getElementById(pair[0]);
-      var nodeB = document.getElementById(pair[1]);
-      if (!nodeA || !nodeB) return;
-
-      var a = getNodeCenter(nodeA, canvas);
-      var b = getNodeCenter(nodeB, canvas);
-
+  function drawLines(svg) {
+    CONNECTIONS.forEach(function(pair, i) {
+      var a = getNodeCenter(pair[0]);
+      var b = getNodeCenter(pair[1]);
+      if (!a || !b) return;
       var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', a.x);
-      line.setAttribute('y1', a.y);
-      line.setAttribute('x2', b.x);
-      line.setAttribute('y2', b.y);
+      line.setAttribute('x1', a.x); line.setAttribute('y1', a.y);
+      line.setAttribute('x2', b.x); line.setAttribute('y2', b.y);
       line.setAttribute('class', 'network-line');
       line.setAttribute('data-a', pair[0]);
       line.setAttribute('data-b', pair[1]);
-
-      // Animate line draw with staggered delay
-      line.style.animationDelay = (i * 0.12) + 's';
-
       svg.appendChild(line);
-
-      // Trigger draw animation
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          line.classList.add('line-drawn');
-        });
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() { line.classList.add('line-drawn'); });
       });
     });
   }
 
-  // Highlight connected lines on node hover
-  function highlightLines(activeNodeId, highlight) {
-    var lines = document.querySelectorAll('.network-line');
-    lines.forEach(function (line) {
+  function highlightLines(nodeId, on) {
+    document.querySelectorAll('.network-line').forEach(function(line) {
       var a = line.getAttribute('data-a');
       var b = line.getAttribute('data-b');
-      if (a === activeNodeId || b === activeNodeId) {
-        if (highlight) {
-          line.classList.add('line-highlight');
-        } else {
-          line.classList.remove('line-highlight');
-        }
+      if (a === nodeId || b === nodeId) {
+        if (on) line.classList.add('line-highlight');
+        else    line.classList.remove('line-highlight');
       }
     });
   }
 
-  /* ══════════════════════════════════════════════
-     PANELS  (services.html)
-     Opens and closes service detail panels on
-     node click. Highlights the active node.
-  ══════════════════════════════════════════════ */
+  /* ── PANELS (services.html) ──────────────────── */
   function initPanels() {
     var nodes  = document.querySelectorAll('.service-node');
     var panels = document.querySelectorAll('.service-panel');
     var closes = document.querySelectorAll('.panel-close');
     if (!nodes.length) return;
 
-    // Node click → open matching panel
-    nodes.forEach(function (node) {
+    nodes.forEach(function(node) {
       var id = node.getAttribute('data-id');
-
-      node.addEventListener('click', function () {
-        var isActive = node.classList.contains('active');
-
-        // Deactivate all nodes and panels first
-        closeAllPanels(nodes, panels);
-
-        if (!isActive) {
-          // Activate this node and its panel
+      node.addEventListener('click', function() {
+        var wasActive = node.classList.contains('active');
+        closeAll(nodes, panels);
+        if (!wasActive) {
           node.classList.add('active');
           highlightLines(node.id, true);
-
           var panel = document.getElementById('panel-' + id);
           if (panel) panel.classList.add('panel-active');
         }
       });
-
-      // Hover highlight
-      node.addEventListener('mouseenter', function () {
-        if (!node.classList.contains('active')) {
-          highlightLines(node.id, true);
-        }
+      node.addEventListener('mouseenter', function() {
+        if (!node.classList.contains('active')) highlightLines(node.id, true);
       });
-
-      node.addEventListener('mouseleave', function () {
-        if (!node.classList.contains('active')) {
-          highlightLines(node.id, false);
-        }
+      node.addEventListener('mouseleave', function() {
+        if (!node.classList.contains('active')) highlightLines(node.id, false);
       });
     });
 
-    // Close button
-    closes.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        closeAllPanels(nodes, panels);
-      });
+    closes.forEach(function(btn) {
+      btn.addEventListener('click', function() { closeAll(nodes, panels); });
     });
 
-    // Click outside panel to close
-    document.addEventListener('click', function (e) {
-      var inPanel = e.target.closest('.service-panel');
-      var inNode  = e.target.closest('.service-node');
-      if (!inPanel && !inNode) {
-        closeAllPanels(nodes, panels);
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.service-panel') && !e.target.closest('.service-node')) {
+        closeAll(nodes, panels);
       }
     });
   }
 
-  function closeAllPanels(nodes, panels) {
-    nodes.forEach(function (n) {
-      n.classList.remove('active');
-      highlightLines(n.id, false);
-    });
-    panels.forEach(function (p) {
-      p.classList.remove('panel-active');
+  function closeAll(nodes, panels) {
+    nodes.forEach(function(n) { n.classList.remove('active'); highlightLines(n.id, false); });
+    panels.forEach(function(p) { p.classList.remove('panel-active'); });
+  }
+
+  /* ── MUSIC WIDGET ────────────────────────────── */
+  function initMusic() {
+    var toggle = document.getElementById('music-toggle');
+    var embed  = document.getElementById('spotify-embed');
+    var label  = document.getElementById('music-label');
+    if (!toggle || !embed) return;
+    toggle.addEventListener('click', function() {
+      var open = embed.classList.toggle('open');
+      if (label) label.textContent = open ? 'Hide' : 'Music';
     });
   }
 
-  /* ══════════════════════════════════════════════
-     BOOT — run all inits on DOM ready
-  ══════════════════════════════════════════════ */
+  /* ── BOOT ────────────────────────────────────── */
   function boot() {
     initNav();
     initFadeIns();
+    initHeaderGlow();
+    initFlipCards();
     initTower();
     initNetwork();
     initPanels();
+    initMusic();
   }
 
   if (document.readyState === 'loading') {

@@ -1,335 +1,141 @@
 /* ═══════════════════════════════════════════════════
    animation.css — All animation definitions
-   Ball · Tower · Network · Hover effects · Reveals
 ════════════════════════════════════════════════════ */
 
-/* ══════════════════════════════════════════════════
-   FADE-IN UTILITY
-   Add class="fade-in" to any element.
-   Optional stagger: also add delay-1 through delay-4
-══════════════════════════════════════════════════ */
-.fade-in {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
-}
+/* ── Fade-in utility ── */
+.fade-in { opacity:0; transform:translateY(22px); transition:opacity 0.75s ease,transform 0.75s ease; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+.delay-1{transition-delay:0.10s} .delay-2{transition-delay:0.20s}
+.delay-3{transition-delay:0.32s} .delay-4{transition-delay:0.44s}
 
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.delay-1 { transition-delay: 0.10s; }
-.delay-2 { transition-delay: 0.20s; }
-.delay-3 { transition-delay: 0.32s; }
-.delay-4 { transition-delay: 0.44s; }
-
+/* ── Page fade ── */
+@keyframes pageFade { from{opacity:0} to{opacity:1} }
+body { animation:pageFade 0.4s ease both; }
 
 /* ══════════════════════════════════════════════════
-   BALL  (index.html)
-   ball.js handles position via transform.
-   These styles handle appearance & idle pulse.
+   HEADER GLOW (hover effect on h1 in hero sections)
+   JS injects a .header-glow-overlay div and adds
+   .header-glow-active on mouseenter of the h1.
 ══════════════════════════════════════════════════ */
-#ball-container {
-  will-change: transform;
-  pointer-events: none;
+@keyframes glowPulse {
+  0%,100% {
+    background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(0,212,255,0.07) 0%, transparent 70%);
+  }
+  50% {
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,212,255,0.13) 0%, transparent 70%);
+  }
 }
 
-/* Idle glow pulse */
+.header-glow-overlay { transition: opacity 0.55s ease; }
+.header-glow-overlay.header-glow-active {
+  animation: glowPulse 2.2s ease-in-out infinite;
+  opacity: 1 !important;
+}
+
+/* Also add a subtle text glow on hover */
+#hero h1:hover,
+#about-hero h1:hover,
+#services-hero h1:hover {
+  text-shadow: 0 0 60px rgba(0,212,255,0.15), 0 0 120px rgba(0,212,255,0.06);
+  transition: text-shadow 0.4s ease;
+}
+
+/* ══════════════════════════════════════════════════
+   BALL
+══════════════════════════════════════════════════ */
+#ball-container { will-change:transform; pointer-events:none; }
+
 @keyframes ballGlow {
-  0%, 100% {
+  0%,100% { box-shadow:0 0 0 1px rgba(181,204,218,0.25),0 0 18px rgba(181,204,218,0.1); }
+  50%      { box-shadow:0 0 0 1px rgba(181,204,218,0.45),0 0 28px rgba(181,204,218,0.2); }
+}
+.ball-core { animation:ballGlow 3.5s ease-in-out infinite; }
+
+/* Resting glow — added by ball.js via .ball-glow-active */
+@keyframes ballRestGlow {
+  0%,100% {
     box-shadow:
-      0 0 0 1px rgba(0,212,255,0.25),
-      0 0 18px rgba(0,212,255,0.12);
+      0 0 0 1px rgba(0,212,255,0.4),
+      0 0 28px rgba(0,212,255,0.25),
+      0 0 60px rgba(0,212,255,0.1);
   }
   50% {
     box-shadow:
-      0 0 0 1px rgba(0,212,255,0.5),
-      0 0 32px rgba(0,212,255,0.28);
+      0 0 0 2px rgba(0,212,255,0.65),
+      0 0 50px rgba(0,212,255,0.4),
+      0 0 100px rgba(0,212,255,0.15);
   }
 }
-
-.ball-core {
-  animation: ballGlow 3.5s ease-in-out infinite;
-}
-
-/* PNG ball if used */
-#ball-png {
-  border-radius: 50%;
-  display: block;
-}
-
+.ball-glow-active { animation:ballRestGlow 2s ease-in-out infinite !important; }
 
 /* ══════════════════════════════════════════════════
-   HERO ENTRANCE  (index.html)
-   Staggered reveal of hero elements on load.
+   HERO ENTRANCE
 ══════════════════════════════════════════════════ */
 @keyframes heroRise {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
 }
+.hero-content h1         { animation:heroRise 0.8s ease 0.2s both; }
+.hero-content .hero-sub  { animation:heroRise 0.8s ease 0.4s both; }
+.hero-buttons            { animation:heroRise 0.8s ease 0.6s both; }
+.scroll-cue              { animation:heroRise 0.8s ease 1.0s both; }
 
-.hero-content h1 {
-  animation: heroRise 0.8s ease 0.2s both;
-}
-
-.hero-content .hero-sub {
-  animation: heroRise 0.8s ease 0.4s both;
-}
-
-.hero-buttons {
-  animation: heroRise 0.8s ease 0.6s both;
-}
-
-.scroll-cue {
-  animation: heroRise 0.8s ease 1.0s both;
-}
-
-/* Scroll cue line bounce */
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.25; transform: scaleY(0.8); }
-  50%       { opacity: 0.8;  transform: scaleY(1.1); }
+  0%,100%{opacity:0.25;transform:scaleY(0.8)}
+  50%{opacity:0.8;transform:scaleY(1.1)}
 }
-
-.scroll-cue-line {
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
+.scroll-cue-line { animation:scrollPulse 2s ease-in-out infinite; }
 
 /* ══════════════════════════════════════════════════
-   VALUE BLOCKS  (index.html)
-   Hover lift effect on the three capability cards.
+   TOWER (about.html)
 ══════════════════════════════════════════════════ */
-.value-block {
-  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-}
-
-.value-block:hover {
-  transform: translateY(-4px);
-}
-
-.value-icon svg {
-  transition: color 0.25s ease, opacity 0.25s ease;
-}
-
-.value-block:hover .value-icon svg {
-  opacity: 1;
-  color: var(--cyan);
-}
-
-
-/* ══════════════════════════════════════════════════
-   GATEWAY CARDS  (index.html)
-   Subtle hover lift.
-══════════════════════════════════════════════════ */
-.gateway-card {
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.gateway-card:hover {
-  transform: translateY(-3px);
-}
-
-
-/* ══════════════════════════════════════════════════
-   TOWER  (about.html)
-   Layer content fades + slides in when active.
-   Tower block fills with cyan accent.
-══════════════════════════════════════════════════ */
-
-/* Layer content: dimmed by default, bright when active */
 .stack-layer .layer-content {
-  opacity: 0.25;
-  transform: translateX(-16px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  opacity:0.2; transform:translateX(-18px);
+  transition:opacity 0.55s ease,transform 0.55s ease;
 }
-
-.stack-layer.layer-active .layer-content {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Tower block background fill on active */
-.tower-block {
-  position: relative;
-  overflow: hidden;
-  transition: border-left-color 0.35s ease, background 0.35s ease;
-}
-
-.tower-block::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0,212,255,0.08) 0%, transparent 100%);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.4s ease;
-}
-
-.tower-block.active::before {
-  transform: scaleX(1);
-}
-
-/* Keyword tag hover */
-.layer-keywords span {
-  transition: border-color 0.2s, color 0.2s;
-  cursor: default;
-}
-
-.layer-keywords span:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
-}
-
+.stack-layer.layer-active .layer-content { opacity:1; transform:translateX(0); }
 
 /* ══════════════════════════════════════════════════
-   NETWORK NODES  (services.html)
-   Appear on load with stagger.
-   Hover and active states for nodes.
+   NETWORK (services.html)
 ══════════════════════════════════════════════════ */
-
-/* Staggered node entrance */
 @keyframes nodeAppear {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.4);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+  from{opacity:0;transform:translate(-50%,-50%) scale(0.4)}
+  to  {opacity:1;transform:translate(-50%,-50%) scale(1)}
 }
+.service-node { opacity:0; animation:nodeAppear 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+.service-node:nth-child(2){animation-delay:0.15s}
+.service-node:nth-child(3){animation-delay:0.25s}
+.service-node:nth-child(4){animation-delay:0.35s}
+.service-node:nth-child(5){animation-delay:0.45s}
+.service-node:nth-child(6){animation-delay:0.55s}
+.service-node:nth-child(7){animation-delay:0.65s}
 
-.service-node {
-  opacity: 0;
-  animation: nodeAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.service-node:nth-child(2) { animation-delay: 0.15s; }
-.service-node:nth-child(3) { animation-delay: 0.25s; }
-.service-node:nth-child(4) { animation-delay: 0.35s; }
-.service-node:nth-child(5) { animation-delay: 0.45s; }
-.service-node:nth-child(6) { animation-delay: 0.55s; }
-.service-node:nth-child(7) { animation-delay: 0.65s; }
-
-/* Node circle pulse when active */
 @keyframes nodePulse {
-  0%, 100% { box-shadow: 0 0 0 0   rgba(0,212,255,0.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(0,212,255,0);   }
+  0%,100%{box-shadow:0 0 0 0 rgba(0,212,255,0.4)}
+  50%    {box-shadow:0 0 0 8px rgba(0,212,255,0)}
 }
+.service-node.active .node-circle { animation:nodePulse 1.8s ease-in-out infinite; }
 
-.service-node.active .node-circle {
-  animation: nodePulse 1.8s ease-in-out infinite;
-}
-
-/* Node hover scale — overrides transform set in main.css */
-.service-node {
-  transition: none; /* animation handles this */
-}
-
-.service-node.post-load {
-  transition: transform 0.2s ease;
-}
-
-
-/* ══════════════════════════════════════════════════
-   NETWORK LINES  (services.html)
-   SVG lines drawn by main.js.
-   stroke-dashoffset animation creates draw effect.
-══════════════════════════════════════════════════ */
 .network-line {
-  stroke: rgba(0,212,255,0.18);
-  stroke-width: 1;
-  fill: none;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  transition:
-    stroke-dashoffset 1.2s ease,
-    stroke            0.3s ease,
-    stroke-width      0.3s ease;
+  stroke:rgba(0,212,255,0.16); stroke-width:1; fill:none;
+  stroke-dasharray:1000; stroke-dashoffset:1000;
+  transition:stroke-dashoffset 1.2s ease,stroke 0.3s,stroke-width 0.3s;
 }
+.network-line.line-drawn     { stroke-dashoffset:0; }
+.network-line.line-highlight { stroke:rgba(0,212,255,0.6); stroke-width:1.5; }
 
-.network-line.line-drawn {
-  stroke-dashoffset: 0;
-}
+/* Panel slide from LEFT */
+.service-panel { transition:left 0.45s cubic-bezier(0.22,1,0.36,1); }
+.service-panel.panel-active h3           { animation:heroRise 0.5s ease 0.15s both; }
+.service-panel.panel-active .panel-description { animation:heroRise 0.5s ease 0.25s both; }
+.service-panel.panel-active .panel-solutions   { animation:heroRise 0.5s ease 0.35s both; }
+.service-panel.panel-active .panel-pricing     { animation:heroRise 0.5s ease 0.45s both; }
 
-.network-line.line-highlight {
-  stroke: rgba(0,212,255,0.65);
-  stroke-width: 1.5;
-}
+/* Value block hover */
+.value-block { transition:transform 0.25s ease,border-color 0.25s ease,background 0.25s ease; }
+.gateway-card { transition:transform 0.3s ease,border-color 0.3s ease; }
+.combination-card { transition:transform 0.25s ease,border-color 0.25s ease; }
 
-
-/* ══════════════════════════════════════════════════
-   SERVICE PANEL SLIDE-IN  (services.html)
-   Panel slides in from right on desktop,
-   up from bottom on mobile (responsive.css handles
-   the bottom slide).
-══════════════════════════════════════════════════ */
-.service-panel {
-  transition: right 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Pricing tier hover */
-.pricing-tier {
-  transition: background 0.2s;
-}
-
-.pricing-tier:hover {
-  background: rgba(0,212,255,0.04);
-}
-
-/* Panel heading entrance when opened */
-.service-panel.panel-active h3 {
-  animation: heroRise 0.5s ease 0.15s both;
-}
-
-.service-panel.panel-active .panel-description {
-  animation: heroRise 0.5s ease 0.25s both;
-}
-
-.service-panel.panel-active .panel-solutions {
-  animation: heroRise 0.5s ease 0.35s both;
-}
-
-.service-panel.panel-active .panel-pricing {
-  animation: heroRise 0.5s ease 0.45s both;
-}
-
-
-/* ══════════════════════════════════════════════════
-   COMBINATION CARDS  (services.html)
-══════════════════════════════════════════════════ */
-.combination-card {
-  transition: transform 0.25s ease, border-color 0.25s ease;
-}
-
-.combination-card:hover {
-  transform: translateY(-3px);
-}
-
-
-/* ══════════════════════════════════════════════════
-   CTA SECTIONS
-══════════════════════════════════════════════════ */
 .cta-content .btn {
-  transition: background 0.25s ease, color 0.25s ease,
-              transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cta-content .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,212,255,0.2);
-}
-
-
-/* ══════════════════════════════════════════════════
-   PAGE TRANSITION  (subtle flash on load)
-══════════════════════════════════════════════════ */
-@keyframes pageFade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-body {
-  animation: pageFade 0.4s ease both;
+  transition:background 0.25s ease,color 0.25s ease,transform 0.2s ease,box-shadow 0.2s ease;
 }

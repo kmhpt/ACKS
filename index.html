@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Company — Intelligent Software Systems</title>
+  <title>ACKS — Intelligent Software Systems</title>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
@@ -25,9 +25,8 @@
     </button>
   </nav>
 
-  <!-- ═══════════════════ HERO ════════════════════ -->
+  <!-- HERO -->
   <section id="hero">
-
     <div class="hero-content">
       <h1>We build intelligent <span class="highlight">software systems.</span></h1>
       <p class="hero-sub">Automation. Applications. Infrastructure.</p>
@@ -37,11 +36,11 @@
       </div>
     </div>
 
+    <!-- Ball renders BELOW the text — ball.js fixes it to viewport -->
     <div id="ball-container">
       <div id="ball-css">
         <div class="ball-core"></div>
         <div class="ball-shine"></div>
-        <div class="ball-ring"></div>
       </div>
     </div>
 
@@ -51,7 +50,7 @@
     </div>
   </section>
 
-  <!-- ══════════════ VALUE STATEMENT ══════════════ -->
+  <!-- VALUE STATEMENT (flip cards) -->
   <section id="value-statement">
     <div class="section-header fade-in">
       <span class="section-label">What We Do</span>
@@ -115,10 +114,9 @@
     </div>
   </section>
 
-  <!-- ════════════════ GATEWAY ════════════════════ -->
+  <!-- GATEWAY -->
   <section id="gateway">
     <div class="gateway-grid">
-
       <div class="gateway-card fade-in delay-1">
         <span class="section-label">Technology &amp; Experience</span>
         <h2>How we build.</h2>
@@ -126,13 +124,10 @@
         <a href="about.html" class="btn">See Our Stack</a>
         <div class="gateway-graphic" aria-hidden="true">
           <div class="graphic-tower">
-            <div class="tower-layer"></div>
-            <div class="tower-layer"></div>
-            <div class="tower-layer"></div>
+            <div class="tower-layer"></div><div class="tower-layer"></div><div class="tower-layer"></div>
           </div>
         </div>
       </div>
-
       <div class="gateway-card fade-in delay-2">
         <span class="section-label">Our Services</span>
         <h2>What we deliver.</h2>
@@ -140,182 +135,42 @@
         <a href="services.html" class="btn">View Services</a>
         <div class="gateway-graphic" aria-hidden="true">
           <div class="graphic-nodes">
-            <div class="node-dot"></div>
-            <div class="node-dot"></div>
-            <div class="node-dot"></div>
-            <div class="node-line"></div>
-            <div class="node-line"></div>
+            <div class="node-dot"></div><div class="node-dot"></div><div class="node-dot"></div>
+            <div class="node-line"></div><div class="node-line"></div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <style>
-    .flip-card {
-      perspective: 1000px;
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-    }
+  <!-- LAST PANEL -->
+  <section id="lastPanel">
+    <div class="last">
+      <div class="last-text fade-in">
+        <span class="section-label">Ready?</span>
+        <h2>Time to get the<br><span class="highlight">ball rolling.</span></h2>
+        <p>Click the ball — or the button below — to see what we can build for you.</p>
+        <a href="services.html" class="btn">View Our Services</a>
+      </div>
+      <p class="ball-hint fade-in delay-2">↑ click the ball</p>
+    </div>
+  </section>
 
-    .flip-inner {
-      position: relative;
-      width: 100%;
-      height: 260px;
-      transform-style: preserve-3d;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .flip-card.flipped .flip-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flip-front,
-    .flip-back {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 2rem;
-      background: var(--navy);
-      border: 1px solid var(--grey-dark);
-    }
-
-    .flip-front {
-      gap: 2.1rem;
-    }
-
-    .flip-back {
-      transform: rotateY(180deg);
-      background: var(--navy-light);
-      border-color: rgba(181,204,218,0.15);
-    }
-
-    .flip-back p {
-      font-size: 1.3rem;
-      color: var(--grey-light);
-      line-height: 1.75;
-      text-align: center;
-    }
-
-    .flip-front h3 {
-    margin-bottom: 0;
-    font-size: 1.4rem;
-  }
-  </style>
-
-  <script src="js/ball.js"></script>
-  <script src="js/main.js"></script>
-
-  <script>
-    (function() {
-      const cards = document.querySelectorAll('.flip-card');
-      let lastY = window.scrollY;
-
-      window.addEventListener('scroll', () => {
-        const currentY = window.scrollY;
-        const scrollingDown = currentY > lastY;
-        lastY = currentY;
-
-        cards.forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const inView = rect.top < window.innerHeight * 0.75 && rect.bottom > 0;
-          if (inView) {
-            if (scrollingDown) {
-              card.classList.add('flipped');
-            } else {
-              card.classList.remove('flipped');
-            }
-          }
-        });
-      });
-    })();
-  </script>
-
-  <!-- ════════════ SPOTIFY PLAYER ════════════ -->
+  <!-- MUSIC WIDGET -->
   <div id="music-widget">
     <button id="music-toggle" aria-label="Toggle music player">
       <span id="music-icon">♫</span>
       <span id="music-label">Music</span>
     </button>
     <div id="spotify-embed">
-      <iframe
-        src="https://open.spotify.com/embed/playlist/1i5lGbRIWZSFJT9s9025i8?utm_source=generator&theme=0"
-        width="300"
-        height="152"
-        frameborder="0"
+      <iframe src="https://open.spotify.com/embed/playlist/1i5lGbRIWZSFJT9s9025i8?utm_source=generator&theme=0"
+        width="300" height="152" frameborder="0"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-      </iframe>
+        loading="lazy"></iframe>
     </div>
   </div>
 
-  <style>
-    #music-widget {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.5rem;
-    }
-
-    #spotify-embed {
-      display: none;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      animation: slideUp 0.3s ease;
-    }
-
-    #spotify-embed.open {
-      display: block;
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    #music-toggle {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #47222c;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #e0e0e0;
-      font-family: Georgia, serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    #music-toggle:hover {
-      background: #5a2b37;
-    }
-  </style>
-
-  <script>
-    const toggle = document.getElementById('music-toggle');
-    const embed = document.getElementById('spotify-embed');
-    const label = document.getElementById('music-label');
-
-    toggle.addEventListener('click', () => {
-      const isOpen = embed.classList.toggle('open');
-      label.textContent = isOpen ? 'Hide' : 'Music';
-    });
-  </script>
-
+  <script src="js/ball.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

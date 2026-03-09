@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Your Company</title>
+  <title>About — ACKS</title>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
@@ -11,9 +11,9 @@
 <body class="page-about">
 
   <nav id="navbar">
-  <a href="index.html" class="nav-logo">
-    <img src="akcslogo.png" alt="ACKS logo" class="nav-logo-img" />
-  </a>
+    <a href="index.html" class="nav-logo">
+      <img src="akcslogo.png" alt="ACKS logo" class="nav-logo-img" />
+    </a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html" class="active">About</a></li>
@@ -25,7 +25,7 @@
     </button>
   </nav>
 
-  <!-- ═══════════════ PAGE HEADER ═════════════════ -->
+  <!-- PAGE HEADER -->
   <header id="about-hero">
     <div class="page-header-content">
       <span class="section-label">About Us</span>
@@ -34,11 +34,10 @@
     </div>
   </header>
 
-  <!-- ══════════════ STACK TOWER ══════════════════ -->
+  <!-- STACK TOWER -->
   <section id="stack-section">
     <div class="stack-layout">
 
-      <!-- Left sticky column: tower visual -->
       <div class="tower-visual" id="tower-visual">
         <p class="tower-heading">Our Stack</p>
         <div class="tower-track">
@@ -50,7 +49,6 @@
         </div>
       </div>
 
-      <!-- Right column: scrollable layer panels -->
       <div class="layer-panels">
 
         <div class="stack-layer" data-layer="0" id="layer-infrastructure">
@@ -147,7 +145,30 @@
     </div>
   </section>
 
-  <!-- ══════════════════ CTA ═══════════════════════ -->
+  <!-- TOOLS -->
+  <section id="tools-section">
+    <div class="section-header fade-in">
+      <span class="section-label">Our Toolkit</span>
+      <h2>Preferred tools. Open to everything.</h2>
+      <p>We work with a core set of proven technologies — but we adapt to what's right for your project.</p>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-item"><span class="tool-name">Python</span><span class="tool-tag">Core Language</span></div>
+      <div class="tool-item"><span class="tool-name">Node.js</span><span class="tool-tag">Backend / APIs</span></div>
+      <div class="tool-item"><span class="tool-name">React</span><span class="tool-tag">Frontend</span></div>
+      <div class="tool-item"><span class="tool-name">HTML / CSS / JS</span><span class="tool-tag">Web Standard</span></div>
+      <div class="tool-item"><span class="tool-name">SQL</span><span class="tool-tag">Data & Databases</span></div>
+      <div class="tool-item"><span class="tool-name">ERD Design</span><span class="tool-tag">Data Modeling</span></div>
+      <div class="tool-item"><span class="tool-name">C / C++ / C#</span><span class="tool-tag">Systems</span></div>
+      <div class="tool-item"><span class="tool-name">MS Office Suite</span><span class="tool-tag">Productivity</span></div>
+    </div>
+    <p class="tools-note fade-in">
+      These are our most-used tools — not our limits. We're experienced with a wide range of frameworks,
+      platforms, and emerging technologies. If your stack uses something different, we'll work with it.
+    </p>
+  </section>
+
+  <!-- CTA -->
   <section id="about-cta">
     <div class="cta-content fade-in">
       <h2>Ready to see what we can build for you?</h2>
@@ -155,19 +176,7 @@
       <a href="services.html" class="btn">View Our Services</a>
     </div>
   </section>
-<script>
-  // Make tower blocks clickable — scroll to matching layer
-  document.querySelectorAll('.tower-block').forEach(block => {
-    block.style.cursor = 'pointer';
-    block.addEventListener('click', () => {
-      const index = block.getAttribute('data-index');
-      const layer = document.querySelector('.stack-layer[data-layer="' + index + '"]');
-      if (layer) {
-        layer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  });
-</script>
+
   <script src="js/main.js"></script>
 </body>
 </html>
