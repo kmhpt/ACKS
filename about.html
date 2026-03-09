@@ -11,14 +11,11 @@
 <body class="page-about">
 
   <nav id="navbar">
-  <a href="index.html" class="nav-logo">
-    <img src="akcslogo.png" alt="ACKS logo" class="nav-logo-img" />
-  </a>
+    <a href="index.html" class="nav-logo">Your Company</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html" class="active">About</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="login.html">Login</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
@@ -155,19 +152,7 @@
       <a href="services.html" class="btn">View Our Services</a>
     </div>
   </section>
-<script>
-  // Make tower blocks clickable — scroll to matching layer
-  document.querySelectorAll('.tower-block').forEach(block => {
-    block.style.cursor = 'pointer';
-    block.addEventListener('click', () => {
-      const index = block.getAttribute('data-index');
-      const layer = document.querySelector('.stack-layer[data-layer="' + index + '"]');
-      if (layer) {
-        layer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  });
-</script>
+
   <script src="js/main.js"></script>
 </body>
 </html>

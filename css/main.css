@@ -12,10 +12,10 @@
   /* ── Core palette ─────────────────────────────── */
   --black:          #09090f;       /* near black — deepest bg */
   --navy:           #0d1117;       /* page background */
-  --navy-light:     #47222c;       /* card / section alt bg */
+  --navy-light:     #161b27;       /* card / section alt bg */
   --navy-mid:       #1e2535;       /* borders, subtle panels */
 
-  --cyan:           #b5ccda;       /* primary accent */
+  --cyan:           #00d4ff;       /* primary accent */
   --cyan-dim:       rgba(0,212,255,0.15); /* glow / subtle fills */
   --purple:         #7c5cbf;       /* secondary accent */
   --purple-dim:     rgba(124,92,191,0.15);
@@ -130,12 +130,6 @@ ul { list-style: none; }
 }
 
 .nav-logo:hover { color: var(--cyan); }
-.nav-logo-img {
-  height: 80px !important;
-  max-height: 80px !important;
-  width: auto !important;
-  display: block;
-}
 
 .nav-links {
   display: flex;
@@ -369,7 +363,6 @@ section {
   color: var(--white);
   white-space: nowrap;          /* keeps headline on one line */
   margin-bottom: 1.2rem;
-  text-align: center;
 }
 
 /* Fallback if viewport is too narrow — allow wrap */
@@ -458,12 +451,7 @@ section {
   transform: rotate(-30deg);
 }
 
-.ball-ring {
-  position: absolute;
-  inset: 6px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,212,255,0.2);
-}
+/* .ball-ring removed — inner circle line was removed per design */
 
 /* PNG ball (optional) */
 #ball-png {
@@ -477,9 +465,9 @@ section {
    HOME — VALUE STATEMENT  (#value-statement)
 ══════════════════════════════════════════════════ */
 #value-statement {
-  background: linear-gradient(to bottom, #0d1117, #47222c, #0d1117);
-  border-top: none;
-  border-bottom: none;
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 #value-statement .section-header {
@@ -1125,154 +1113,69 @@ section {
   transition: transform 0.2s ease;
 }
 
-#testimonials {
-  background: linear-gradient(to bottom, var(--color-bg), #47222c22, var(--color-bg));
+
+/* ══════════════════════════════════════════════════
+   LAST PANEL  (#lastPanel)
+══════════════════════════════════════════════════ */
+#lastPanel {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
   border-top: 1px solid var(--line);
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--line);
-  max-width: var(--max-width);
-  margin: 0 auto 4rem;
-  border: 1px solid var(--line);
-}
-
-.stat-block {
-  background: var(--navy-light);
-  padding: 2rem 1.5rem;
   text-align: center;
+  padding: var(--section-pad);
+}
+
+.last {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-}
-
-.stat-number {
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  color: #ffffff;
-  letter-spacing: -0.02em;
-}
-
-.stat-label {
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--grey-mid);
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
   gap: 1.5rem;
-  max-width: var(--max-width);
-  margin: 0 auto 4rem;
+  max-width: 600px;
+  width: 100%;
 }
 
-.testimonial-card {
-  padding: 2rem;
-  background: var(--navy-light);
-  border: 1px solid var(--grey-dark);
+.last-text {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
-  transition: border-color 0.3s;
 }
 
-.testimonial-card:hover {
-  border-color: rgba(71,34,44,0.6);
-}
-
-.testimonial-stars {
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  color: #c0a080;
-}
-
-.testimonial-text {
-  font-size: 0.92rem;
-  color: var(--grey-light);
-  line-height: 1.75;
-  flex: 1;
-  font-style: italic;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-}
-
-.author-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #47222c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.72rem;
+.last-text h2 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: normal;
   color: var(--white);
-  flex-shrink: 0;
+  line-height: 1.1;
 }
 
-.author-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.author-name {
-  font-size: 0.82rem;
-  color: var(--white);
-}
-
-.author-role {
-  font-size: 0.72rem;
+.last-text p {
+  font-size: 1rem;
   color: var(--grey-mid);
+  max-width: 420px;
+  margin-bottom: 0.5rem;
 }
 
-.logos-row {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  text-align: center;
-}
-
-.logos-label {
-  display: block;
-  font-size: 0.68rem;
-  letter-spacing: 0.25em;
+/* Small hint text pointing up at the ball */
+.ball-hint {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--grey-dark);
-  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
 }
 
-.logos-grid {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+/* Ball glows cyan when hoverable in last panel —
+   ball.js sets pointer-events:all when in last panel,
+   so this :hover works naturally */
+#ball-container:hover .ball-core {
+  box-shadow:
+    0 0 0 2px rgba(0,212,255,0.6),
+    0 0 30px rgba(0,212,255,0.4);
 }
 
-.logo-placeholder {
-  padding: 0.6rem 1.5rem;
-  border: 1px solid var(--grey-dark);
-  color: var(--grey-dark);
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transition: border-color 0.3s, color 0.3s;
-}
-
-.logo-placeholder:hover {
-  border-color: var(--grey-mid);
-  color: var(--grey-mid);
-}
-
-@media (max-width: 768px) {
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
-  .testimonials-grid { grid-template-columns: 1fr; }
-}
+/* Remove the inner ring — ball-ring div is removed from HTML
+   but keep this here as a safety reset */
+.ball-ring { display: none !important; }
