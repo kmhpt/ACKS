@@ -5,11 +5,11 @@
 
   /* ── SERVICE DATA ────────────────────────────── */
   var SERVICES = [
-    { id: 'infrastructure', label: 'Infrastructure',          sub: 'ERDs, database design, cloud architecture', rate: 27, defaultHours: 30 },
-    { id: 'web',            label: 'Web Design & Application',sub: 'Full-stack web applications & portals',     rate: 25, defaultHours: 40 },
-    { id: 'data',           label: 'Data Engineering',        sub: 'ETL pipelines, analytics, dashboards',     rate: 27, defaultHours: 35 },
-    { id: 'creative',       label: 'Creative UX / UI',        sub: 'Design systems & interactions',            rate: 25, defaultHours: 20 },
-    { id: 'api',            label: 'API Integrations',        sub: 'Anthropic, OpenAI, REST, ML pipelines',    rate: 28, defaultHours: 25 },
+    { id: 'infrastructure', label: 'Infrastructure',          sub: 'ERDs, database design, cloud architecture', rate: 30, defaultHours: 30 },
+    { id: 'web',            label: 'Web Design & Application',sub: 'Full-stack web applications & portals',     rate: 27, defaultHours: 40 },
+    { id: 'data',           label: 'Data Engineering',        sub: 'ETL pipelines, analytics, dashboards',     rate: 30, defaultHours: 35 },
+    { id: 'creative',       label: 'Creative UX / UI',        sub: 'Design systems & interactions',            rate: 27, defaultHours: 20 },
+    { id: 'api',            label: 'API Integrations',        sub: 'Anthropic, OpenAI, REST, ML pipelines',    rate: 32, defaultHours: 25 },
   ];
 
   var cartState = {}; // id → hours
@@ -170,7 +170,7 @@
       }).join('');
 
       var row = document.createElement('div');
-      row.className = 'service-row';
+      row.className = 'service-row beam-card';
       row.setAttribute('data-id', svc.id);
 
       row.innerHTML =
@@ -180,7 +180,10 @@
             '<span class="service-row-sub">' + svc.sub + '</span>' +
           '</div>' +
           '<div class="service-row-right">' +
-            '<span class="service-row-rate">$' + svc.rate + ' / hr</span>' +
+            '<div style="display:flex;flex-direction:column;align-items:flex-end">' +
+              '<span class="service-row-rate">from $' + svc.rate + ' / hr</span>' +
+              '<span class="service-row-rate-note">starting price</span>' +
+            '</div>' +
             '<span class="service-row-chevron">+</span>' +
           '</div>' +
         '</div>' +
@@ -423,8 +426,18 @@
       /* subtle sine for liveliness between bounces */
       var sine  = Math.sin(progress * Math.PI * 12) * 3;
 
-      ball.style.top     = (vy + sine) + 'px';
-      ball.style.opacity = scrollY > 30 ? '1' : '0';
+      ball.style.top = (vy + sine) + 'px';
+
+      /* fade: hidden at very top AND very bottom of page */
+      var fadeInEnd   = 60;                        /* fully visible after 60px scroll */
+      var fadeOutStart = maxScroll * 0.88;         /* start fading 12% before bottom */
+      var opacity = 1;
+      if (scrollY < fadeInEnd) {
+        opacity = scrollY / fadeInEnd;
+      } else if (scrollY > fadeOutStart) {
+        opacity = 1 - (scrollY - fadeOutStart) / (maxScroll - fadeOutStart);
+      }
+      ball.style.opacity = Math.max(0, Math.min(1, opacity));
 
       /* bounce at section boundaries */
       sectionIds.forEach(function (id) {
