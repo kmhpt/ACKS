@@ -1,18 +1,31 @@
 /* ═══════════════════════════════════════════════════
-   main.js
+   main.js — ACKS
 ════════════════════════════════════════════════════ */
 (function () {
 
   /* ── SERVICE DATA ────────────────────────────── */
   var SERVICES = [
-    { id: 'infrastructure', label: 'Infrastructure',           sub: 'ERDs, DB design, cloud arch.',  rate: 27, defaultHours: 30 },
-    { id: 'web',            label: 'Web Design & Application', sub: 'Full-stack web applications',   rate: 25, defaultHours: 40 },
-    { id: 'data',           label: 'Data Engineering',         sub: 'ETL, analytics, pipelines',     rate: 27, defaultHours: 35 },
-    { id: 'creative',       label: 'Creative UX / UI',         sub: 'Design systems & interactions', rate: 25, defaultHours: 20 },
-    { id: 'api',            label: 'API Integrations',         sub: 'Anthropic, OpenAI, REST, ML',   rate: 28, defaultHours: 25 },
+    { id: 'infrastructure', label: 'Infrastructure',            sub: 'ERDs, DB design, cloud architecture',   rate: 27, defaultHours: 30 },
+    { id: 'web',            label: 'Web Design & Application',  sub: 'Full-stack web applications',           rate: 25, defaultHours: 40 },
+    { id: 'data',           label: 'Data Engineering',          sub: 'ETL pipelines, analytics, reporting',   rate: 27, defaultHours: 35 },
+    { id: 'creative',       label: 'Creative UX / UI',          sub: 'Design systems & interactions',         rate: 25, defaultHours: 20 },
+    { id: 'api',            label: 'API Integrations',          sub: 'Anthropic, OpenAI, REST, ML pipelines', rate: 28, defaultHours: 25 },
   ];
 
-  var cartState = {};
+  var cartState = {}; // id → hours
+
+  /* ── PERIMETER HELPER ────────────────────────── */
+  function perimToXY(d, w, h) {
+    var perim = 2 * (w + h);
+    d = ((d % perim) + perim) % perim;
+    if (d < w)  return { x: d,     y: 0     };
+    d -= w;
+    if (d < h)  return { x: w,     y: d     };
+    d -= h;
+    if (d < w)  return { x: w - d, y: h     };
+    d -= w;
+    return             { x: 0,     y: h - d };
+  }
 
   /* ── NAV ─────────────────────────────────────── */
   function initNav() {
@@ -76,7 +89,7 @@
     });
   }
 
-  /* ── FLIP CARDS ──────────────────────────────── */
+  /* ── FLIP CARDS (home) ───────────────────────── */
   function initFlipCards() {
     var cards = document.querySelectorAll('.flip-card');
     if (!cards.length) return;
@@ -127,69 +140,101 @@
   }
 
   /* ═══════════════════════════════════════════════
-     SERVICE DECK — VERTICAL LIST
+     SERVICE LIST
+     Vertical cards. Click selects + shows beam glow.
+     Opens fixed info panel from left.
   ═══════════════════════════════════════════════ */
-  function initDeck() {
-    var deckEl = document.getElementById('service-deck');
-    if (!deckEl) return;
+  function initServiceList() {
+    var listEl = document.getElementById('service-list');
+    if (!listEl) return;
 
-    SERVICES.forEach(function (svc, i) {
-      var card = document.createElement('div');
-      card.className = 'deck-card';
-      card.setAttribute('data-id', svc.id);
-      card.setAttribute('data-index', i);
+    SERVICES.forEach(function (svc) {
+      var row = document.createElement('div');
+      row.className = 'svc-row fade-in';
+      row.setAttribute('data-id', svc.id);
 
-      var rateBadge = document.createElement('span');
-      rateBadge.className   = 'deck-rate';
-      rateBadge.textContent = '$' + svc.rate + '/hr';
+      var canvas = document.createElement('canvas');
+      canvas.className = 'svc-beam-canvas';
 
-      var textWrap = document.createElement('div');
-      textWrap.style.cssText = 'flex:1;overflow:hidden;min-width:0;';
+      var info = document.createElement('div');
+      info.className = 'svc-row-info';
 
-      var title = document.createElement('div');
-      title.className   = 'deck-title';
-      title.textContent = svc.label;
+      var name = document.createElement('span');
+      name.className = 'svc-row-name';
+      name.textContent = svc.label;
 
-      var sub = document.createElement('div');
-      sub.className   = 'deck-sub';
+      var sub = document.createElement('span');
+      sub.className = 'svc-row-sub';
       sub.textContent = svc.sub;
 
-      textWrap.appendChild(title);
-      textWrap.appendChild(sub);
-      card.appendChild(rateBadge);
-      card.appendChild(textWrap);
+      info.appendChild(name);
+      info.appendChild(sub);
+
+      var rate = document.createElement('span');
+      rate.className = 'svc-row-rate';
+      rate.textContent = '$' + svc.rate + ' / hr';
 
       var dot = document.createElement('div');
-      dot.className = 'deck-dot';
-      card.appendChild(dot);
+      dot.className = 'svc-sel-dot';
 
-      deckEl.appendChild(card);
+      row.appendChild(canvas);
+      row.appendChild(info);
+      row.appendChild(rate);
+      row.appendChild(dot);
+      listEl.appendChild(row);
     });
 
-    var cards  = deckEl.querySelectorAll('.deck-card');
+    var rows   = listEl.querySelectorAll('.svc-row');
     var panels = document.querySelectorAll('.service-panel');
     var closes = document.querySelectorAll('.panel-close');
 
-    cards.forEach(function (card) {
-      var id = card.getAttribute('data-id');
+    function runBeam(canvas, row) {
+      var ctx = null, w = 0, h = 0, prog = 0;
+      function loop() {
+        if (!row.classList.contains('svc-selected')) {
+          if (ctx) ctx.clearRect(0, 0, w, h);
+          return;
+        }
+        w = canvas.width  = row.offsetWidth;
+        h = canvas.height = row.offsetHeight;
+        if (!ctx) ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, w, h);
+        var perim = 2 * (w + h), pos = (prog % 1) * perim, bLen = perim * 0.28, steps = 52;
+        for (var i = 0; i < steps; i++) {
+          var alpha = i / steps;
+          var p1 = perimToXY(pos - bLen * (1 - alpha),           w, h);
+          var p2 = perimToXY(pos - bLen * (1 - (i + 1) / steps), w, h);
+          ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = 'rgba(110,192,241,' + (alpha * 0.92) + ')';
+          ctx.stroke();
+        }
+        prog += 0.003;
+        requestAnimationFrame(loop);
+      }
+      loop();
+    }
 
-      card.addEventListener('click', function () {
-        var isSelected = card.classList.contains('deck-selected');
+    rows.forEach(function (row) {
+      var id     = row.getAttribute('data-id');
+      var canvas = row.querySelector('.svc-beam-canvas');
+
+      row.addEventListener('click', function () {
+        var isSelected = row.classList.contains('svc-selected');
 
         if (isSelected) {
-          card.classList.remove('deck-selected');
+          row.classList.remove('svc-selected');
           var panel = document.getElementById('panel-' + id);
           if (panel) panel.classList.remove('panel-active');
           delete cartState[id];
         } else {
-          card.classList.add('deck-selected');
+          row.classList.add('svc-selected');
+          runBeam(canvas, row);
           panels.forEach(function (p) { p.classList.remove('panel-active'); });
           var panel = document.getElementById('panel-' + id);
           if (panel) panel.classList.add('panel-active');
           var svc = null;
-          for (var k = 0; k < SERVICES.length; k++) {
-            if (SERVICES[k].id === id) { svc = SERVICES[k]; break; }
-          }
+          for (var k = 0; k < SERVICES.length; k++) { if (SERVICES[k].id === id) { svc = SERVICES[k]; break; } }
           if (svc) cartState[id] = svc.defaultHours;
         }
         renderCart();
@@ -197,8 +242,7 @@
     });
 
     closes.forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
+      btn.addEventListener('click', function () {
         panels.forEach(function (p) { p.classList.remove('panel-active'); });
       });
     });
@@ -207,62 +251,70 @@
     if (clearBtn) {
       clearBtn.addEventListener('click', function () {
         cartState = {};
-        cards.forEach(function (c) { c.classList.remove('deck-selected'); });
+        rows.forEach(function (r) { r.classList.remove('svc-selected'); });
         panels.forEach(function (p) { p.classList.remove('panel-active'); });
         renderCart();
       });
     }
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.service-panel') &&
+          !e.target.closest('.svc-row') &&
+          !e.target.closest('#cart-panel') &&
+          !e.target.closest('#calc-tab')) {
+        panels.forEach(function (p) { p.classList.remove('panel-active'); });
+      }
+    });
   }
 
-  /* ── CALCULATOR TAB TOGGLE ───────────────────── */
+  /* ── CALCULATOR (fixed right panel) ─────────── */
   function initCalcTab() {
-    var wrapper = document.getElementById('calc-wrapper');
-    var tab     = document.getElementById('calc-tab');
-    var icon    = document.getElementById('calc-tab-icon');
-    if (!wrapper || !tab) return;
+    var tab   = document.getElementById('calc-tab');
+    var panel = document.getElementById('cart-panel');
+    var icon  = document.getElementById('calc-tab-icon');
+    if (!tab || !panel) return;
 
-    var open = true;
-    wrapper.classList.remove('calc-closed');
+    var open = false;
 
     tab.addEventListener('click', function () {
       open = !open;
       if (open) {
-        wrapper.classList.remove('calc-closed');
-        if (icon) icon.innerHTML = '&#9664;';
-      } else {
-        wrapper.classList.add('calc-closed');
+        panel.classList.add('cart-open');
+        tab.classList.add('calc-tab-open');
         if (icon) icon.innerHTML = '&#9654;';
+      } else {
+        panel.classList.remove('cart-open');
+        tab.classList.remove('calc-tab-open');
+        if (icon) icon.innerHTML = '&#9664;';
       }
     });
   }
 
   /* ── CART RENDER ─────────────────────────────── */
   function renderCart() {
-    var container   = document.getElementById('cart-items');
-    var totalRow    = document.getElementById('cart-total-row');
-    var totalVal    = document.getElementById('cart-total-value');
-    var ctaBlock    = document.getElementById('cart-cta');
-    var emptyMsg    = document.getElementById('cart-empty');
-    var avgBlock    = document.getElementById('cart-avg-rate');
-    var avgVal      = document.getElementById('cart-avg-val');
-    var loginPrompt = document.getElementById('cart-login-prompt');
+    var container = document.getElementById('cart-items');
+    var totalRow  = document.getElementById('cart-total-row');
+    var totalVal  = document.getElementById('cart-total-value');
+    var avgRow    = document.getElementById('cart-avg-row');
+    var avgVal    = document.getElementById('cart-avg-value');
+    var ctaBlock  = document.getElementById('cart-cta');
+    var emptyMsg  = document.getElementById('cart-empty');
     if (!container) return;
 
     var ids = Object.keys(cartState);
 
     if (ids.length === 0) {
       container.innerHTML = '';
-      if (emptyMsg)    { emptyMsg.style.display = 'block'; container.appendChild(emptyMsg); }
-      if (totalRow)    totalRow.style.display  = 'none';
-      if (ctaBlock)    ctaBlock.style.display  = 'none';
-      if (avgBlock)    avgBlock.classList.remove('visible');
-      if (loginPrompt) loginPrompt.classList.remove('visible');
+      if (emptyMsg) { emptyMsg.style.display = 'block'; container.appendChild(emptyMsg); }
+      if (totalRow) totalRow.style.display = 'none';
+      if (avgRow)   avgRow.style.display   = 'none';
+      if (ctaBlock) ctaBlock.style.display = 'none';
       return;
     }
 
     if (emptyMsg) emptyMsg.style.display = 'none';
 
-    var html = '', total = 0, totalHours = 0, weightedSum = 0;
+    var html = '', total = 0, totalRate = 0;
 
     ids.forEach(function (id) {
       var svc = null;
@@ -270,10 +322,8 @@
       if (!svc) return;
       var hrs  = cartState[id];
       var cost = svc.rate * hrs;
-      total      += cost;
-      totalHours += hrs;
-      weightedSum += svc.rate * hrs;
-
+      total     += cost;
+      totalRate += svc.rate;
       html +=
         '<div class="cart-item" data-id="' + id + '">' +
           '<div class="cart-item-top">' +
@@ -291,43 +341,50 @@
 
     container.innerHTML = html;
 
-    if (avgBlock && avgVal && totalHours > 0) {
-      avgVal.textContent = '$' + (weightedSum / totalHours).toFixed(2) + ' / hr';
-      avgBlock.classList.add('visible');
-    }
-
-    if (loginPrompt) loginPrompt.classList.add('visible');
-
     container.querySelectorAll('.cart-slider').forEach(function (slider) {
       slider.addEventListener('input', function () {
-        var sid = slider.getAttribute('data-id');
-        var hrs = parseInt(slider.value, 10);
+        var sid  = slider.getAttribute('data-id');
+        var hrs  = parseInt(slider.value, 10);
         cartState[sid] = hrs;
         var item = slider.closest('.cart-item');
         var lbl  = item.querySelector('.cart-hours-label');
         var sub  = item.querySelector('.cart-item-subtotal');
-        var svc  = null;
-        for (var k = 0; k < SERVICES.length; k++) { if (SERVICES[k].id === sid) { svc = SERVICES[k]; break; } }
+        var s    = null;
+        for (var k = 0; k < SERVICES.length; k++) { if (SERVICES[k].id === sid) { s = SERVICES[k]; break; } }
         if (lbl) lbl.textContent = hrs + ' hrs';
-        if (sub && svc) sub.textContent = '$' + (svc.rate * hrs).toLocaleString();
-
-        var t = 0, th = 0, ws = 0;
-        Object.keys(cartState).forEach(function (kid) {
-          var ks = null;
-          for (var j = 0; j < SERVICES.length; j++) { if (SERVICES[j].id === kid) { ks = SERVICES[j]; break; } }
-          if (ks) { t += ks.rate * cartState[kid]; th += cartState[kid]; ws += ks.rate * cartState[kid]; }
+        if (sub && s) sub.textContent = '$' + (s.rate * hrs).toLocaleString();
+        var t = 0, tr = 0;
+        Object.keys(cartState).forEach(function (k) {
+          var sv = null;
+          for (var j = 0; j < SERVICES.length; j++) { if (SERVICES[j].id === k) { sv = SERVICES[j]; break; } }
+          if (sv) { t += sv.rate * cartState[k]; tr += sv.rate; }
         });
         if (totalVal) totalVal.textContent = '$' + t.toLocaleString();
-        if (avgVal && th > 0) avgVal.textContent = '$' + (ws / th).toFixed(2) + ' / hr';
+        var cnt = Object.keys(cartState).length;
+        if (avgVal && cnt > 0) avgVal.textContent = '$' + (tr / cnt).toFixed(2) + ' / hr';
       });
     });
 
+    var cnt     = ids.length;
+    var avgRate = cnt > 0 ? (totalRate / cnt).toFixed(2) : '0.00';
+    if (avgRow)   avgRow.style.display   = 'flex';
+    if (avgVal)   avgVal.textContent     = '$' + avgRate + ' / hr';
     if (totalRow) totalRow.style.display = 'flex';
     if (totalVal) totalVal.textContent   = '$' + total.toLocaleString();
     if (ctaBlock) ctaBlock.style.display = 'block';
   }
 
-  /* ── BEAM ANIMATION ──────────────────────────── */
+  /* ── BUNDLE CLICKS → login register tab ─────── */
+  function initBundleClicks() {
+    document.querySelectorAll('.package-card').forEach(function (card) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function () {
+        window.location.href = 'login.html?tab=register';
+      });
+    });
+  }
+
+  /* ── BEAM CARDS (contact/footer) ────────────── */
   function initBeamCards() {
     document.querySelectorAll('.beam-card').forEach(function (card) {
       var canvas = document.createElement('canvas');
@@ -335,21 +392,14 @@
       card.appendChild(canvas);
       var ctx = null, w = 0, h = 0, progress = 0, raf = null, active = false;
       function resize() { w = canvas.width = card.offsetWidth; h = canvas.height = card.offsetHeight; }
-      function perimToXY(d, perim) {
-        d = ((d % perim) + perim) % perim;
-        if (d < w)  return { x: d,     y: 0     };  d -= w;
-        if (d < h)  return { x: w,     y: d     };  d -= h;
-        if (d < w)  return { x: w - d, y: h     };  d -= w;
-        return             { x: 0,     y: h - d };
-      }
       function drawBeam() {
         ctx.clearRect(0, 0, w, h);
-        var perim = 2*(w+h), pos = (progress%1)*perim, beamLen = perim*0.20, steps = 48;
+        var perim = 2*(w+h), pos = (progress%1)*perim, bLen = perim*0.20, steps = 48;
         for (var i = 0; i < steps; i++) {
           var alpha = i/steps;
-          var pt  = perimToXY(pos - beamLen*(1-alpha), perim);
-          var pt2 = perimToXY(pos - beamLen*(1-(i+1)/steps), perim);
-          ctx.beginPath(); ctx.moveTo(pt.x,pt.y); ctx.lineTo(pt2.x,pt2.y);
+          var p1 = perimToXY(pos - bLen*(1-alpha),           w, h);
+          var p2 = perimToXY(pos - bLen*(1-(i+1)/steps),     w, h);
+          ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y);
           ctx.lineWidth = 2;
           ctx.strokeStyle = 'rgba(181,204,218,'+(alpha*0.9)+')';
           ctx.stroke();
@@ -357,10 +407,79 @@
       }
       function loop() { progress += 0.0035; drawBeam(); raf = requestAnimationFrame(loop); }
       function stop() { active=false; if(raf){cancelAnimationFrame(raf);raf=null;} if(ctx)ctx.clearRect(0,0,w,h); }
-      card.addEventListener('mouseenter', function(){if(active)return;active=true;resize();if(!ctx)ctx=canvas.getContext('2d');loop();});
+      card.addEventListener('mouseenter', function(){ if(active)return; active=true; resize(); if(!ctx)ctx=canvas.getContext('2d'); loop(); });
       card.addEventListener('mouseleave', stop);
-      window.addEventListener('resize', function(){if(active)resize();});
+      window.addEventListener('resize', function(){ if(active)resize(); });
     });
+  }
+
+  /* ═══════════════════════════════════════════════
+     SCROLL NAV (home page)
+     Fixed left sidebar — 4 nodes with progress line.
+     Cyan nodes, wine glow on progress. Shrinks on mobile.
+  ═══════════════════════════════════════════════ */
+  function initScrollNav() {
+    var nav = document.getElementById('scroll-nav');
+    if (!nav) return;
+
+    var SECTION_IDS = ['hero', 'value-statement', 'gateway', 'lastPanel'];
+    var nodes       = Array.prototype.slice.call(nav.querySelectorAll('.snav-node'));
+    var progressEl  = nav.querySelector('.snav-progress');
+
+    function positionNodes() {
+      var docH      = Math.max(document.documentElement.scrollHeight, 1);
+      var viewH     = window.innerHeight;
+      var maxScroll = Math.max(1, docH - viewH);
+
+      SECTION_IDS.forEach(function (id, i) {
+        var el = document.getElementById(id);
+        if (!el || !nodes[i]) return;
+        var focus         = el.offsetTop + el.offsetHeight * 0.3;
+        var scrollAtFocus = Math.max(0, focus - viewH * 0.5);
+        var pct           = (scrollAtFocus / maxScroll) * 100;
+        pct = Math.max(2, Math.min(96, pct));
+        nodes[i].style.top = pct + '%';
+      });
+    }
+
+    function updateProgress() {
+      var scrollY   = window.scrollY || window.pageYOffset;
+      var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var pct       = (scrollY / maxScroll) * 100;
+
+      if (progressEl) progressEl.style.height = pct + '%';
+
+      var midY       = scrollY + window.innerHeight * 0.45;
+      var currentIdx = -1;
+
+      SECTION_IDS.forEach(function (id, i) {
+        var el = document.getElementById(id);
+        if (!el || !nodes[i]) return;
+        if (midY >= el.offsetTop) {
+          nodes[i].classList.add('snav-active');
+          currentIdx = i;
+        } else {
+          nodes[i].classList.remove('snav-active');
+          nodes[i].classList.remove('snav-current');
+        }
+      });
+
+      nodes.forEach(function (n) { n.classList.remove('snav-current'); });
+      if (currentIdx >= 0 && nodes[currentIdx]) nodes[currentIdx].classList.add('snav-current');
+    }
+
+    setTimeout(function () { positionNodes(); updateProgress(); }, 200);
+    window.addEventListener('scroll',  updateProgress,                    { passive: true });
+    window.addEventListener('resize',  function () { positionNodes(); updateProgress(); });
+  }
+
+  /* ── LOGIN TAB AUTO-SELECT ───────────────────── */
+  function initLoginTab() {
+    if (typeof window.switchTab !== 'function') return;
+    try {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('tab') === 'register') window.switchTab('register');
+    } catch(e) {}
   }
 
   /* ── MUSIC WIDGET ────────────────────────────── */
@@ -383,9 +502,12 @@
     initHeaderGlow();
     initFlipCards();
     initTower();
-    initDeck();
+    initServiceList();
     initCalcTab();
     initBeamCards();
+    initBundleClicks();
+    initScrollNav();
+    initLoginTab();
     initMusic();
   }
 

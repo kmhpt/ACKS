@@ -8,58 +8,159 @@
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
   <style>
-    /* ── MEMBERSHIP PAGE ── */
+    /* ── MEMBERSHIP PAGE STYLES ── */
     .page-membership { --color-bg: var(--navy); --color-bg-alt: var(--navy-light); }
 
     #membership-hero {
-      min-height: 58vh;
-      display: flex; align-items: center; justify-content: center;
+      min-height: 52vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       padding: calc(var(--nav-height) + 5rem) 2rem 5rem;
-      background:
-        radial-gradient(ellipse 70% 60% at 25% 50%, rgba(0,212,255,.06) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 80% at 80% 30%, rgba(71,34,44,.18) 0%, transparent 60%),
-        var(--navy);
+      background: radial-gradient(ellipse 70% 60% at 30% 50%, rgba(0,212,255,.06) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 80% at 75% 30%, rgba(124,92,191,.07) 0%, transparent 60%),
+                  var(--navy);
       border-bottom: 1px solid var(--line);
       position: relative; overflow: hidden;
     }
-    #membership-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 80px,
-        rgba(255,255,255,.012) 80px,
-        rgba(255,255,255,.012) 81px
-      );
-      pointer-events: none;
+
+    /* ── WHAT IS MEMBERSHIP ── */
+    #membership-intro {
+      background: var(--navy-mid);
+      border-bottom: 1px solid var(--line);
+      padding: 4rem 2rem;
+    }
+    .intro-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .intro-text h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: normal;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .intro-text p {
+      font-size: 1rem;
+      color: var(--grey-mid);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .intro-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .intro-benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--navy);
+      border: 1px solid var(--grey-dark);
+      border-left: 3px solid var(--cyan-bright);
+    }
+    .benefit-icon {
+      font-size: 1.2rem;
+      color: var(--cyan-bright);
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .benefit-text strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: normal;
+      margin-bottom: 0.2rem;
+    }
+    .benefit-text span {
+      font-size: 0.82rem;
+      color: var(--grey-mid);
+      line-height: 1.6;
     }
 
-    /* ── MEMBER VALUE BAR ── */
-    #member-value-bar {
-      background: linear-gradient(135deg, var(--wine-deep) 0%, var(--wine) 50%, var(--wine-deep) 100%);
-      border-top: 1px solid rgba(122,48,64,.4);
-      border-bottom: 1px solid rgba(122,48,64,.4);
-      padding: 2.5rem 2rem;
+    /* ── ESTIMATOR FEATURE CALLOUT ── */
+    #estimator-callout {
+      background: var(--black);
+      border-bottom: 1px solid var(--line);
+      padding: 3.5rem 2rem;
     }
-    .member-value-inner {
-      max-width: var(--max-width); margin: 0 auto;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    .estimator-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 3rem;
+      align-items: center;
     }
-    .member-value-block {
-      padding: 1.2rem 2rem;
-      border-right: 1px solid rgba(255,255,255,.08);
-      display: flex; flex-direction: column; gap: .5rem;
-      text-align: center;
+    .estimator-text h3 {
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      font-weight: normal;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1rem;
     }
-    .member-value-block:last-child { border-right: none; }
-    .member-value-icon { font-size: 1.4rem; margin-bottom: .2rem; }
-    .member-value-block h4 { font-size: 1rem; font-weight: normal; color: var(--white); }
-    .member-value-block p { font-size: .85rem; color: rgba(220,190,190,.72); line-height: 1.7; }
+    .estimator-text p {
+      font-size: 0.95rem;
+      color: var(--grey-mid);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .estimator-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(0,212,255,0.25);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .estimator-card-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--cyan-bright);
+    }
+    .estimator-card h4 {
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: var(--white);
+    }
+    .estimator-card p {
+      font-size: 0.85rem;
+      color: var(--grey-mid);
+      line-height: 1.7;
+    }
+    .estimator-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .estimator-step {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.82rem;
+      color: var(--grey-light);
+    }
+    .step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(0,212,255,0.15);
+      border: 1px solid rgba(0,212,255,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem;
+      color: var(--cyan-bright);
+      flex-shrink: 0;
+    }
 
-    /* ── TIERS ── */
-    #membership-tiers {
+    /* ── TIER CARDS ── */
+    #tiers-section {
       background: var(--color-bg);
       padding: 5rem 2rem;
       border-bottom: 1px solid var(--line);
@@ -70,272 +171,205 @@
       gap: 1.5rem;
       max-width: var(--max-width);
       margin: 0 auto;
-      align-items: stretch;
+      align-items: start;
     }
-    .tier-outer { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
-    .tier-badge-above {
+    .tier-outer {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .tier-badge {
       display: inline-block;
-      font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       color: var(--cyan-bright);
       background: var(--black);
       border: 1px solid var(--cyan-bright);
-      padding: .25rem .7rem;
-      position: relative; bottom: -1px;
-      z-index: 2; white-space: nowrap;
+      padding: 0.25rem 0.7rem;
+      position: relative;
+      bottom: -1px;
+      z-index: 2;
+      white-space: nowrap;
     }
-    .tier-badge-above.wine-badge {
-      color: #c0758a;
-      border-color: #c0758a;
+    .tier-badge.pro-badge {
+      color: #c0a0ff;
+      border-color: #c0a0ff;
     }
     .tier-card {
       width: 100%;
-      padding: 2.2rem 2rem;
+      padding: 2rem;
       background: var(--navy);
       border: 1px solid var(--grey-dark);
-      display: flex; flex-direction: column; gap: 1.2rem;
-      position: relative; overflow: hidden;
-      transition: border-color .3s, transform .3s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
     }
-    .tier-card:hover { border-color: rgba(0,212,255,.3); transform: translateY(-4px); }
-    .tier-card.featured { border-color: rgba(0,212,255,.35); }
-    .tier-card.pro-card { border-color: rgba(192,117,138,.4); }
-    .tier-card.pro-card:hover { border-color: rgba(192,117,138,.7); }
+    .tier-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
+    .tier-card.tier-featured { border-color: rgba(0,212,255,0.4); }
+    .tier-card.tier-pro { border-color: rgba(192,160,255,0.35); }
+    .tier-card.tier-pro:hover { border-color: rgba(192,160,255,0.6); }
 
     .tier-name {
-      font-size: .68rem; letter-spacing: .28em; text-transform: uppercase;
-      color: var(--cyan-bright); margin-bottom: .2rem;
-    }
-    .tier-card.pro-card .tier-name { color: #c0758a; }
-    .tier-price {
-      display: flex; align-items: baseline; gap: .4rem;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 1.2rem;
-    }
-    .tier-amount {
-      font-size: 2.4rem; color: var(--white); letter-spacing: -.03em;
-      font-weight: normal;
-    }
-    .tier-period { font-size: .8rem; color: var(--grey-mid); }
-    .tier-placeholder-note {
-      font-size: .65rem; color: var(--grey-dark); letter-spacing: .1em;
-      text-transform: uppercase; margin-top: .2rem; display: block;
-    }
-    .tier-headline {
-      font-size: 1.3rem; font-weight: normal; color: var(--white);
-      line-height: 1.25;
-    }
-    .tier-description {
-      font-size: .88rem; color: var(--grey-mid); line-height: 1.75;
-    }
-    .tier-features { display: flex; flex-direction: column; gap: .55rem; flex: 1; }
-    .tier-features li {
-      font-size: .85rem; color: var(--grey-light);
-      padding-left: 1.2rem; position: relative; line-height: 1.5;
-    }
-    .tier-features li::before {
-      content: '→'; position: absolute; left: 0;
-      color: var(--cyan-bright); font-size: .75rem;
-    }
-    .tier-card.pro-card .tier-features li::before { color: #c0758a; }
-    .tier-discount-badge {
-      display: inline-flex; align-items: center; gap: .4rem;
-      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
       color: var(--cyan-bright);
-      background: rgba(0,212,255,.07);
-      border: 1px solid rgba(0,212,255,.25);
-      padding: .3rem .7rem;
     }
-    .tier-card.pro-card .tier-discount-badge {
-      color: #c0758a;
-      background: rgba(192,117,138,.07);
-      border-color: rgba(192,117,138,.25);
+    .tier-card.tier-pro .tier-name { color: #c0a0ff; }
+    .tier-card h3 {
+      font-size: 1.5rem;
+      font-weight: normal;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .tier-price {
+      font-size: 2rem;
+      color: var(--white);
+      line-height: 1;
+      margin: 0.4rem 0;
+    }
+    .tier-price span {
+      font-size: 0.8rem;
+      color: var(--grey-mid);
+      letter-spacing: 0.08em;
+    }
+    .tier-price.pro-price { color: #c0a0ff; }
+    .tier-desc {
+      font-size: 0.88rem;
+      color: var(--grey-mid);
+      line-height: 1.7;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .tier-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      flex: 1;
+    }
+    .tier-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.85rem;
+      color: var(--grey-light);
+      line-height: 1.5;
+    }
+    .feature-check {
+      color: var(--cyan-bright);
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      margin-top: 0.15rem;
+    }
+    .tier-card.tier-pro .feature-check { color: #c0a0ff; }
+    .tier-discount {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      font-size: 0.78rem;
+      color: var(--cyan-bright);
+    }
+    .tier-card.tier-pro .tier-discount {
+      background: rgba(192,160,255,0.08);
+      border-color: rgba(192,160,255,0.2);
+      color: #c0a0ff;
     }
     .tier-cta {
-      display: block; text-align: center;
-      padding: .85rem; margin-top: .4rem;
+      display: block;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       background: transparent;
       border: 1px solid var(--grey-dark);
       color: var(--grey-mid);
-      font-family: var(--font-main);
-      font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
       cursor: pointer;
-      transition: background .2s, color .2s, border-color .2s;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
       text-decoration: none;
+      font-family: var(--font-main);
     }
     .tier-cta:hover {
-      background: var(--cyan-dim);
+      background: rgba(0,212,255,0.08);
       border-color: var(--cyan-bright);
       color: var(--cyan-bright);
     }
-    .tier-card.featured .tier-cta {
+    .tier-card.tier-featured .tier-cta {
       background: var(--cyan-bright);
       border-color: var(--cyan-bright);
       color: var(--black);
     }
-    .tier-card.featured .tier-cta:hover {
+    .tier-card.tier-featured .tier-cta:hover {
       background: transparent;
       color: var(--cyan-bright);
     }
-    .tier-card.pro-card .tier-cta {
-      background: #c0758a;
-      border-color: #c0758a;
-      color: var(--black);
-    }
-    .tier-card.pro-card .tier-cta:hover {
-      background: transparent;
-      color: #c0758a;
+    .tier-card.tier-pro .tier-cta:hover {
+      background: rgba(192,160,255,0.08);
+      border-color: #c0a0ff;
+      color: #c0a0ff;
     }
 
-    /* ── ESTIMATOR FEATURE ── */
-    #estimator-feature {
-      background: var(--color-bg-alt);
-      border-bottom: 1px solid var(--line);
-      padding: 5rem 2rem;
-    }
-    .estimator-feature-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
-      max-width: var(--max-width); margin: 0 auto;
-      align-items: center;
-    }
-    .estimator-feature-text { display: flex; flex-direction: column; gap: 1.4rem; }
-    .estimator-feature-text h2 {
-      font-size: clamp(2rem, 3.2vw, 2.8rem);
-      font-weight: normal; color: var(--white); line-height: 1.2;
-    }
-    .estimator-feature-text p { font-size: 1rem; color: var(--grey-mid); line-height: 1.8; }
-    .estimator-steps {
-      display: flex; flex-direction: column; gap: 1rem;
-      margin-top: .5rem;
-    }
-    .estimator-step {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1rem 1.2rem;
-      background: var(--navy); border: 1px solid var(--grey-dark);
-      transition: border-color .3s;
-    }
-    .estimator-step:hover { border-color: rgba(0,212,255,.25); }
-    .estimator-step-num {
-      font-size: 1.4rem; color: rgba(0,212,255,.15);
-      letter-spacing: -.04em; flex-shrink: 0; font-weight: normal;
-      min-width: 2rem;
-    }
-    .estimator-step-text h4 {
-      font-size: .92rem; font-weight: normal; color: var(--white); margin-bottom: .3rem;
-    }
-    .estimator-step-text p { font-size: .82rem; color: var(--grey-mid); line-height: 1.6; }
-    .estimator-feature-visual {
-      padding: 2.5rem;
-      background: var(--navy);
-      border: 1px solid rgba(0,212,255,.2);
-      display: flex; flex-direction: column; gap: 1.2rem;
-      position: relative; overflow: hidden;
-    }
-    .estimator-feature-visual::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan-bright), transparent);
-      opacity: .5;
-    }
-    .visual-label {
-      font-size: .65rem; letter-spacing: .25em; text-transform: uppercase;
-      color: var(--cyan-bright);
-    }
-    .visual-mock-items { display: flex; flex-direction: column; gap: .6rem; }
-    .visual-mock-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: .6rem .8rem;
-      background: rgba(0,212,255,.04);
-      border: 1px solid rgba(0,212,255,.1);
-    }
-    .visual-mock-name { font-size: .78rem; color: var(--grey-light); }
-    .visual-mock-cost { font-size: .82rem; color: var(--cyan-bright); font-family: var(--font-mono); }
-    .visual-mock-total {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: .8rem;
-      border-top: 1px solid rgba(0,212,255,.2);
-      margin-top: .4rem;
-    }
-    .visual-mock-total-label { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--grey-mid); }
-    .visual-mock-total-val { font-size: 1.2rem; color: var(--cyan-bright); font-family: var(--font-mono); }
-    .visual-submit-btn {
-      display: block; width: 100%;
-      padding: .75rem;
-      background: var(--cyan-bright); border: none;
-      color: var(--black);
-      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
-      font-family: var(--font-main); cursor: pointer; text-align: center;
-    }
-    .visual-submit-note {
-      font-size: .68rem; color: var(--grey-dark); text-align: center;
-      letter-spacing: .05em;
-    }
-
-    /* ── MEMBER COMPARISON ── */
-    #member-comparison {
-      background: var(--color-bg);
-      padding: 5rem 2rem;
-      border-bottom: 1px solid var(--line);
-    }
-    .comparison-table {
-      max-width: var(--max-width); margin: 0 auto;
-      border: 1px solid var(--grey-dark); overflow: hidden;
-    }
-    .comparison-header {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    /* ── COMPARISON NOTE ── */
+    #compare-note {
       background: var(--navy-mid);
-      border-bottom: 1px solid var(--grey-dark);
-    }
-    .comparison-header-cell {
-      padding: 1rem 1.2rem;
-      font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
-      color: var(--grey-mid); border-right: 1px solid var(--line);
-    }
-    .comparison-header-cell:last-child { border-right: none; }
-    .comparison-header-cell.featured-col { color: var(--cyan-bright); }
-    .comparison-header-cell.pro-col { color: #c0758a; }
-    .comparison-row {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
       border-bottom: 1px solid var(--line);
-      transition: background .2s;
+      padding: 3rem 2rem;
     }
-    .comparison-row:last-child { border-bottom: none; }
-    .comparison-row:hover { background: rgba(255,255,255,.02); }
-    .comparison-cell {
-      padding: .9rem 1.2rem;
-      font-size: .85rem; color: var(--grey-mid);
-      border-right: 1px solid var(--line);
-      display: flex; align-items: center;
-    }
-    .comparison-cell:last-child { border-right: none; }
-    .comparison-cell.feature-name { color: var(--grey-light); }
-    .comparison-cell.check { color: var(--cyan-bright); font-size: 1rem; justify-content: center; }
-    .comparison-cell.pro-check { color: #c0758a; font-size: 1rem; justify-content: center; }
-    .comparison-cell.cross { color: var(--grey-dark); justify-content: center; }
-    .comparison-cell.partial { color: var(--grey-mid); font-size: .78rem; justify-content: center; text-align: center; }
-
-    /* ── MEMBERSHIP CTA ── */
-    #membership-cta {
-      background: linear-gradient(135deg, var(--wine-deep) 0%, var(--wine) 60%, var(--wine-deep) 100%);
-      border-top: 1px solid rgba(122,48,64,.4);
-      padding: 5rem 2rem;
+    .compare-inner {
+      max-width: 760px;
+      margin: 0 auto;
       text-align: center;
     }
-    .membership-cta-inner { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
-    .membership-cta-inner h2 { font-size: clamp(2rem, 3vw, 2.8rem); font-weight: normal; color: var(--white); line-height: 1.2; }
-    .membership-cta-inner p { font-size: 1rem; color: rgba(220,190,190,.8); line-height: 1.75; }
-    .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .tiers-grid { grid-template-columns: 1fr; max-width: 480px; }
-      .estimator-feature-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .member-value-inner { grid-template-columns: 1fr; }
-      .member-value-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
-      .comparison-header, .comparison-row { grid-template-columns: 2fr 1fr 1fr 1fr; }
+    .compare-inner h3 {
+      font-size: 1.4rem;
+      font-weight: normal;
+      color: var(--white);
+      margin-bottom: 1rem;
     }
-    @media (max-width: 640px) {
-      .comparison-table { overflow-x: auto; }
-      .comparison-header, .comparison-row { min-width: 560px; }
+    .compare-inner p {
+      font-size: 0.92rem;
+      color: var(--grey-mid);
+      line-height: 1.8;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      font-size: 0.82rem;
+    }
+    .compare-table th {
+      padding: 0.7rem 1rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan-bright);
+      border-bottom: 1px solid var(--grey-dark);
+      text-align: left;
+    }
+    .compare-table td {
+      padding: 0.7rem 1rem;
+      color: var(--grey-light);
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+    .compare-table td:first-child { color: var(--grey-mid); }
+    .check-yes { color: var(--cyan-bright); }
+    .check-no  { color: var(--grey-dark); }
+    .check-pro { color: #c0a0ff; }
+
+    @media (max-width: 900px) {
+      .tiers-grid     { grid-template-columns: 1fr; max-width: 480px; }
+      .intro-inner    { grid-template-columns: 1fr; gap: 2rem; }
+      .estimator-inner{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -361,112 +395,140 @@
   <header id="membership-hero">
     <div class="page-header-content">
       <span class="section-label">Membership</span>
-      <h1>Built for teams that <span class="highlight">build seriously.</span></h1>
-      <p class="hero-sub">Members get discounts, booking priority, and premium support — plus tools that let you submit finalized project requests around the clock, so we can start processing the moment your request lands.</p>
+      <h1>More access. <span class="highlight">Better outcomes.</span></h1>
+      <p class="hero-sub">Membership unlocks priority support, service discounts, and a direct channel to submit your project estimates — processed at any hour of the day.</p>
     </div>
   </header>
 
-  <!-- VALUE BAR -->
-  <div id="member-value-bar">
-    <div class="member-value-inner">
-      <div class="member-value-block fade-in delay-1">
-        <div class="member-value-icon">⚡</div>
-        <h4>Booking Priority</h4>
-        <p>Members are queued ahead of general requests — your project starts faster.</p>
+  <!-- WHAT IS MEMBERSHIP -->
+  <section id="membership-intro">
+    <div class="intro-inner">
+      <div class="intro-text fade-in">
+        <span class="section-label">What Membership Means</span>
+        <h2>Your relationship with ACKS, elevated.</h2>
+        <p>Membership isn't a subscription to tools — it's a preferential relationship with our team. Members receive faster responses, dedicated developer access, priority placement in our project queue, and meaningful discounts on every service.</p>
+        <p>Whether you're an ongoing client or starting your first project, membership ensures you're never waiting in line.</p>
+        <a href="login.html?tab=register" class="btn" style="margin-top:0.5rem">Create Account to Join</a>
       </div>
-      <div class="member-value-block fade-in delay-2">
-        <div class="member-value-icon">◈</div>
-        <h4>Service Discounts</h4>
-        <p>Advanced and Pro members receive direct discounts on all hourly service rates.</p>
-      </div>
-      <div class="member-value-block fade-in delay-3">
-        <div class="member-value-icon">◎</div>
-        <h4>Premium Support</h4>
-        <p>Dedicated response lines, faster turnaround, and direct access to your team.</p>
+      <div class="intro-benefits fade-in delay-2">
+        <div class="intro-benefit">
+          <div class="benefit-icon">◈</div>
+          <div class="benefit-text">
+            <strong>Service Discounts</strong>
+            <span>Members receive 12–15% off all listed hourly rates, applied automatically when you submit an estimate.</span>
+          </div>
+        </div>
+        <div class="intro-benefit">
+          <div class="benefit-icon">◈</div>
+          <div class="benefit-text">
+            <strong>Booking Priority</strong>
+            <span>Members are queued ahead of standard requests. Your project moves faster from estimate to delivery.</span>
+          </div>
+        </div>
+        <div class="intro-benefit">
+          <div class="benefit-icon">◈</div>
+          <div class="benefit-text">
+            <strong>Premium Support</strong>
+            <span>Direct access to your assigned developer for questions, updates, and ongoing assistance.</span>
+          </div>
+        </div>
+        <div class="intro-benefit">
+          <div class="benefit-icon">◈</div>
+          <div class="benefit-text">
+            <strong>24/7 Estimate Submission</strong>
+            <span>Submit finalized project estimates from the Project Estimator at any time — we start processing immediately.</span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- TIERS -->
-  <section id="membership-tiers">
+  <!-- PROJECT ESTIMATOR FEATURE -->
+  <section id="estimator-callout">
+    <div class="estimator-inner">
+      <div class="estimator-text fade-in">
+        <span class="section-label">Project Estimator</span>
+        <h3>Submit your estimate.<br>We start <span class="highlight">immediately.</span></h3>
+        <p>Our Project Estimator on the Services page lets you build a custom cost estimate by selecting services and adjusting estimated hours. As a member, you can finalise that estimate and submit it directly to our team — no waiting for business hours.</p>
+        <p>When you submit, we receive your full service breakdown, hours, and projected cost. We begin scoping and reaching out to you right away, giving your project a head start before the first call.</p>
+        <a href="services.html" class="btn btn-outline" style="margin-top:0.5rem">Open Project Estimator →</a>
+      </div>
+      <div class="estimator-card fade-in delay-2">
+        <span class="estimator-card-label">How It Works</span>
+        <h4>From estimate to kickoff in one step</h4>
+        <p>Members unlock the "Submit Request" button inside the Project Estimator.</p>
+        <div class="estimator-steps">
+          <div class="estimator-step"><div class="step-num">1</div><span>Select your services and adjust hours on the Estimator</span></div>
+          <div class="estimator-step"><div class="step-num">2</div><span>Review your blended average rate and total estimate</span></div>
+          <div class="estimator-step"><div class="step-num">3</div><span>Log in and click <em>"Login to submit request"</em></span></div>
+          <div class="estimator-step"><div class="step-num">4</div><span>We receive it instantly and begin processing — any time of day</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIER CARDS -->
+  <section id="tiers-section">
     <div class="section-header fade-in">
-      <span class="section-label">Membership Tiers</span>
+      <span class="section-label">Plans</span>
       <h2>Choose your level of access.</h2>
-      <p>All tiers include priority over general inquiries. Upgrade at any time.</p>
+      <p>Every tier includes account access and the ability to submit project estimates. Upgrade at any time.</p>
     </div>
     <div class="tiers-grid">
 
       <!-- STANDARD -->
       <div class="tier-outer fade-in delay-1">
-        <div class="tier-badge-above">Standard</div>
         <div class="tier-card">
-          <div class="tier-name">Standard Tier</div>
-          <div class="tier-price">
-            <span class="tier-amount">$XX</span>
-            <span class="tier-period">/ month</span>
+          <span class="tier-name">Standard</span>
+          <h3>Essentials</h3>
+          <div class="tier-price">$XX<span> / mo</span></div>
+          <p class="tier-desc">Core membership benefits for businesses starting their relationship with ACKS. Priority support and basic booking queue access included.</p>
+          <div class="tier-features">
+            <div class="tier-feature"><span class="feature-check">→</span><span>Member account &amp; project dashboard</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Basic project booking priority</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Priority support response (next business day)</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>24/7 project estimate submission</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Access to member-only updates &amp; resources</span></div>
           </div>
-          <span class="tier-placeholder-note">* Price to be confirmed</span>
-          <h3 class="tier-headline">Support & priority access for growing teams.</h3>
-          <p class="tier-description">The entry point for businesses that want reliable support, faster response times, and basic project priority over general inquiries.</p>
-          <ul class="tier-features">
-            <li>Basic project booking priority</li>
-            <li>Priority email support</li>
-            <li>Faster response times (1 business day)</li>
-            <li>Access to member-only updates & news</li>
-            <li>Submit project estimates via member portal</li>
-          </ul>
           <a href="login.html?tab=register" class="tier-cta">Get Started</a>
         </div>
       </div>
 
       <!-- ADVANCED -->
       <div class="tier-outer fade-in delay-2">
-        <div class="tier-badge-above">Most Popular · 12% Discount</div>
-        <div class="tier-card featured beam-card">
-          <div class="tier-name">Advanced Tier</div>
-          <div class="tier-price">
-            <span class="tier-amount">$XX</span>
-            <span class="tier-period">/ month</span>
+        <div class="tier-badge">Most Popular</div>
+        <div class="tier-card tier-featured">
+          <span class="tier-name">Advanced</span>
+          <h3>Developer Access</h3>
+          <div class="tier-price">$XX<span> / mo</span></div>
+          <p class="tier-desc">Everything in Standard, plus direct access to member developer solutions and meaningful discounts on all services.</p>
+          <div class="tier-features">
+            <div class="tier-feature"><span class="feature-check">→</span><span>Everything in Standard</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Member developer solutions — basic scripts, patches &amp; updates on previous systems</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Enhanced booking priority</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Faster support response (same business day)</span></div>
+            <div class="tier-discount">⬡ 12% discount on all services</div>
           </div>
-          <span class="tier-placeholder-note">* Price to be confirmed</span>
-          <h3 class="tier-headline">Everything in Standard, plus developer solutions.</h3>
-          <p class="tier-description">Access to member developer solutions — basic scripts, updates on previous systems, and expanded project support with a 12% discount on all services.</p>
-          <ul class="tier-features">
-            <li>Everything in Standard tier</li>
-            <li>12% discount on all service rates</li>
-            <li>Access to member developer solutions</li>
-            <li>Basic scripts & automation snippets</li>
-            <li>Updates & patches on previous systems</li>
-            <li>Enhanced booking priority</li>
-            <li>Dedicated support channel</li>
-          </ul>
-          <div class="tier-discount-badge">◈ 12% off all services</div>
           <a href="login.html?tab=register" class="tier-cta">Get Started</a>
         </div>
       </div>
 
       <!-- PRO -->
       <div class="tier-outer fade-in delay-3">
-        <div class="tier-badge-above wine-badge">Pro · 15% Discount</div>
-        <div class="tier-card pro-card beam-card">
-          <div class="tier-name">Pro Tier</div>
-          <div class="tier-price">
-            <span class="tier-amount">$XX</span>
-            <span class="tier-period">/ month</span>
+        <div class="tier-badge pro-badge">Pro Access</div>
+        <div class="tier-card tier-pro">
+          <span class="tier-name">Pro</span>
+          <h3>Elite Priority</h3>
+          <div class="tier-price pro-price">$XX<span> / mo</span></div>
+          <p class="tier-desc">The highest tier. Maximum priority across all services, early access to new offerings, and the largest discount we offer.</p>
+          <div class="tier-features">
+            <div class="tier-feature"><span class="feature-check">→</span><span>Everything in Advanced</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Highest-level booking priority — your projects move to the front</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Early access to new services &amp; capabilities before public release</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Dedicated support line — direct developer contact</span></div>
+            <div class="tier-feature"><span class="feature-check">→</span><span>Priority scoping calls, same-day scheduling</span></div>
+            <div class="tier-discount">⬡ 15% discount on all services</div>
           </div>
-          <span class="tier-placeholder-note">* Price to be confirmed</span>
-          <h3 class="tier-headline">Highest priority. Largest discount. Early access.</h3>
-          <p class="tier-description">The full ACKS experience — the largest discount on services, highest booking priority, and early access to new tools, features, and service offerings before anyone else.</p>
-          <ul class="tier-features">
-            <li>Everything in Advanced tier</li>
-            <li>15% discount on all service rates</li>
-            <li>Highest level booking priority</li>
-            <li>Early access to new services & features</li>
-            <li>Direct line to senior team members</li>
-            <li>Same-day support response target</li>
-            <li>Quarterly strategy review (optional)</li>
-          </ul>
-          <div class="tier-discount-badge">◈ 15% off all services</div>
           <a href="login.html?tab=register" class="tier-cta">Get Started</a>
         </div>
       </div>
@@ -474,156 +536,31 @@
     </div>
   </section>
 
-  <!-- ESTIMATOR FEATURE -->
-  <section id="estimator-feature">
-    <div class="estimator-feature-grid">
-      <div class="estimator-feature-text fade-in">
-        <span class="section-label">Member Feature</span>
-        <h2>Submit your project estimate. Any time of day.</h2>
-        <p>The Project Estimator on our Services page lets you build a live cost estimate based on the services and hours you need. As a member, you can finalize that estimate and submit it directly as a project request — no waiting for business hours, no back-and-forth to get started.</p>
-        <p>We'll begin processing your request the moment it arrives, so your project can move from estimate to kickoff faster than any general inquiry.</p>
-        <div class="estimator-steps">
-          <div class="estimator-step">
-            <span class="estimator-step-num">01</span>
-            <div class="estimator-step-text">
-              <h4>Build your estimate</h4>
-              <p>Select services and adjust hours in the Project Estimator on the Services page.</p>
-            </div>
-          </div>
-          <div class="estimator-step">
-            <span class="estimator-step-num">02</span>
-            <div class="estimator-step-text">
-              <h4>Log in as a member</h4>
-              <p>Your estimate is ready to submit. Log in to your member account to unlock the submit button.</p>
-            </div>
-          </div>
-          <div class="estimator-step">
-            <span class="estimator-step-num">03</span>
-            <div class="estimator-step-text">
-              <h4>Submit — we start processing immediately</h4>
-              <p>Your request is queued with priority. We begin reviewing and scoping the moment it arrives.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="estimator-feature-visual fade-in delay-2">
-        <span class="visual-label">Project Estimator · Member View</span>
-        <div class="visual-mock-items">
-          <div class="visual-mock-item">
-            <span class="visual-mock-name">Web Design &amp; Application</span>
-            <span class="visual-mock-cost">$25/hr · 40hrs</span>
-          </div>
-          <div class="visual-mock-item">
-            <span class="visual-mock-name">API Integrations</span>
-            <span class="visual-mock-cost">$28/hr · 25hrs</span>
-          </div>
-          <div class="visual-mock-item">
-            <span class="visual-mock-name">Data Engineering</span>
-            <span class="visual-mock-cost">$27/hr · 30hrs</span>
-          </div>
-        </div>
-        <div class="visual-mock-total">
-          <span class="visual-mock-total-label">Estimated Total</span>
-          <span class="visual-mock-total-val">$2,660</span>
-        </div>
-        <button class="visual-submit-btn">Submit Project Request →</button>
-        <p class="visual-submit-note">Available to members · processed immediately</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPARISON TABLE -->
-  <section id="member-comparison">
-    <div class="section-header fade-in">
-      <span class="section-label">Compare Tiers</span>
-      <h2>What's included at each level.</h2>
-    </div>
-    <div class="comparison-table fade-in">
-      <div class="comparison-header">
-        <div class="comparison-header-cell">Feature</div>
-        <div class="comparison-header-cell">Standard</div>
-        <div class="comparison-header-cell featured-col">Advanced</div>
-        <div class="comparison-header-cell pro-col">Pro</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Booking priority</div>
-        <div class="comparison-cell partial">Basic</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell pro-check">Highest</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Service discount</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell check">12%</div>
-        <div class="comparison-cell pro-check">15%</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Priority email support</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Submit project estimate 24/7</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Member developer solutions</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Basic scripts & automation snippets</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Updates on previous systems</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell check">✓</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Early access to new features</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Same-day support response target</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Direct line to senior team</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell pro-check">✓</div>
-      </div>
-      <div class="comparison-row">
-        <div class="comparison-cell feature-name">Quarterly strategy review</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell cross">—</div>
-        <div class="comparison-cell pro-check">Optional</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section id="membership-cta">
-    <div class="membership-cta-inner fade-in">
-      <span class="section-label" style="color:rgba(255,200,180,.7)">Ready to Join?</span>
-      <h2>Get started with a membership today.</h2>
-      <p>Create an account to access your chosen tier, unlock the 24/7 project estimator submission, and get priority access to our team.</p>
-      <div class="cta-buttons">
-        <a href="login.html?tab=register" class="btn">Create an Account</a>
-        <a href="services.html" class="btn btn-outline" style="border-color:rgba(255,200,180,.4);color:rgba(255,200,180,.8)">View Services &amp; Estimator</a>
-      </div>
+  <!-- COMPARISON -->
+  <section id="compare-note">
+    <div class="compare-inner fade-in">
+      <span class="section-label">At a Glance</span>
+      <h3>Feature comparison</h3>
+      <p>All tiers include a member account and the ability to submit project estimates 24/7. Higher tiers add developer solutions, deeper priority, and increasing discounts.</p>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Standard</th>
+            <th>Advanced</th>
+            <th>Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Member account &amp; dashboard</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>24/7 estimate submission</td><td class="check-yes">✓</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>Booking priority</td><td>Basic</td><td>Enhanced</td><td class="check-pro">Highest</td></tr>
+          <tr><td>Support response time</td><td>Next day</td><td>Same day</td><td class="check-pro">Direct line</td></tr>
+          <tr><td>Developer solutions access</td><td class="check-no">—</td><td class="check-yes">✓</td><td class="check-yes">✓</td></tr>
+          <tr><td>Early access to new services</td><td class="check-no">—</td><td class="check-no">—</td><td class="check-pro">✓</td></tr>
+          <tr><td>Service discount</td><td class="check-no">—</td><td class="check-yes">12%</td><td class="check-pro">15%</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -631,16 +568,16 @@
   <footer id="contact">
     <div class="contact-inner">
       <div class="contact-header fade-in">
-        <span class="section-label">Contact Us</span>
+        <span class="section-label">Questions?</span>
         <h2>Let's start a <span class="highlight">conversation.</span></h2>
-        <p>Have questions about membership? We'll get back to you within one business day.</p>
+        <p>Not sure which tier is right for you? Reach out — we'll help you figure out the best fit for your business.</p>
       </div>
       <div class="contact-grid">
         <div class="contact-card beam-card fade-in delay-1">
           <span class="contact-card-label">Send a Message</span>
           <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" /></div>
           <div class="form-group"><label>Email</label><input type="email" placeholder="you@company.com" /></div>
-          <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Ask us about membership..."></textarea></div>
+          <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your business..."></textarea></div>
           <button class="btn" style="width:100%">Send Message</button>
         </div>
         <div class="contact-info-col">
@@ -650,17 +587,20 @@
             <p class="contact-note">We respond within one business day.</p>
           </div>
           <div class="contact-card beam-card fade-in delay-3">
-            <span class="contact-card-label">Book a Call</span>
-            <a href="tel:+1-000-000-0000" class="contact-link">+1 (000) 000-0000</a>
-            <p class="contact-note">Monday – Friday, 9am – 6pm EST</p>
+            <span class="contact-card-label">Create an Account</span>
+            <a href="login.html?tab=register" class="contact-link">Get started today</a>
+            <p class="contact-note">Free to create — choose your tier after signing up.</p>
           </div>
         </div>
       </div>
       <div class="footer-bottom fade-in">
+        <div class="footer-privacy">
+          <span class="privacy-label">Privacy &amp; Data</span>
+          <p>ACKS operates in compliance with the <strong>Ontario Privacy Act</strong> and applicable Canadian federal privacy legislation (PIPEDA). We collect only the information necessary to respond to your inquiry and deliver our services. Your data is never sold, shared with third parties, or used for marketing without your explicit consent. To have your data removed, contact <a href="mailto:privacy@acks.ca">privacy@acks.ca</a>.</p>
+        </div>
         <div class="footer-links">
           <a href="index.html">Home</a><a href="about.html">About</a>
-          <a href="services.html">Services</a><a href="membership.html">Membership</a>
-          <a href="login.html">Login</a>
+          <a href="services.html">Services</a><a href="membership.html">Membership</a><a href="login.html">Login</a>
         </div>
         <p class="footer-copy">© 2025 ACKS. All rights reserved.</p>
       </div>

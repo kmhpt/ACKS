@@ -7,18 +7,6 @@
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/responsive.css" />
-  <style>
-    .hero-content h1 { white-space: normal; text-align: left; max-width: 680px; }
-    .hero-content { text-align: left; }
-    .hero-buttons { justify-content: flex-start; }
-    .hero-sub { text-align: left; }
-    #hero { align-items: flex-start; padding-left: 5rem; }
-    @media (max-width: 700px) {
-      #hero { padding-left: 2rem; align-items: center; }
-      .hero-content h1, .hero-content, .hero-sub { text-align: center; }
-      .hero-buttons { justify-content: center; }
-    }
-  </style>
 </head>
 <body class="page-home">
 
@@ -38,6 +26,15 @@
     </button>
   </nav>
 
+  <!-- SCROLL NAV -->
+  <nav id="scroll-nav" aria-hidden="true">
+    <div class="snav-line"><div class="snav-progress"></div></div>
+    <div class="snav-node" data-idx="0"><div class="snav-glow"></div><div class="snav-circle"></div></div>
+    <div class="snav-node" data-idx="1"><div class="snav-glow"></div><div class="snav-circle"></div></div>
+    <div class="snav-node" data-idx="2"><div class="snav-glow"></div><div class="snav-circle"></div></div>
+    <div class="snav-node" data-idx="3"><div class="snav-glow"></div><div class="snav-circle"></div></div>
+  </nav>
+
   <!-- HERO -->
   <section id="hero">
     <div class="hero-content">
@@ -47,7 +44,6 @@
         <a href="about.html" class="btn">Explore Our Technology</a>
         <a href="services.html" class="btn btn-outline">View Our Services</a>
       </div>
-    </div>
     </div>
 
     <div class="scroll-cue" aria-hidden="true">
@@ -155,10 +151,9 @@
       <div class="last-text fade-in">
         <span class="section-label">Ready?</span>
         <h2>Time to get the<br><span class="highlight">ball rolling.</span></h2>
-        <p>Click the ball — or the button below — to see what we can build for you.</p>
+        <p>See what we can build for you — browse our services or start a conversation.</p>
         <a href="services.html" class="btn">View Our Services</a>
       </div>
-    
     </div>
   </section>
 
@@ -219,7 +214,6 @@
     </div>
   </div>
 
-  <script src="js/ball.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
