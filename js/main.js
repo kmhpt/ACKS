@@ -92,6 +92,23 @@
     }, { passive: true });
   }
 
+  /* ── BANNER & SME FLIP CARDS (click-to-flip) ─── */
+  function initBannerFlipCards() {
+    var selectors = '.about-banner-flip-card, .sme-flip-card';
+    var cards = document.querySelectorAll(selectors);
+    cards.forEach(function(card) {
+      function toggle(e) {
+        // don't flip if clicking a link inside the back
+        if (e.target.tagName === 'A') return;
+        card.classList.toggle('flipped');
+      }
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); }
+      });
+    });
+  }
+
   /* ── TOWER (about) ───────────────────────────── */
   function initTower() {
     var layers      = document.querySelectorAll('.stack-layer');
@@ -466,6 +483,7 @@
     initSectionGlow();
     initHeaderGlow();
     initFlipCards();
+    initBannerFlipCards();
     initTower();
     initServiceList();
     initCalcTab();
