@@ -322,53 +322,7 @@
       color: #c0a0ff;
     }
 
-    /* ── COMPARISON NOTE ── */
-    #compare-note {
-      background: var(--navy-mid);
-      border-bottom: 1px solid var(--line);
-      padding: 3rem 2rem;
-    }
-    .compare-inner {
-      max-width: 760px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .compare-inner h3 {
-      font-size: 1.4rem;
-      font-weight: normal;
-      color: var(--white);
-      margin-bottom: 1rem;
-    }
-    .compare-inner p {
-      font-size: 0.92rem;
-      color: var(--grey-mid);
-      line-height: 1.8;
-    }
-    .compare-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
-      font-size: 0.82rem;
-    }
-    .compare-table th {
-      padding: 0.7rem 1rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--cyan-bright);
-      border-bottom: 1px solid var(--grey-dark);
-      text-align: left;
-    }
-    .compare-table td {
-      padding: 0.7rem 1rem;
-      color: var(--grey-light);
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-    }
-    .compare-table td:first-child { color: var(--grey-mid); }
-    .check-yes { color: var(--cyan-bright); }
-    .check-no  { color: var(--grey-dark); }
-    .check-pro { color: #c0a0ff; }
+    /* ── COMPARISON NOTE — styles in main.css ── */
 
     @media (max-width: 900px) {
       .tiers-grid     { grid-template-columns: 1fr; max-width: 480px; }
@@ -462,34 +416,63 @@
         <a href="login.html?tab=register" class="btn" style="margin-top:0.5rem">Create Account to Join</a>
       </div>
       <div class="intro-benefits fade-in delay-2">
-        <div class="intro-benefit">
-          <div class="benefit-icon">◈</div>
-          <div class="benefit-text">
-            <strong>Service Discounts</strong>
-            <span>Members receive 12–15% off all listed hourly rates, applied automatically when you submit an estimate.</span>
+
+        <div class="mbr-flip-card" tabindex="0" role="button" aria-label="Service Discounts">
+          <div class="mbr-inner">
+            <div class="mbr-front">
+              <span class="mbr-icon">◈</span>
+              <strong>Service Discounts</strong>
+            </div>
+            <div class="mbr-back">
+              <span class="mbr-icon">◈</span>
+              <strong>Service Discounts</strong>
+              <span>Members receive 12–15% off all listed hourly rates, applied automatically when you submit an estimate.</span>
+            </div>
           </div>
         </div>
-        <div class="intro-benefit">
-          <div class="benefit-icon">◈</div>
-          <div class="benefit-text">
-            <strong>Booking Priority</strong>
-            <span>Members are queued ahead of standard requests. Your project moves faster from estimate to delivery.</span>
+
+        <div class="mbr-flip-card" tabindex="0" role="button" aria-label="Booking Priority">
+          <div class="mbr-inner">
+            <div class="mbr-front">
+              <span class="mbr-icon">◈</span>
+              <strong>Booking Priority</strong>
+            </div>
+            <div class="mbr-back">
+              <span class="mbr-icon">◈</span>
+              <strong>Booking Priority</strong>
+              <span>Members are queued ahead of standard requests. Your project moves faster from estimate to delivery.</span>
+            </div>
           </div>
         </div>
-        <div class="intro-benefit">
-          <div class="benefit-icon">◈</div>
-          <div class="benefit-text">
-            <strong>Premium Support</strong>
-            <span>Direct access to your assigned developer for questions, updates, and ongoing assistance.</span>
+
+        <div class="mbr-flip-card" tabindex="0" role="button" aria-label="Premium Support">
+          <div class="mbr-inner">
+            <div class="mbr-front">
+              <span class="mbr-icon">◈</span>
+              <strong>Premium Support</strong>
+            </div>
+            <div class="mbr-back">
+              <span class="mbr-icon">◈</span>
+              <strong>Premium Support</strong>
+              <span>Direct access to your assigned developer for questions, updates, and ongoing assistance.</span>
+            </div>
           </div>
         </div>
-        <div class="intro-benefit">
-          <div class="benefit-icon">◈</div>
-          <div class="benefit-text">
-            <strong>24/7 Estimate Submission</strong>
-            <span>Submit finalized project estimates from the Project Estimator at any time — we start processing immediately.</span>
+
+        <div class="mbr-flip-card" tabindex="0" role="button" aria-label="24/7 Estimate Submission">
+          <div class="mbr-inner">
+            <div class="mbr-front">
+              <span class="mbr-icon">◈</span>
+              <strong>24/7 Estimate Submission</strong>
+            </div>
+            <div class="mbr-back">
+              <span class="mbr-icon">◈</span>
+              <strong>24/7 Estimate Submission</strong>
+              <span>Submit finalized project estimates from the Project Estimator at any time — we start processing immediately.</span>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>

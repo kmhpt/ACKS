@@ -92,6 +92,20 @@
     }, { passive: true });
   }
 
+  /* ── MEMBERSHIP BENEFIT FLIP CARDS ─────────────── */
+  function initMbrFlipCards() {
+    document.querySelectorAll('.mbr-flip-card').forEach(function(card) {
+      function toggle(e) {
+        if (e.target.tagName === 'A') return;
+        card.classList.toggle('flipped');
+      }
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); }
+      });
+    });
+  }
+
   /* ── BANNER & SME FLIP CARDS (click-to-flip) ─── */
   function initBannerFlipCards() {
     var selectors = '.about-banner-flip-card, .sme-flip-card';
@@ -484,6 +498,7 @@
     initHeaderGlow();
     initFlipCards();
     initBannerFlipCards();
+    initMbrFlipCards();
     initTower();
     initServiceList();
     initCalcTab();
