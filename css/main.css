@@ -75,15 +75,15 @@ section{width:100%;padding:var(--section-pad)}
 #about-sme-banner{position:relative}
 
 /* ── PAGE HEADERS ── */
-#about-hero,#services-hero,#membership-hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:calc(var(--nav-height) + 2rem) 2rem 6rem;background:var(--color-bg);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-.page-about #about-hero{background:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(0,212,255,.06) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 30%,rgba(124,92,191,.07) 0%,transparent 60%),var(--black)}
-.page-services #services-hero{background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(0,212,255,.05) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 75% 30%,rgba(124,92,191,.06) 0%,transparent 60%),var(--navy)}
+#about-hero,#services-hero,#membership-hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:calc(var(--nav-height) + 2rem) 2rem 6rem;background:transparent;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
+/* about-hero gradient now handled by shared rule */
+/* services-hero gradient now handled by shared rule */
 .page-header-content{max-width:800px;width:100%;position:relative;z-index:1}
-.page-header-content h1{font-size:clamp(2rem,4.2vw,3.8rem);font-weight:normal;line-height:1.1;color:var(--white);margin-bottom:1.2rem;cursor:default}
+.page-header-content h1{font-size:clamp(2rem,4.2vw,3.8rem);font-weight:normal;line-height:1.1;color:var(--white);margin-bottom:1.2rem;cursor:default;transition:text-shadow .35s ease}
 .page-header-content .hero-sub{font-size:1.2rem;color:var(--grey-mid);max-width:640px;margin:0 auto}
-.header-glow-overlay{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(0,212,255,.07) 0%,transparent 70%);opacity:0;pointer-events:none;z-index:0;transition:opacity 1.2s ease}
+.header-glow-overlay{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(0,212,255,.12) 0%,transparent 70%);opacity:0;pointer-events:none;z-index:0;transition:opacity .5s ease}
 .header-glow-overlay.header-glow-active{opacity:1}
-#hero h1:hover,#about-hero h1:hover,#services-hero h1:hover{text-shadow:0 0 80px rgba(0,212,255,.12);transition:text-shadow .8s ease}
+#hero h1:hover,#about-hero h1:hover,#services-hero h1:hover,#membership-hero h1:hover{text-shadow:0 0 60px rgba(0,212,255,.35),0 0 120px rgba(0,212,255,.15);transition:text-shadow .35s ease}
 
 /* ── HOME HERO ── */
 #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:calc(var(--nav-height) + 4rem);padding-bottom:4rem;padding-left:2rem;padding-right:2rem;position:relative;background:var(--color-bg);overflow:hidden}
@@ -104,10 +104,10 @@ section{width:100%;padding:var(--section-pad)}
 /* ── VALUE STATEMENT ── */
 #value-statement{background:var(--color-bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-bottom:10rem}
 .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:var(--max-width);margin:0 auto}
-.flip-card{perspective:1000px;background:transparent !important;border:none !important;padding:0 !important}
+.flip-card{perspective:1000px;background:transparent !important;border:none !important;padding:0 !important;cursor:pointer;outline:none}
 .flip-inner{position:relative;width:100%;height:280px;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1)}
 .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
-.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 2rem;background:var(--navy);border:1px solid var(--grey-dark)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem 2rem;background:var(--navy);border:1px solid var(--grey-dark);transition:border-color .25s}
 .flip-front{gap:1.2rem}
 .flip-back{transform:rotateY(180deg);background:var(--navy-mid);border-color:rgba(181,204,218,.12)}
 .flip-back p{font-size:1rem;color:var(--grey-light);line-height:1.75;text-align:center}
@@ -1034,9 +1034,7 @@ footer#contact{background:var(--black);border-top:1px solid var(--line);padding:
   animation:scrollPulse 2s ease-in-out infinite;
 }
 /* membership hero background */
-.page-membership #membership-hero{
-  background:
-    radial-gradient(ellipse 75% 55% at 65% 40%, rgba(192,160,255,.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 25% 70%, rgba(0,212,255,.05) 0%, transparent 55%),
-    var(--navy);
-}
+/* membership-hero gradient now handled by shared rule */
+
+.flip-card:hover .flip-front { border-color:rgba(0,212,255,.35); }
+.flip-card:focus-visible .flip-front { box-shadow:inset 0 0 0 2px rgba(0,212,255,.4); }

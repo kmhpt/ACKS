@@ -108,13 +108,13 @@ body { animation:pageFade 0.4s ease both; }
 
 /* ── Hero entrance ── */
 @keyframes heroRise {
-  from { opacity:0; transform:translateY(28px); }
+  from { opacity:0; transform:translateY(24px); }
   to   { opacity:1; transform:translateY(0); }
 }
-.hero-content h1        { animation:heroRise 0.8s ease 0.2s both; }
-.hero-content .hero-sub { animation:heroRise 0.8s ease 0.4s both; }
-.hero-buttons           { animation:heroRise 0.8s ease 0.6s both; }
-.scroll-cue             { animation:heroRise 0.8s ease 1.0s both; }
+.hero-content h1        { animation:heroRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+.hero-content .hero-sub { animation:heroRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.32s both; }
+.hero-buttons           { animation:heroRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.50s both; }
+.scroll-cue             { animation:heroRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.85s both; }
 
 @keyframes scrollPulse {
   0%,100%{opacity:0.25;transform:scaleY(0.8)}
@@ -159,7 +159,7 @@ body { animation:pageFade 0.4s ease both; }
 .cta-content .btn  { transition:background 0.25s,color 0.25s,transform 0.2s,box-shadow 0.2s; }
 
 /* ── Inner page hero entrance animations ── */
-.page-header-content .section-label { animation:heroRise 0.7s ease 0.1s both; }
-.page-header-content h1             { animation:heroRise 0.8s ease 0.25s both; }
-.page-header-content .hero-sub      { animation:heroRise 0.8s ease 0.45s both; }
-.page-hero-scroll-cue               { animation:heroRise 0.8s ease 0.9s both; }
+.page-header-content .section-label { animation:heroRise 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s both; }
+.page-header-content h1             { animation:heroRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.25s both; }
+.page-header-content .hero-sub      { animation:heroRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.45s both; }
+.page-hero-scroll-cue               { animation:heroRise 0.9s cubic-bezier(0.22,1,0.36,1) 0.82s both; }

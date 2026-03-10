@@ -80,16 +80,16 @@
   function initFlipCards() {
     var cards = document.querySelectorAll('.flip-card');
     if (!cards.length) return;
-    var lastY = window.scrollY;
-    window.addEventListener('scroll', function () {
-      var cur = window.scrollY, down = cur > lastY; lastY = cur;
-      cards.forEach(function (c) {
-        var r = c.getBoundingClientRect();
-        if (r.top < window.innerHeight * 0.75 && r.bottom > 0) {
-          if (down) c.classList.add('flipped'); else c.classList.remove('flipped');
-        }
+    cards.forEach(function(card) {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.style.cursor = 'pointer';
+      function toggle(e) { card.classList.toggle('flipped'); }
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('flipped'); }
       });
-    }, { passive: true });
+    });
   }
 
   /* ── MEMBERSHIP BENEFIT FLIP CARDS ─────────────── */
