@@ -111,19 +111,16 @@
           <div id="cart-items">
             <p id="cart-empty">Select services from the list to build an estimate.</p>
           </div>
-          <div id="cart-avg-row" style="display:none">
-            <div class="cart-avg-label">
-              <span class="cart-avg-title">Avg. Blended Rate</span>
-              <span class="cart-avg-note">Sum of selected rates ÷ number of services</span>
-            </div>
-            <div id="cart-avg-value">$0.00 / hr</div>
+          <div id="cart-hours-row" style="display:none">
+            <div id="cart-hours-label">Total Hours</div>
+            <div id="cart-hours-value">0 hrs</div>
           </div>
           <div id="cart-total-row" style="display:none">
             <div id="cart-total-label">Estimated Total</div>
             <div id="cart-total-value">$0</div>
           </div>
           <div id="cart-cta" style="display:none">
-            <a href="#contact" class="btn" style="width:100%;text-align:center;display:block">Book Free Consultation</a>
+            <a href="#contact" class="btn" style="width:100%;text-align:center;display:block">Request a Free Consultation</a>
             <a href="login.html" class="cart-login-prompt">
               <span class="cart-login-icon">→</span> Login to submit request
             </a>
@@ -135,98 +132,47 @@
     </div>
   </section>
 
-  <!-- BUNDLES & COMBINATIONS -->
+  <!-- SERVICE BUNDLES -->
   <section id="packages-section">
     <div class="section-header fade-in">
       <span class="section-label">Service Bundles</span>
-      <h2>More value when services work together.</h2>
-      <p>Our services are designed to connect. When your project spans multiple disciplines, we apply a bundle discount to the final total, so you can see the full cost before committing.</p>
+      <h2>Book more, save more.</h2>
+      <p>Combine any of our five services and receive an automatic discount applied directly to your total labour hours.</p>
     </div>
 
-    <!-- FEATURED FULL-STACK BUNDLE -->
-    <div class="bundle-featured-wrap fade-in">
-      <div class="bundle-featured beam-card">
-        <div class="bundle-featured-badge">Most Popular &middot; Best Value</div>
-        <div class="bundle-featured-inner">
-          <div class="bundle-featured-left">
-            <div class="package-includes">
-              <span>Infrastructure</span><span>Web Design &amp; App</span><span>Data Engineering</span><span>API Integrations</span>
-            </div>
-            <h3>Full-Stack Development</h3>
-            <p>The complete system &mdash; database and infrastructure design, data engineering layer, API integrations, and a polished web application. Ideal for businesses building their first platform end-to-end, or teams that need everything rebuilt right.</p>
-            <div class="bundle-combos">
-              <span class="combo-tag">Infrastructure</span><span class="combo-plus">+</span>
-              <span class="combo-tag">Web Apps</span><span class="combo-plus">+</span>
-              <span class="combo-tag">Data Eng.</span><span class="combo-plus">+</span>
-              <span class="combo-tag">API</span>
-            </div>
-          </div>
-          <div class="bundle-featured-right">
-            <div class="bundle-discount-display">
-              <span class="bundle-discount-pct">20%</span>
-              <span class="bundle-discount-label">off your final total</span>
-            </div>
-            <p class="bundle-discount-note">The 20% discount is applied to the total hourly cost calculated in the estimator above, giving you a transparent view of your full project cost before submitting a request.</p>
-            <a href="login.html?tab=register" class="btn" style="width:100%;text-align:center;display:block;margin-top:1rem">Get Started</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="bundle-tiers-grid fade-in">
 
-    <!-- SECONDARY BUNDLES -->
-    <div class="packages-grid" style="margin-top:1.5rem">
-
-      <div class="package-outer fade-in delay-1">
-        <div class="package-badge-above">Save 12% on Total</div>
-        <div class="package-card beam-card">
-          <div class="package-includes">
-            <span>Infrastructure</span><span>Data Engineering</span>
-          </div>
-          <h4>Data Infrastructure</h4>
-          <p>Database design, ERDs, and a full data pipeline &mdash; the most common pairing for data-driven businesses. A natural foundation before adding applications on top.</p>
-          <div class="bundle-discount-row">
-            <span class="bundle-discount-pct-sm">12%</span>
-            <span class="bundle-discount-label-sm">off your final total for combined projects</span>
-          </div>
-          <div class="package-cta-hint">Click to get started &rarr;</div>
-        </div>
+      <div class="bundle-tier-card">
+        <div class="bundle-tier-count">2</div>
+        <div class="bundle-tier-label">Services</div>
+        <div class="bundle-tier-pct">8%</div>
+        <div class="bundle-tier-note">off total labour hours</div>
       </div>
 
-      <div class="package-outer fade-in delay-2">
-        <div class="package-badge-above">Save 10% on Total</div>
-        <div class="package-card beam-card">
-          <div class="package-includes">
-            <span>Web Design &amp; App</span><span>Creative UX / UI</span>
-          </div>
-          <h4>Web + Design</h4>
-          <p>A fully built web application with a custom UX/UI design system &mdash; for teams where first impressions matter and the product needs to look as good as it works.</p>
-          <div class="bundle-discount-row">
-            <span class="bundle-discount-pct-sm">10%</span>
-            <span class="bundle-discount-label-sm">off your final total for combined projects</span>
-          </div>
-          <div class="package-cta-hint">Click to get started &rarr;</div>
-        </div>
+      <div class="bundle-tier-card">
+        <div class="bundle-tier-count">3</div>
+        <div class="bundle-tier-label">Services</div>
+        <div class="bundle-tier-pct">10%</div>
+        <div class="bundle-tier-note">off total labour hours</div>
       </div>
 
-      <div class="package-outer fade-in delay-3">
-        <div class="package-badge-above">Save 10% on Total</div>
-        <div class="package-card beam-card">
-          <div class="package-includes">
-            <span>API Integrations</span><span>Data Engineering</span>
-          </div>
-          <h4>Intelligent Pipelines</h4>
-          <p>AI-powered integrations feeding structured data pipelines &mdash; for businesses that want their systems to think, not just store. Ideal for automation-first workflows.</p>
-          <div class="bundle-discount-row">
-            <span class="bundle-discount-pct-sm">10%</span>
-            <span class="bundle-discount-label-sm">off your final total for combined projects</span>
-          </div>
-          <div class="package-cta-hint">Click to get started &rarr;</div>
-        </div>
+      <div class="bundle-tier-card bundle-tier-featured">
+        <div class="bundle-tier-count">4</div>
+        <div class="bundle-tier-label">Services</div>
+        <div class="bundle-tier-pct">12%</div>
+        <div class="bundle-tier-note">off total labour hours</div>
+      </div>
+
+      <div class="bundle-tier-card bundle-tier-top">
+        <div class="bundle-tier-count">5</div>
+        <div class="bundle-tier-label">Services</div>
+        <div class="bundle-tier-pct">15%</div>
+        <div class="bundle-tier-note">off total labour hours</div>
       </div>
 
     </div>
 
-    <p class="bundle-notice">All bundle discounts are applied to the final hourly total. Use the Project Estimator above to calculate your project cost, then mention the applicable bundle when booking a consultation or submitting your request.</p>
+    <p class="bundle-notice">Discounts apply to the total labour hours charged — not a flat rate reduction. Build your estimate in the Project Estimator above, then mention your bundle at consultation to have the discount applied.</p>
   </section>
 
     <!-- TESTIMONIALS -->

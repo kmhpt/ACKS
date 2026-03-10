@@ -290,15 +290,14 @@
     });
   }
 
-  /* ── CART RENDER ─────────────────────────────── */
   function renderCart() {
-    var container = document.getElementById('cart-items');
-    var totalRow  = document.getElementById('cart-total-row');
-    var totalVal  = document.getElementById('cart-total-value');
-    var avgRow    = document.getElementById('cart-avg-row');
-    var avgVal    = document.getElementById('cart-avg-value');
-    var ctaBlock  = document.getElementById('cart-cta');
-    var emptyMsg  = document.getElementById('cart-empty');
+    var container  = document.getElementById('cart-items');
+    var totalRow   = document.getElementById('cart-total-row');
+    var totalVal   = document.getElementById('cart-total-value');
+    var hoursRow   = document.getElementById('cart-hours-row');
+    var hoursVal   = document.getElementById('cart-hours-value');
+    var ctaBlock   = document.getElementById('cart-cta');
+    var emptyMsg   = document.getElementById('cart-empty');
     if (!container) return;
 
     var ids = Object.keys(cartState);
@@ -306,15 +305,15 @@
     if (ids.length === 0) {
       container.innerHTML = '';
       if (emptyMsg) { emptyMsg.style.display = 'block'; container.appendChild(emptyMsg); }
+      if (hoursRow) hoursRow.style.display = 'none';
       if (totalRow) totalRow.style.display = 'none';
-      if (avgRow)   avgRow.style.display   = 'none';
       if (ctaBlock) ctaBlock.style.display = 'none';
       return;
     }
 
     if (emptyMsg) emptyMsg.style.display = 'none';
 
-    var html = '', total = 0, totalRate = 0;
+    var html = '', total = 0, totalHrs = 0;
 
     ids.forEach(function (id) {
       var svc = null;
@@ -322,8 +321,8 @@
       if (!svc) return;
       var hrs  = cartState[id];
       var cost = svc.rate * hrs;
-      total     += cost;
-      totalRate += svc.rate;
+      total    += cost;
+      totalHrs += hrs;
       html +=
         '<div class="cart-item" data-id="' + id + '">' +
           '<div class="cart-item-top">' +
@@ -353,22 +352,19 @@
         for (var k = 0; k < SERVICES.length; k++) { if (SERVICES[k].id === sid) { s = SERVICES[k]; break; } }
         if (lbl) lbl.textContent = hrs + ' hrs';
         if (sub && s) sub.textContent = '$' + (s.rate * hrs).toLocaleString();
-        var t = 0, tr = 0;
+        var t = 0, th = 0;
         Object.keys(cartState).forEach(function (k) {
           var sv = null;
           for (var j = 0; j < SERVICES.length; j++) { if (SERVICES[j].id === k) { sv = SERVICES[j]; break; } }
-          if (sv) { t += sv.rate * cartState[k]; tr += sv.rate; }
+          if (sv) { t += sv.rate * cartState[k]; th += cartState[k]; }
         });
         if (totalVal) totalVal.textContent = '$' + t.toLocaleString();
-        var cnt = Object.keys(cartState).length;
-        if (avgVal && cnt > 0) avgVal.textContent = '$' + (tr / cnt).toFixed(2) + ' / hr';
+        if (hoursVal) hoursVal.textContent = th + ' hrs';
       });
     });
 
-    var cnt     = ids.length;
-    var avgRate = cnt > 0 ? (totalRate / cnt).toFixed(2) : '0.00';
-    if (avgRow)   avgRow.style.display   = 'flex';
-    if (avgVal)   avgVal.textContent     = '$' + avgRate + ' / hr';
+    if (hoursRow) hoursRow.style.display = 'flex';
+    if (hoursVal) hoursVal.textContent   = totalHrs + ' hrs';
     if (totalRow) totalRow.style.display = 'flex';
     if (totalVal) totalVal.textContent   = '$' + total.toLocaleString();
     if (ctaBlock) ctaBlock.style.display = 'block';

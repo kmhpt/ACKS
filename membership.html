@@ -198,16 +198,20 @@
     }
     .tier-card {
       width: 100%;
-      padding: 2rem;
+      padding: 2rem 2rem 2rem;
       background: var(--navy);
       border: 1px solid var(--grey-dark);
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      align-items: flex-start;
+      gap: 1rem;
       position: relative;
       overflow: hidden;
       transition: border-color 0.3s, transform 0.3s;
     }
+    .tiers-grid .tier-card { height: 100%; }
+    .tier-outer { display: flex; flex-direction: column; }
+    .tier-cta { margin-top: auto; }
     .tier-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
     .tier-card.tier-featured { border-color: rgba(0,212,255,0.4); }
     .tier-card.tier-pro { border-color: rgba(192,160,255,0.35); }
@@ -415,14 +419,6 @@
           <span class="tier-name">Standard</span>
           <h3>Essentials</h3>
           <div class="tier-price">$XX<span> / mo</span></div>
-          <p class="tier-desc">Core membership benefits for businesses starting their relationship with ACKS. Priority support and basic booking queue access included.</p>
-          <div class="tier-features">
-            <div class="tier-feature"><span class="feature-check">→</span><span>Member account &amp; project dashboard</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Basic project booking priority</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Priority support response (next business day)</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>24/7 project estimate submission</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Access to member-only updates &amp; resources</span></div>
-          </div>
           <a href="login.html?tab=register" class="tier-cta">Get Started</a>
         </div>
       </div>
@@ -434,14 +430,6 @@
           <span class="tier-name">Advanced</span>
           <h3>Developer Access</h3>
           <div class="tier-price">$XX<span> / mo</span></div>
-          <p class="tier-desc">Everything in Standard, plus direct access to member developer solutions and meaningful discounts on all services.</p>
-          <div class="tier-features">
-            <div class="tier-feature"><span class="feature-check">→</span><span>Everything in Standard</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Member developer solutions — basic scripts, patches &amp; updates on previous systems</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Enhanced booking priority</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Faster support response (same business day)</span></div>
-            <div class="tier-discount">⬡ 12% discount on all services</div>
-          </div>
           <a href="login.html?tab=register" class="tier-cta">Get Started</a>
         </div>
       </div>
@@ -453,15 +441,6 @@
           <span class="tier-name">Pro</span>
           <h3>Elite Priority</h3>
           <div class="tier-price pro-price">$XX<span> / mo</span></div>
-          <p class="tier-desc">The highest tier. Maximum priority across all services, early access to new offerings, and the largest discount we offer.</p>
-          <div class="tier-features">
-            <div class="tier-feature"><span class="feature-check">→</span><span>Everything in Advanced</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Highest-level booking priority — your projects move to the front</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Early access to new services &amp; capabilities before public release</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Dedicated support line — direct developer contact</span></div>
-            <div class="tier-feature"><span class="feature-check">→</span><span>Priority scoping calls, same-day scheduling</span></div>
-            <div class="tier-discount">⬡ 15% discount on all services</div>
-          </div>
           <a href="login.html?tab=register" class="tier-cta">Get Started</a>
         </div>
       </div>
