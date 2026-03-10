@@ -74,6 +74,14 @@
   .page-header-content h1 { font-size:clamp(1.9rem,6.5vw,3rem); }
   .page-header-content .hero-sub { font-size:1.05rem; }
 
+  /* Inner page heroes — shorter on mobile */
+  #about-hero, #services-hero, #membership-hero {
+    min-height: 65vh;
+    padding-top: calc(var(--nav-height) + 3rem);
+    padding-bottom: 4rem;
+  }
+  .page-hero-scroll-cue { bottom: 1.5rem; }
+
   /* Section headers */
   .section-header { margin-bottom:2.5rem; }
   .section-header h2 { font-size:clamp(1.55rem,5.5vw,2.1rem); }

@@ -157,3 +157,9 @@ body { animation:pageFade 0.4s ease both; }
 .combination-card  { transition:transform 0.25s ease,border-color 0.25s ease; }
 .package-card      { transition:transform 0.25s ease,border-color 0.25s ease; }
 .cta-content .btn  { transition:background 0.25s,color 0.25s,transform 0.2s,box-shadow 0.2s; }
+
+/* ── Inner page hero entrance animations ── */
+.page-header-content .section-label { animation:heroRise 0.7s ease 0.1s both; }
+.page-header-content h1             { animation:heroRise 0.8s ease 0.25s both; }
+.page-header-content .hero-sub      { animation:heroRise 0.8s ease 0.45s both; }
+.page-hero-scroll-cue               { animation:heroRise 0.8s ease 0.9s both; }
